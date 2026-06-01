@@ -13,11 +13,31 @@
             {% endif %}
 
             <h2>{{ course.title }}</h2>
-            <ul>
-    {% for line in course.description.splitlines %}
-        <li>{{ line }}</li>
-    {% endfor %}
-</ul>
+<table class="course-table">
+    <thead>
+        <tr>
+            <th>S.No</th>
+            <th>Module</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for module in course.modules.all %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ module.module_name }}</td>
+            <td>{{ module.description|linebreaksbr }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3" style="text-align:center;">
+                No modules added
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
             <div class="price-box">
                 <span class="new-price">₹{{ course.price }}</span>
@@ -26,13 +46,13 @@
                 {% endif %}
             </div>
 
-            <!-- MAIN BUTTON -->
-            <button class="book-btn" onclick="openBookingPopup()">Book Now</button>
+            <button class="book-btn" onclick="openBookingPopup()">
+                Book Now
+            </button>
 
         </div>
     </div>
 </section>
-
 
 <!-- BOOKING POPUP -->
 <div id="bookingPopup" class="popup-overlay">
@@ -42,7 +62,7 @@
 
         <h3>Course Booking</h3>
 
-       <form method="POST" action="{% url 'book_course' course.id %}">
+        <form method="POST" action="{% url 'book_course' course.id %}">
             {% csrf_token %}
 
             <input type="text" name="name" placeholder="Full Name" required>
@@ -51,7 +71,6 @@
             <input type="text" name="education" placeholder="Education Qualification" required>
             <input type="text" name="year_passed" placeholder="Year of Passed Out" required>
 
-            <!-- IMPORTANT FIX HERE -->
             <input type="hidden" name="course" value="{{ course.title }}">
             <input type="hidden" name="course_amount" value="{{ course.price }}">
 
@@ -67,7 +86,6 @@
     </div>
 </div>
 
-
 <style>
 .popup-overlay {
     display: none;
@@ -80,17 +98,6 @@
     justify-content: center;
     align-items: center;
     z-index: 999;
-}
-ul {
-    text-align: center;
-    padding-left: 20px;
-}
-
-
-ul li {
-    margin-bottom: 6px;
-    color: #fff;
-    list-style:none;
 }
 
 .popup-box {
@@ -110,7 +117,7 @@ ul li {
 
 .submit-btn {
     background: linear-gradient(45deg, #007bff, #00c6ff);
-    color: rgb(255, 255, 255);
+    color: white;
     padding: 10px;
     border: none;
     width: 100%;
@@ -123,6 +130,7 @@ ul li {
     top: 10px;
     font-size: 22px;
     cursor: pointer;
+    color: white;
 }
 
 .book-btn {
@@ -132,8 +140,43 @@ ul li {
     border: none;
     cursor: pointer;
 }
-</style>
 
+.course-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.course-table th {
+    background: #007bff;
+    color: white;
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.course-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.course-table tr:nth-child(even) {
+    background: rgba(255,255,255,0.05);
+}
+
+.course-table tr:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+.course-table td:first-child {
+    width: 80px;
+    text-align: center;
+    font-weight: bold;
+}
+</style>
 
 <script>
 function openBookingPopup() {
