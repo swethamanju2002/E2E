@@ -38,7 +38,17 @@ def index(request):
     return render(request, 'index.html', {'reviews': reviews})
 def course_detail(request, id):
     course = get_object_or_404(Course, id=id)
-    return render(request, 'courses.html', {'course': course})
+
+    description_lines = course.description.splitlines()
+
+    return render(
+        request,
+        'courses.html',
+        {
+            'course': course,
+            'description_lines': description_lines
+        }
+    )
 def allcourse(request):
     allcourse = Course.objects.all()
     return render(request,'allcourse.html',{'allcourse':allcourse})

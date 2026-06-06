@@ -4,12 +4,13 @@ from django.contrib import admin
 from django.contrib import admin
 from .models import Course, Service, Contact
 from .models import ClientProject, StudentReview,JobApplication
-
+from .models import Module
 
 
 admin.site.register(ClientProject)
 admin.site.register(StudentReview)
 admin.site.register(Course)
+admin.site.register(Module)
 admin.site.register(Service)
 admin.site.register(Contact)
 from django.contrib import admin
