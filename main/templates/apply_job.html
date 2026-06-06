@@ -2,64 +2,68 @@
 {% load static %}
 {% block content %}
 
-<section class="apply-section">
-    <div class="apply-container">
+<section class="apply-section py-5">
+  <div class="container">
+    <div class="apply-container" style="max-width:900px;margin:0 auto">
 
-        <h2 class="apply-title">
-            Apply for {{ career.role }}
-        </h2>
+      <!-- Header -->
+      <div style="text-align:center;margin-bottom:36px">
+        <p style="font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--brand-green);margin-bottom:8px;font-weight:600">CAREER APPLICATION</p>
+        <h2 class="apply-title" style="margin:0;font-family:var(--font-display);font-weight:800">Apply for <span style="color:var(--brand-green)">{{ career.role }}</span></h2>
+        <p style="color:var(--text-muted);margin-top:10px;font-size:15px">Fill in your details below. We'll get back to you shortly.</p>
+      </div>
 
-        <form method="POST" enctype="multipart/form-data" class="apply-form">
-            {% csrf_token %}
+      <form method="POST" enctype="multipart/form-data" class="apply-form">
+        {% csrf_token %}
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Full Name</label>
-                    {{ form.full_name }}
-                </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name *</label>
+            {{ form.full_name }}
+          </div>
+          <div class="form-group">
+            <label>Email Address *</label>
+            {{ form.email }}
+          </div>
+        </div>
 
-                <div class="form-group">
-                    <label>Email</label>
-                    {{ form.email }}
-                </div>
-            </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Mobile Number *</label>
+            {{ form.mobile }}
+          </div>
+          <div class="form-group">
+            <label>Education Qualification *</label>
+            {{ form.education }}
+          </div>
+        </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Mobile Number</label>
-                    {{ form.mobile }}
-                </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Year of Passed Out *</label>
+            {{ form.year_passed_out }}
+          </div>
+          <div class="form-group">
+            <label>Resume (PDF/DOC) *</label>
+            {{ form.resume }}
+          </div>
+        </div>
 
-                <div class="form-group">
-                    <label>Education Qualification</label>
-                    {{ form.education }}
-                </div>
-            </div>
+        <div class="form-group full-width">
+          <label>Cover Letter *</label>
+          {{ form.cover_letter }}
+        </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Year of Passed Out</label>
-                    {{ form.year_passed_out }}
-                </div>
+        <div style="text-align:center;margin-top:8px">
+          <button type="submit" class="submit-btn" style="padding:14px 48px;font-size:16px;border-radius:50px;background:linear-gradient(135deg,var(--brand-green),#059669)">
+            Submit Application →
+          </button>
+          <p style="color:var(--text-muted);font-size:12px;margin-top:12px">We'll send a confirmation to your email after submission.</p>
+        </div>
 
-                <div class="form-group">
-                    <label>Resume</label>
-                    {{ form.resume }}
-                </div>
-            </div>
-
-            <div class="form-group full-width">
-                <label>Cover Letter</label>
-                {{ form.cover_letter }}
-            </div>
-
-            <button type="submit" class="submit-btn">
-                Submit Application
-            </button>
-
-        </form>
-
+      </form>
     </div>
+  </div>
 </section>
 
 {% endblock %}

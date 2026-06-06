@@ -1,127 +1,462 @@
 {% extends 'base.html' %}
-{% comment %} {% extends 'services.html'%} {% endcomment %}
 {% block content %}
 {%load static%}
 
-<!-- HERO SECTION -->
-<!-- HERO SECTION -->
-<section class="hero-slider ">
+<!-- ══════════════════════════════════════════
+     HERO SECTION
+     Background image visible through soft white overlay
+     ══════════════════════════════════════════ -->
+<section class="hero-slider" aria-label="Hero banner">
+  <div id="heroCarousel" class="carousel slide carousel-fade">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="hero-slide d-flex align-items-center justify-content-center text-center">
 
-    <div id="heroCarousel" class="carousel slide carousel-fade" >
+          <div class="hero-glass-card"
+               style="opacity:0;animation:fadeUp 0.8s ease 0.3s forwards">
 
-        <div class="carousel-inner">
+            <!-- Eyebrow -->
+            <p class="welcome-text">Tamil Nadu's Premier IT Training</p>
 
-            <!-- Slide 1 -->
-            <div class="carousel-item active">
-                <div class="hero-slide d-flex align-items-center justify-content-center text-center">
-                    <img src="{% static 'images/e2e.png' %}" class="hero-bg" alt="Errors to Experts">
-                    
-                    <div class="hero-content text-white">
-    
-    <h1 class="e2e fw-bold">
-        <span class="welcome-text">Welcome to</span> 
-        <span class="brand-highlight animate-brand">Errors2Experts</span>
-    </h1>
+            <!-- Headline -->
+            <h1 class="e2e fw-bold">
+              Welcome to<br>
+              <span class="brand-highlight">Errors2Experts</span>
+            </h1>
 
-    <p class="lead mt-3 tagline">
-        Transforming Beginners into Industry Experts
-    </p>
+            <p class="tagline">
+              Transforming Beginners into Industry-Ready Professionals
+            </p>
 
-    <a href="{% url 'allcourse' %}" class="btn btn-success mt-4 px-4 py-2">
-        Explore Courses
-    </a>
-
-    <button type="button" 
-        class="btn btn-outline-light px-4 py-2"
-        data-bs-toggle="modal" 
-        data-bs-target="#demoModal">
-        Book For Demo
-    </button>
-
-</div>
-                </div>
+            <!-- CTAs -->
+            <div class="d-flex flex-wrap justify-content-center gap-3 mt-2"
+                 style="opacity:0;animation:fadeUp 0.7s ease 1s forwards">
+              <a href="{% url 'allcourse' %}" class="btn btn-success px-4 py-2">
+                Explore Courses →
+              </a>
+              <button type="button"
+                      class="btn btn-outline-light px-4 py-2"
+                      data-bs-toggle="modal"
+                      data-bs-target="#demoModal">
+                Book Free Demo
+              </button>
             </div>
 
+            <!-- Trust badges -->
+            <div class="d-flex flex-wrap justify-content-center gap-2 mt-4"
+                 style="opacity:0;animation:fadeUp 0.7s ease 1.3s forwards">
+              <span class="trust-badge"><span class="check">✓</span> MSME Registered</span>
+              <span class="trust-badge"><span class="check">✓</span> Industry Trainers</span>
+              <span class="trust-badge"><span class="check">✓</span> Placement Support</span>
+            </div>
+
+          </div>
         </div>
-
+      </div>
     </div>
-
+  </div>
 </section>
 
-<div class="modal fade" id="serviceBookingModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
+<!-- ══════════════════════════════════════════
+     STATS STRIP — Social proof above the fold
+     ══════════════════════════════════════════ -->
+<section class="stats-strip" aria-label="Key statistics">
+  <div class="container">
+    <div class="row g-0 justify-content-center">
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-num counter-number" data-target="{{ total_bookings }}">{{ total_bookings }}+</div>
+          <div class="stat-label">Students Enrolled</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-num">400+</div>
+          <div class="stat-label">Students learned</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Industry Courses</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item" style="border-right:none">
+          <div class="stat-num">99+</div>
+          <div class="stat-label">certifications</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <div class="modal-header">
-        <h5 class="modal-title">Service Registration</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
+<!-- ══════════════════════════════════════════
+     ABOUT SECTION
+     ══════════════════════════════════════════ -->
+<section id="about" class="glass-section" aria-labelledby="about-heading">
+  <div class="container py-5">
+    <div class="row align-items-center g-5">
+
+      <div class="col-md-6" data-aos="fade-right">
+        <span class="section-eyebrow">Who We Are</span>
+        <h2 id="about-heading"
+            style="font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:700;color:var(--text-primary);margin-bottom:20px">
+          About Errors2Experts
+        </h2>
+        <p style="color:var(--text-muted);line-height:1.85;font-size:15.5px;margin-bottom:16px">
+          Errors2Experts is a <strong style="color:var(--text-primary)">MSME Udyam Registered</strong> professional IT training
+          institute delivering industry-relevant courses with high-quality, practical learning.
+          Our programs are led by experienced corporate trainers with real-time project exposure
+          and internship opportunities.
+        </p>
+        <p style="color:var(--text-muted);line-height:1.85;font-size:15.5px;margin-bottom:24px">
+          We focus on career growth through mentorship, placement preparation, and skill development
+          that transforms learners into industry-ready professionals.
+        </p>
+        <!-- Mini stat pills -->
+        <div class="d-flex flex-wrap gap-3">
+          <div style="background:var(--e2e-green-tint);border:1px solid rgba(46,125,50,0.2);border-radius:12px;padding:12px 20px;text-align:center">
+            <div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--e2e-green)">EMI</div>
+            <div style="font-size:12px;color:var(--text-muted);font-weight:500">Easy Installments</div>
+          </div>
+          <div style="background:var(--e2e-gold-tint);border:1px solid rgba(201,162,39,0.2);border-radius:12px;padding:12px 20px;text-align:center">
+            <div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--e2e-gold-dark)">100%</div>
+            <div style="font-size:12px;color:var(--text-muted);font-weight:500">Placement Support</div>
+          </div>
+          <div style="background:var(--e2e-red-tint);border:1px solid rgba(183,28,28,0.15);border-radius:12px;padding:12px 20px;text-align:center">
+            <div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--e2e-red)">MSME</div>
+            <div style="font-size:12px;color:var(--text-muted);font-weight:500">Registered</div>
+          </div>
+        </div>
+        <a href="{% url 'about' %}" class="btn btn-success mt-4">Read More About Us →</a>
       </div>
 
+      <div class="col-md-6" data-aos="fade-left">
+        <img src="{% static 'images/e2e1.png' %}"
+             class="img-fluid"
+             style="border-radius:16px;box-shadow:var(--shadow-xl);border:1px solid var(--border-light)"
+             alt="Errors2Experts training campus"
+             loading="lazy">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     COURSES SECTION
+     ══════════════════════════════════════════ -->
+<section class="auto-course-section glass-section" aria-labelledby="courses-heading">
+  <div class="container-fluid px-0">
+    <div class="px-4 text-center mb-2" style="padding:0 5%">
+      <span class="section-eyebrow">What We Teach</span>
+      <h2 id="courses-heading" class="section-title">Our Courses</h2>
+      <p style="color:var(--text-muted);font-size:15px;margin-top:8px;max-width:480px;margin-left:auto;margin-right:auto">
+        Industry-focused programs that make you job-ready from day one.
+      </p>
+    </div>
+
+    <div class="scroll-container" role="region" aria-label="Course cards, scroll to see all">
+      <div class="scroll-track">
+        {% for course in courses %}
+        <article class="course-card">
+          {% if course.image %}
+            <img src="{{ course.image.url }}" alt="{{ course.title }}" loading="lazy">
+          {% else %}
+            <img src="{% static 'main/images/no-image.png' %}" alt="{{ course.title }}" loading="lazy">
+          {% endif %}
+          <h4>{{ course.title }}</h4>
+          <p>{{ course.description|truncatewords:15 }}</p>
+          <div class="price-box">
+            <span class="new-price">₹{{ course.price }}</span>
+            {% if course.discount %}
+            <span class="old-price">₹{{ course.discount }}</span>
+            {% endif %}
+          </div>
+          {% if course.duration %}
+          <p style="font-size:12px;color:var(--text-muted);padding:0 18px;margin-bottom:0">⏱ {{ course.duration }}</p>
+          {% endif %}
+          <a href="{% url 'course_detail' course.id %}" class="explore-btn">Explore Course →</a>
+        </article>
+        {% endfor %}
+      </div>
+      <div class="swipe-indicator" aria-hidden="true"><span>Swipe to see more →</span></div>
+    </div>
+
+    <!-- View all CTA -->
+    <div class="text-center mt-4 pb-4">
+      <a href="{% url 'allcourse' %}" class="btn btn-success px-5 py-2">View All Courses</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SERVICES SECTION
+     ══════════════════════════════════════════ -->
+<section class="glass-section services-section" aria-labelledby="services-heading">
+  <div class="container py-5">
+    <div class="text-center mb-5">
+      <span class="section-eyebrow">What We Offer</span>
+      <h2 id="services-heading" class="section-title">Our Services</h2>
+    </div>
+    <div class="row g-4 stagger-children">
+      {% for service in services %}
+      <div class="col-lg-4 col-md-6">
+        <article class="service-card" data-aos="zoom-in">
+          <div class="service-img">
+            {% if service.image %}
+              <img src="{{ service.image.url }}" alt="{{ service.title }}" loading="lazy">
+            {% else %}
+              <img src="{% static 'images/default-service.jpg' %}" alt="{{ service.title }}" loading="lazy">
+            {% endif %}
+          </div>
+          <div class="service-content">
+            <h4>{{ service.title }}</h4>
+            <p>{{ service.description|truncatewords:25 }}</p>
+            <button class="register-btn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#serviceBookingModal"
+                    onclick="setServiceName('{{ service.title }}')"
+                    aria-label="Register for {{ service.title }}">
+              Register Now →
+            </button>
+          </div>
+        </article>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="text-center mt-4">
+      <a href="{% url 'services' %}" class="btn btn-outline-light px-5 py-2"
+         style="border-color:var(--e2e-green);color:var(--e2e-green)">View All Services →</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     WHY CHOOSE US — Trust strip
+     ══════════════════════════════════════════ -->
+<section style="background:var(--e2e-green-tint);border-top:1px solid rgba(46,125,50,0.12);border-bottom:1px solid rgba(46,125,50,0.12);padding:48px 0"
+         aria-labelledby="why-heading">
+  <div class="container">
+    <div class="text-center mb-4">
+      <span class="section-eyebrow" style="color:var(--e2e-green)">Why Choose Us</span>
+      <h2 id="why-heading" style="font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2rem);font-weight:700;color:var(--text-primary)">
+        What Makes E2E Different
+      </h2>
+    </div>
+    <div class="row g-4 justify-content-center stagger-children">
+      {% for item in "MSME Udyam Registered|Corporate-Trained Instructors|Real-Time Live Projects|EMI / Easy Payment|Internship Programs|Mock Interviews & Resume Help|100% Placement Support|Industry-Standard Curriculum" %}
+      <div class="col-6 col-md-3">
+        <div style="background:var(--bg-white);border:1.5px solid rgba(46,125,50,0.15);border-radius:14px;padding:20px 16px;text-align:center;box-shadow:var(--shadow-xs);transition:var(--transition)"
+             onmouseover="this.style.boxShadow='var(--shadow-md)';this.style.borderColor='rgba(46,125,50,0.35)'"
+             onmouseout="this.style.boxShadow='var(--shadow-xs)';this.style.borderColor='rgba(46,125,50,0.15)'">
+          <span style="color:var(--e2e-green);font-size:20px;font-weight:700;display:block;margin-bottom:8px">✓</span>
+          <span style="font-size:14px;font-weight:600;color:var(--text-primary)">{{ item }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     PROJECTS SECTION
+     ══════════════════════════════════════════ -->
+<section class="glass-section projects-section py-5" aria-labelledby="projects-heading">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="section-eyebrow">Our Work</span>
+      <h2 id="projects-heading" class="section-title">Client Projects</h2>
+    </div>
+    <div class="project-slider" role="region" aria-label="Project showcase slider">
+      <button class="arrow prev" aria-label="Previous project">&lt;</button>
+      <div class="project-card-wrapper">
+        {% for project in projects %}
+        <article class="project-card {% if forloop.first %}active{% endif %}">
+          {% if project.image %}
+            <img src="{{ project.image.url }}" alt="{{ project.client_name }} project" loading="lazy">
+          {% else %}
+            <img src="{% static 'images/Python.png' %}" alt="Project" loading="lazy">
+          {% endif %}
+          <h4>{{ project.client_name }}</h4>
+          <p><strong style="color:var(--e2e-gold-dark)">Type:</strong> {{ project.project_type }}</p>
+          <p style="color:var(--text-muted)">{{ project.description }}</p>
+        </article>
+        {% endfor %}
+      </div>
+      <button class="arrow next" aria-label="Next project">&gt;</button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     REVIEWS SECTION
+     ══════════════════════════════════════════ -->
+<section class="glass-section reviews-section" aria-labelledby="reviews-heading">
+  <div class="container pb-2 pt-5">
+    <div class="text-center mb-5">
+      <span class="section-eyebrow">Testimonials</span>
+      <h2 id="reviews-heading" class="section-title">What Students Say</h2>
+    </div>
+  </div>
+  <div class="reviews-marquee" role="region" aria-label="Student reviews marquee">
+    <div class="reviews-track">
+      {% for r in reviews %}
+      <article class="review-card">
+        <div class="review-img">
+          {% if r.image %}
+            <img src="{{ r.image.url }}" alt="{{ r.student_name }}" loading="lazy">
+          {% else %}
+            <img src="{% static 'main/images/user.png' %}" alt="{{ r.student_name }}" loading="lazy">
+          {% endif %}
+        </div>
+        <h4>{{ r.student_name }}</h4>
+        <p class="role">{{ r.course_name }}</p>
+        <div class="stars" aria-label="{{ r.rating }} out of 5 stars">
+          {% for i in "12345" %}{% if forloop.counter <= r.rating %}★{% else %}☆{% endif %}{% endfor %}
+        </div>
+        <p class="review-text">"{{ r.review_text|truncatewords:25 }}"</p>
+      </article>
+      {% endfor %}
+      <!-- Duplicate for infinite scroll -->
+      {% for r in reviews %}
+      <article class="review-card" aria-hidden="true">
+        <div class="review-img">
+          {% if r.image %}<img src="{{ r.image.url }}" alt="" loading="lazy">
+          {% else %}<img src="{% static 'main/images/user.png' %}" alt="" loading="lazy">{% endif %}
+        </div>
+        <h4>{{ r.student_name }}</h4>
+        <p class="role">{{ r.course_name }}</p>
+        <div class="stars">{% for i in "12345" %}{% if forloop.counter <= r.rating %}★{% else %}☆{% endif %}{% endfor %}</div>
+        <p class="review-text">"{{ r.review_text|truncatewords:25 }}"</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     MOTIVATION — KALAM QUOTE
+     ══════════════════════════════════════════ -->
+<section class="kalam-section" aria-labelledby="quote-heading">
+  <div class="kalam-container">
+    <div class="kalam-image p-4">
+      <img src="{% static 'images/apj.jpeg' %}" alt="Dr APJ Abdul Kalam, former President of India" loading="lazy">
+    </div>
+    <div class="kalam-content">
+      <h2 id="quote-heading">Inspiration for Learners</h2>
+      <blockquote class="kalam-quote">
+        "Learning gives creativity, Creativity leads to thinking,
+        Thinking provides knowledge, Knowledge makes you great."
+      </blockquote>
+      <p class="kalam-author">— Dr. A. P. J. Abdul Kalam</p>
+      <div class="mt-4">
+        <a href="{% url 'allcourse' %}" class="btn btn-success px-4 py-2">Start Learning Today →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     COUNTER / ENROLLMENT SECTION
+     ══════════════════════════════════════════ -->
+<section class="counter-section-wrap" aria-label="Enrollment statistics">
+  <span class="section-eyebrow" style="color:rgba(255,255,255,0.8);-webkit-text-fill-color:rgba(255,255,255,0.8)">
+    Our Impact
+  </span>
+  <div class="counter-number" aria-label="{{ total_bookings }} students enrolled">{{ total_bookings }}+</div>
+  <p class="counter-label">Students Successfully Enrolled 🚀</p>
+  <div class="mt-4">
+    <a href="{% url 'allcourse' %}"
+       class="btn px-5 py-2"
+       style="background:#fff;color:var(--e2e-red);border-radius:50px;font-weight:700;font-size:14px;box-shadow:0 4px 16px rgba(0,0,0,0.2)">
+      Join Them Today →
+    </a>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     MODALS
+     ══════════════════════════════════════════ -->
+
+<!-- Service Booking Modal -->
+<div class="modal fade" id="serviceBookingModal" tabindex="-1" aria-labelledby="serviceModalLabel" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="serviceModalLabel">Service Registration</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
       <form method="POST" action="{% url 'service_booking' %}">
         {% csrf_token %}
         <div class="modal-body">
-
           <input type="hidden" name="service_name" id="serviceNameInput">
-
           <div class="mb-3">
-            <input type="text" name="full_name" class="form-control" placeholder="Name of your organization" required>
+            <label for="svc_org" class="form-label fw-semibold" style="font-size:13px;color:var(--text-secondary)">Organisation / Full Name *</label>
+            <input type="text" id="svc_org" name="full_name" class="form-control" placeholder="Your name or organisation" required>
           </div>
-
           <div class="mb-3">
-            <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+            <label for="svc_email" class="form-label fw-semibold" style="font-size:13px;color:var(--text-secondary)">Email Address *</label>
+            <input type="email" id="svc_email" name="email" class="form-control" placeholder="you@email.com" required>
           </div>
-
           <div class="mb-3">
-            <input type="text" name="mobile" class="form-control" placeholder="Mobile Number" required>
+            <label for="svc_mobile" class="form-label fw-semibold" style="font-size:13px;color:var(--text-secondary)">Mobile Number *</label>
+            <input type="text" id="svc_mobile" name="mobile" class="form-control" placeholder="10-digit mobile" required>
           </div>
-
-          {% comment %} <div class="mb-3">
-            <input type="date" name="preferred_date" class="form-control">
-          </div> {% endcomment %}
-
           <div class="mb-3">
-            <textarea name="message" class="form-control" placeholder="Your Requirement"></textarea>
+            <label for="svc_msg" class="form-label fw-semibold" style="font-size:13px;color:var(--text-secondary)">Your Requirement</label>
+            <textarea id="svc_msg" name="message" class="form-control" rows="3" placeholder="Tell us what you need…"></textarea>
           </div>
-
         </div>
-
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-success px-4">Submit Request →</button>
         </div>
       </form>
-
     </div>
   </div>
 </div>
 
-<script>
-function setServiceName(serviceName) {
-    document.getElementById("serviceNameInput").value = serviceName;
-}
-</script>
-
 <!-- Demo Booking Modal -->
-<div class="modal fade" id="demoModal" tabindex="-1" aria-labelledby="demoModalLabel" aria-hidden="true">
+<div class="modal fade" id="demoModal" tabindex="-1" aria-labelledby="demoModalLabel" aria-modal="true" role="dialog">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content shadow-lg p-4 rounded-3" data-aos="fade-up">
-      <div class="modal-header border-0">
-        <h5 class="modal-title " style="color:green;" id="demoModalLabel">Book For Demo</h5>
+    <div class="modal-content shadow-lg p-2 rounded-3">
+      <div class="modal-header border-0 pb-0">
+        <div>
+          <h5 class="modal-title" id="demoModalLabel">Book a Free Demo 🎓</h5>
+          <p style="font-size:13px;color:var(--text-muted);margin-top:4px;margin-bottom:0">
+            Experience our teaching quality before enrolling.
+          </p>
+        </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form id="demoForm" method="POST" action="{% url 'demo_booking' %}" class="modal-body">
+      <form id="demoForm" method="POST" action="{% url 'demo_booking' %}" class="modal-body pt-2">
         {% csrf_token %}
         <div class="mb-3">
-          <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+          <label for="demo_name" class="form-label fw-semibold" style="font-size:13px;color:var(--text-secondary)">Your Name *</label>
+          <input type="text" id="demo_name" name="name" class="form-control" placeholder="Full Name" required>
         </div>
         <div class="mb-3">
-          <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+          <label for="demo_email" class="form-label fw-semibold" style="font-size:13px;color:var(--text-secondary)">Email Address *</label>
+          <input type="email" id="demo_email" name="email" class="form-control" placeholder="you@email.com" required>
         </div>
         <div class="mb-3">
-          <input type="tel" name="mobile" class="form-control" placeholder="Mobile Number" required pattern="[0-9]{10}">
+          <label for="demo_mobile" class="form-label fw-semibold" style="font-size:13px;color:var(--text-secondary)">Mobile Number *</label>
+          <input type="tel" id="demo_mobile" name="mobile" class="form-control" placeholder="10-digit mobile" required pattern="[0-9]{10}">
         </div>
         <div class="mb-3">
-          <select name="education" class="form-select" required>
-            <option value="">Education Qualification</option>
+          <label for="demo_edu" class="form-label fw-semibold" style="font-size:13px;color:var(--text-secondary)">Education *</label>
+          <select id="demo_edu" name="education" class="form-select" required>
+            <option value="">Select qualification…</option>
             <option value="School">School</option>
             <option value="College">College</option>
             <option value="Graduate">Graduate</option>
@@ -129,274 +464,28 @@ function setServiceName(serviceName) {
           </select>
         </div>
         <div class="mb-3">
-          <select name="source" class="form-select" required>
-            <option value="">How did you hear about us?</option>
+          <label for="demo_src" class="form-label fw-semibold" style="font-size:13px;color:var(--text-secondary)">How did you hear about us?</label>
+          <select id="demo_src" name="source" class="form-select">
+            <option value="">Select…</option>
             <option value="Social Media">Social Media</option>
             <option value="Friend / Referral">Friend / Referral</option>
             <option value="Website / Google">Website / Google</option>
             <option value="Other">Other</option>
           </select>
         </div>
-        <button type="submit" class="btn btn-success w-100">Submit</button>
+        <button type="submit" class="btn btn-success w-100">Submit → Get Free Demo</button>
+        <p style="font-size:11px;color:var(--text-light);text-align:center;margin-top:10px">
+          We'll contact you within 24 hours. No spam.
+        </p>
       </form>
     </div>
   </div>
 </div>
 
-
-<!-- ABOUT SECTION -->
-<section id="about" class="container " style="margin-top:-70px;">
-    <div class="row align-items-center">
-        <div class="col-md-6" data-aos="fade-right">
-            <h2>About Us</h2>
-            <p>
-                Errors2Experts is a professional IT training institute delivering industry-relevant courses with high-quality, practical learning.
-We are an MSME Udyam Registered organization, committed to maintaining trusted standards and structured training practices.
-Our programs are led by experienced corporate trainers and include real-time project exposure with internship opportunities.
-We focus on career growth through mentorship, placement preparation, and skill development that transforms learners into industry-ready professionals.
-            </p>
-             <a href="{% url 'about' %}" class="btn btn-primary mt-3">
-        Read More
-    </a>
-     <br>
-        <br>
-        
-        </div>
-       
-        <div class="col-md-6" data-aos="fade-left">
-            <img src="{% static "images/e2e1.png" %}"
-                 class="img-fluid rounded shadow">
-        </div>
-    </div>
-</section>
-
-
-
-<section class="auto-course-section">
-    <h2 class="section-title text-center mb-4">Our Courses</h2>
-
-    <div class="scroll-container">
-        <div class="scroll-track">
-
-            {% for course in courses %}
-            <div class="course-card">
-                {% if course.image %}
-                    <img src="{{ course.image.url }}" alt="{{ course.title }}">
-                {% else %}
-                    <img src="{% static 'main/images/no-image.png' %}" alt="No Image">
-                {% endif %}
-
-                <h4>{{ course.title }}</h4>
-                <p>{{ course.description|truncatewords:15 }}</p>
-
-                <div class="price-box">
-                    <span class="new-price">₹{{ course.price }}</span>
-                    {% if course.discount %}
-                    <span class="old-price">₹{{ course.discount }}</span>
-                    {% endif %}
-                </div>
-
-                <a href="{% url 'course_detail' course.id %}" class="explore-btn">
-                    Explore Course
-                </a>
-            </div>
-            {% endfor %}
-
-        </div>
-          <div class="swipe-indicator">
-    <span>Swipe →</span>
-</div>
-    </div>
-  
-  
-</section>
-
-
-
-
-
-
-<!-- SERVICES SECTION -->
-<section class="services-section">
-    <div class="container">
-        <h2 class="section-title">Our Services</h2>
-
-        <div class="row">
-            {% for service in services %}
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="service-card" data-aos="zoom-in">
-
-                    <div class="service-img">
-                        {% if service.image %}
-                            <img src="{{ service.image.url }}" alt="{{ service.title }}">
-                        {% else %}
-                            <img src="{% static 'images/default-service.jpg' %}" alt="Service">
-                        {% endif %}
-                    </div>
-
-                    <div class="service-content">
-                        <h4>{{ service.title }}</h4>
-                        <p>{{ service.description|truncatewords:40 }}</p>
-
-<button class="register-btn btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#serviceBookingModal"
-        onclick="setServiceName('{{ service.title }}')">
-    Register Now
-</button>
-                    </div>
-
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
-
-<section class="projects-section py-5">
-  <div class="container">
-    <h2 class="text-center mb-4">Successfully Completed Client Projects</h2>
-
-    <div class="project-slider">
-      <button class="arrow prev">&lt;</button>
-
-      <div class="project-card-wrapper">
-        {% for project in projects %}
-        <div class="project-card {% if forloop.first %}active{% endif %}">
-            {% if project.image %}
-                            <img src="{{ project.image.url }}" alt="{{ project.title }}">
-                        {% else %}
-                            <img src="{% static 'images/Python.png' %}" alt="project">
-                        {% endif %}
-          {% comment %} <img src="{% static 'images/sample-project.png' %}" alt="Project Image"> {% endcomment %}
-          <h4>{{ project.client_name }}</h4>
-          <p><strong>Type:</strong> {{ project.project_type }}</p>
-          <p>{{ project.description }}</p>
-   
-        </div>
-        {% endfor %}
-      </div>
-
-      <button class="arrow next">&gt;</button>
-    </div>
-  </div>
-    <div class="swipe-indicator">
-    <span>Swipe →</span>
-</div>
-</section>
-
-<section class="reviews-section">
-    <h2 class="section-title">Student Reviews</h2>
-
-    <div class="reviews-marquee">
-        <div class="reviews-track">
-
-            {% for r in reviews %}
-            <div class="review-card">
-
-                <!-- IMAGE -->
-                <div class="review-img">
-                    {% if r.image %}
-                        <img src="{{ r.image.url }}" alt="{{ r.student_name }}">
-                    {% else %}
-                        <img src="{% static 'main/images/user.png' %}" alt="User">
-                    {% endif %}
-                </div>
-
-                <!-- STUDENT NAME -->
-                <h4>{{ r.student_name }}</h4>
-
-                <!-- COURSE NAME -->
-                <p class="role">{{ r.course_name }}</p>
-
-                <!-- STAR RATING -->
-                <div class="stars">
-                    {% for i in "12345" %}
-                        {% if forloop.counter <= r.rating %}
-                            ★
-                        {% else %}
-                            ☆
-                        {% endif %}
-                    {% endfor %}
-                </div>
-
-                <!-- REVIEW TEXT -->
-                <p class="review-text">
-                    “{{ r.review_text|truncatewords:25 }}”
-                </p>
-
-            </div>
-            {% endfor %}
-
-            <!-- DUPLICATE FOR SMOOTH SCROLL -->
-            {% for r in reviews %}
-            <div class="review-card">
-                <div class="review-img">
-                    {% if r.image %}
-                        <img src="{{ r.image.url }}">
-                    {% else %}
-                        <img src="{% static 'main/images/user.png' %}">
-                    {% endif %}
-                </div>
-
-                <h4>{{ r.student_name }}</h4>
-                <p class="role">{{ r.course_name }}</p>
-
-                <div class="stars">
-                    {% for i in "12345" %}
-                        {% if forloop.counter <= r.rating %}
-                            ★
-                        {% else %}
-                            ☆
-                        {% endif %}
-                    {% endfor %}
-                </div>
-
-                <p class="review-text">
-                    “{{ r.review_text|truncatewords:25 }}”
-                </p>
-            </div>
-            {% endfor %}
-
-        </div>
-    </div>
-</section>
-
-
-<section class="kalam-section">
-    <div class="kalam-container">
-
-        <div class="kalam-image">
-            <img src="{% static 'images/apj.jpeg' %}" alt="Dr APJ Abdul Kalam">
-        </div>
-
-        <div class="kalam-content">
-            <h2>Motivation for Learning</h2>
-
-            <p class="kalam-quote">
-                “Learning gives creativity, Creativity leads to thinking,
-                Thinking provides knowledge, Knowledge makes you great.”
-            </p>
-
-            <p class="kalam-author">
-                — Dr. A. P. J. Abdul Kalam
-            </p>
-        </div>
-
-    </div>
-</section>
-<div style="text-align:center; padding:40px; background:#053142;">
-    <h1 style="font-size:48px; color:#fff;">
-        {{ total_bookings }}+
-    </h1>
-    <p style="font-size:20px; color:#fff;">
-        Students Successfully Enrolled 🚀
-    </p>
-</div>
-
-
-<!-- CONTACT SECTION -->
-
+<script>
+function setServiceName(s){
+  document.getElementById("serviceNameInput").value = s;
+}
+</script>
 
 {% endblock %}

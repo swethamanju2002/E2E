@@ -2,147 +2,187 @@
 {% block content %}
 {% load static %}
 
-<section id="courses" class="container mt-5">
-    <div class="course-detail-container">
-        <div class="course-detail-card">
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
 
-            {% if course.image %}
-                <img src="{{ course.image.url }}" alt="{{ course.title }}">
-            {% else %}
-                <img src="{% static 'main/images/no-image.png' %}" alt="No Image">
-            {% endif %}
+      <!-- Breadcrumb / Back link -->
+      <nav aria-label="Breadcrumb" style="margin-bottom:24px">
+        <a href="{% url 'allcourse' %}"
+           style="display:inline-flex;align-items:center;gap:6px;color:var(--text-muted);font-size:14px;font-weight:500;text-decoration:none;transition:color var(--transition)"
+           onmouseover="this.style.color='var(--e2e-green)'"
+           onmouseout="this.style.color='var(--text-muted)'">
+          ← Back to All Courses
+        </a>
+      </nav>
 
-            <h2>{{ course.title }}</h2>
-            <ul>
-    {% for line in course.description.splitlines %}
-        <li>{{ line }}</li>
-    {% endfor %}
-</ul>
+      <!-- Course card -->
+      <article style="background:var(--bg-white);border:1px solid var(--border-light);border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-lg)">
 
-            <div class="price-box">
-                <span class="new-price">₹{{ course.price }}</span>
-                {% if course.discount %}
-                    <span class="old-price">₹{{ course.discount }}</span>
-                {% endif %}
+        {% if course.image %}
+          <div style="position:relative;overflow:hidden;height:280px">
+            <img src="{{ course.image.url }}"
+                 alt="{{ course.title }}"
+                 style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease"
+                 onmouseover="this.style.transform='scale(1.03)'"
+                 onmouseout="this.style.transform='scale(1)'"
+                 loading="eager">
+            <!-- Gradient fade at bottom -->
+            <div style="position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(transparent,rgba(0,0,0,0.55))"></div>
+            <div style="position:absolute;bottom:24px;left:28px;right:28px">
+              <h1 style="font-family:var(--font-display);font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:#fff;margin:0;text-shadow:0 2px 8px rgba(0,0,0,0.4)">
+                {{ course.title }}
+              </h1>
             </div>
+          </div>
+        {% else %}
+          <div style="padding:36px 32px 0;background:linear-gradient(135deg,var(--e2e-green-tint),var(--bg-white));border-bottom:1px solid var(--border-light)">
+            <span class="section-eyebrow">Course Details</span>
+            <h1 style="font-family:var(--font-display);font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:var(--text-primary);padding-bottom:24px">
+              {{ course.title }}
+            </h1>
+          </div>
+        {% endif %}
 
-            <!-- MAIN BUTTON -->
-            <button class="book-btn" onclick="openBookingPopup()">Book Now</button>
+        <div style="padding:32px">
+
+          <!-- Price row -->
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--border-light)">
+            <span style="font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--e2e-green)">₹{{ course.price }}</span>
+            {% if course.discount %}
+              <span style="text-decoration:line-through;color:var(--text-light);font-size:1.1rem">₹{{ course.discount }}</span>
+              <span style="background:var(--e2e-green-tint);border:1px solid rgba(46,125,50,0.2);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--e2e-green);font-weight:700">
+                SAVE ₹{{ course.discount }}
+              </span>
+            {% endif %}
+          </div>
+
+          <!-- Duration badge -->
+          {% if course.duration %}
+          <div style="display:inline-flex;align-items:center;gap:8px;background:var(--e2e-gold-tint);border:1px solid rgba(201,162,39,0.2);border-radius:10px;padding:8px 16px;font-size:14px;color:var(--e2e-gold-dark);margin-bottom:28px;font-weight:600">
+            ⏱ Duration: {{ course.duration }}
+          </div>
+          {% endif %}
+
+          <!-- Description — feature list -->
+          <div style="margin-bottom:28px">
+            <h2 style="font-size:14px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:16px">
+              What You'll Learn
+            </h2>
+            <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px" role="list">
+              {% for line in course.description.splitlines %}
+              {% if line.strip %}
+              <li style="display:flex;align-items:flex-start;gap:10px;color:var(--text-secondary);font-size:15px;line-height:1.65">
+                <span style="color:var(--e2e-green);font-weight:700;flex-shrink:0;margin-top:2px;width:18px;height:18px;background:var(--e2e-green-tint);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px">✓</span>
+                {{ line }}
+              </li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+
+          <!-- CTA -->
+          <button class="btn btn-success w-100 py-3"
+                  style="font-size:16px;font-weight:700;letter-spacing:0.2px"
+                  onclick="openBookingPopup()"
+                  aria-label="Book {{ course.title }} course">
+            Book This Course →
+          </button>
+
+          <!-- Trust strip -->
+          <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-top:20px;padding-top:20px;border-top:1px solid var(--border-light)">
+            <span style="font-size:12px;color:var(--text-muted);display:flex;align-items:center;gap:5px;font-weight:500">
+              <span style="color:var(--e2e-green);font-weight:700">✓</span> Placement Support
+            </span>
+            <span style="font-size:12px;color:var(--text-muted);display:flex;align-items:center;gap:5px;font-weight:500">
+              <span style="color:var(--e2e-green);font-weight:700">✓</span> EMI Available
+            </span>
+            <span style="font-size:12px;color:var(--text-muted);display:flex;align-items:center;gap:5px;font-weight:500">
+              <span style="color:var(--e2e-gold-dark);font-weight:700">✓</span> Certificate
+            </span>
+            <span style="font-size:12px;color:var(--text-muted);display:flex;align-items:center;gap:5px;font-weight:500">
+              <span style="color:var(--e2e-green);font-weight:700">✓</span> MSME Registered
+            </span>
+          </div>
 
         </div>
-    </div>
-</section>
-
-
-<!-- BOOKING POPUP -->
-<div id="bookingPopup" class="popup-overlay">
-    <div class="popup-box">
-
-        <span class="close-btn" onclick="closeBookingPopup()">×</span>
-
-        <h3>Course Booking</h3>
-
-       <form method="POST" action="{% url 'book_course' course.id %}">
-            {% csrf_token %}
-
-            <input type="text" name="name" placeholder="Full Name" required>
-            <input type="email" name="email" placeholder="Email Address" required>
-            <input type="text" name="mobile" placeholder="Mobile Number" required>
-            <input type="text" name="education" placeholder="Education Qualification" required>
-            <input type="text" name="year_passed" placeholder="Year of Passed Out" required>
-
-            <!-- IMPORTANT FIX HERE -->
-            <input type="hidden" name="course" value="{{ course.title }}">
-            <input type="hidden" name="course_amount" value="{{ course.price }}">
-
-            <select name="payment_type" required>
-                <option value="">Select Payment Type</option>
-                <option value="full">Full Amount</option>
-                <option value="emi">Installment EMI (50%)</option>
-            </select>
-
-            <button type="submit" class="submit-btn">Proceed</button>
-        </form>
+      </article>
 
     </div>
+  </div>
 </div>
 
 
-<style>
-.popup-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.6);
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-}
-ul {
-    text-align: center;
-    padding-left: 20px;
-}
+<!-- BOOKING POPUP -->
+<div id="bookingPopup"
+     style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.55);backdrop-filter:blur(4px);justify-content:center;align-items:center;z-index:9999;padding:20px"
+     role="dialog" aria-modal="true" aria-labelledby="booking-popup-title">
 
+  <div class="popup-box" style="position:relative;max-width:480px;width:100%">
 
-ul li {
-    margin-bottom: 6px;
-    color: #fff;
-    list-style:none;
-}
+    <!-- Close -->
+    <button onclick="closeBookingPopup()"
+            style="position:absolute;right:18px;top:14px;background:none;border:none;color:var(--text-muted);font-size:24px;cursor:pointer;line-height:1;padding:0"
+            aria-label="Close booking popup">×</button>
 
-.popup-box {
-    background: #053142;
-    padding: 25px;
-    width: 400px;
-    border-radius: 8px;
-    position: relative;
-}
+    <h3 id="booking-popup-title">Book: {{ course.title }}</h3>
+    <p style="color:var(--text-muted);font-size:13px;margin-bottom:20px">
+      Fill in your details to proceed to payment. We'll confirm within 24 hours.
+    </p>
 
-.popup-box input,
-.popup-box select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-}
+    <form method="POST" action="{% url 'book_course' course.id %}">
+      {% csrf_token %}
+      <label for="bp_name" style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:4px">Full Name *</label>
+      <input type="text" id="bp_name" name="name" placeholder="Your full name" required>
 
-.submit-btn {
-    background: linear-gradient(45deg, #007bff, #00c6ff);
-    color: rgb(255, 255, 255);
-    padding: 10px;
-    border: none;
-    width: 100%;
-    cursor: pointer;
-}
+      <label for="bp_email" style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:4px;margin-top:4px">Email Address *</label>
+      <input type="email" id="bp_email" name="email" placeholder="you@email.com" required>
 
-.close-btn {
-    position: absolute;
-    right: 15px;
-    top: 10px;
-    font-size: 22px;
-    cursor: pointer;
-}
+      <label for="bp_mobile" style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:4px;margin-top:4px">Mobile Number *</label>
+      <input type="text" id="bp_mobile" name="mobile" placeholder="10-digit mobile" required>
 
-.book-btn {
-    background: #111;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-}
-</style>
+      <label for="bp_edu" style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:4px;margin-top:4px">Education *</label>
+      <input type="text" id="bp_edu" name="education" placeholder="Highest qualification" required>
 
+      <label for="bp_year" style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:4px;margin-top:4px">Year of Passed Out *</label>
+      <input type="text" id="bp_year" name="year_passed" placeholder="e.g. 2024" required>
+
+      <input type="hidden" name="course" value="{{ course.title }}">
+      <input type="hidden" name="course_amount" value="{{ course.price }}">
+
+      <label for="bp_pay" style="font-size:12px;font-weight:600;color:var(--text-secondary);display:block;margin-bottom:4px;margin-top:4px">Payment Type *</label>
+      <select id="bp_pay" name="payment_type" required>
+        <option value="">Select payment type…</option>
+        <option value="full">Full Amount — ₹{{ course.price }}</option>
+        <option value="emi">Installment EMI — Split into 2 parts</option>
+      </select>
+
+      <button type="submit" class="submit-btn" style="margin-top:16px">Proceed to Payment →</button>
+
+      <p style="font-size:11px;color:var(--text-light);text-align:center;margin-top:10px">
+        By submitting, you agree to our terms and conditions.
+      </p>
+    </form>
+  </div>
+</div>
 
 <script>
-function openBookingPopup() {
-    document.getElementById("bookingPopup").style.display = "flex";
+function openBookingPopup()  {
+  var p = document.getElementById("bookingPopup");
+  p.style.display = "flex";
+  document.body.style.overflow = "hidden";
 }
-
 function closeBookingPopup() {
-    document.getElementById("bookingPopup").style.display = "none";
+  var p = document.getElementById("bookingPopup");
+  p.style.display = "none";
+  document.body.style.overflow = "";
 }
+document.getElementById("bookingPopup").addEventListener("click", function(e) {
+  if (e.target === this) closeBookingPopup();
+});
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") closeBookingPopup();
+});
 </script>
 
 {% endblock %}

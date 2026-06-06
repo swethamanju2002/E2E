@@ -1,0 +1,530 @@
+/* ============================================================
+   ERRORS2EXPERTS — PARALLAX HERO + GLASS SCROLL
+   Color Theme: Red (#dc2626) · Gold (#d4a017) · Green (#16a34a)
+   ============================================================ */
+
+/* ── BRAND COLOR TOKENS ── */
+:root {
+  --e2e-red:        #dc2626;
+  --e2e-red-light:  #ef4444;
+  --e2e-gold:       #d4a017;
+  --e2e-gold-light: #fbbf24;
+  --e2e-green:      #16a34a;
+  --e2e-green-light:#22c55e;
+
+  /* Override modern.css tokens to match brand */
+  --brand-green:   #16a34a;
+  --brand-blue:    #d4a017;   /* repurpose "blue" slot as gold */
+  --brand-teal:    #22c55e;
+  --accent-gold:   #fbbf24;
+}
+
+/* ── BODY RESET ── */
+html, body {
+  background: #080b0a !important;
+  background-image: none !important;
+  animation: none !important;
+}
+
+/* ══════════════════════════════════════════
+   1. FIXED BACKGROUND — e2e.png pinned
+   Very light overlay so image is clearly visible
+   ══════════════════════════════════════════ */
+.hero-parallax-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: url('/static/images/bg.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* Minimal dark vignette — ONLY edges, centre stays bright */
+.hero-parallax-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 70% 70% at 50% 50%,
+      rgba(0,0,0,0.08) 0%,       /* almost transparent in center */
+      rgba(0,0,0,0.38) 100%      /* slight darken at very edges */
+    );
+}
+
+/* ══════════════════════════════════════════
+   2. HERO — fully transparent, image shows
+   ══════════════════════════════════════════ */
+.hero-slider {
+  position: relative;
+  z-index: 1;
+}
+.hero-slide {
+  position: relative;
+  min-height: 100vh;
+  background: transparent !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-bg  { display: none !important; }
+.hero-mesh { display: none !important; }
+
+/* ── HERO GLASS CARD — subtle, not blocking ── */
+.hero-glass-card {
+  background: rgba(5, 8, 6, 0.42);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid rgba(212, 160, 23, 0.22);   /* gold border */
+  border-radius: 24px;
+  padding: 52px 48px;
+  max-width: 640px;
+  width: 90%;
+  position: relative;
+  z-index: 2;
+  box-shadow:
+    0 0 0 1px rgba(22,163,74,0.10),
+    0 24px 60px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+/* ══════════════════════════════════════════
+   3. GLASS SCROLL SECTIONS
+   Light enough that the bg image peeks through
+   as each panel scrolls over it
+   ══════════════════════════════════════════ */
+.glass-section {
+  position: relative;
+  z-index: 1;
+  /* KEY: keep opacity LOW so bg image is visible */
+  background: rgba(5, 10, 7, 0.62) !important;
+  backdrop-filter: blur(22px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(150%) !important;
+  border-top: 1px solid rgba(212, 160, 23, 0.12) !important;
+}
+
+/* Feathered top edge — smooth transition over bg */
+.glass-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 72px;
+  background: linear-gradient(
+    180deg,
+    rgba(5,10,7,0) 0%,
+    rgba(5,10,7,0.62) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ══════════════════════════════════════════
+   4. NAVBAR — brand themed
+   ══════════════════════════════════════════ */
+.navbar {
+  z-index: 100 !important;
+  background: rgba(5, 8, 6, 0.70) !important;
+  backdrop-filter: blur(20px) saturate(160%) !important;
+  border-bottom: 1px solid rgba(212,160,23,0.18) !important;
+}
+.navbar.scrolled {
+  background: rgba(5, 8, 6, 0.92) !important;
+  border-bottom-color: rgba(212,160,23,0.28) !important;
+}
+
+/* Logo image in navbar */
+.navbar-logo-img {
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 6px rgba(212,160,23,0.3));
+  transition: filter 0.3s ease;
+}
+.navbar-logo-img:hover {
+  filter: drop-shadow(0 0 10px rgba(212,160,23,0.55));
+}
+
+/* Text logo (fallback if img not shown) 
+.logo-animate { display: none !important; }  hide text version */
+
+.navbar .nav-link {
+  color: rgba(255,255,255,0.85) !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  padding: 7px 14px !important;
+  border-radius: 8px !important;
+  transition: all 0.25s ease !important;
+}
+.navbar .nav-link::after {
+  background: var(--e2e-gold) !important;  /* gold underline on hover */
+}
+.navbar .nav-link:hover {
+  color: var(--e2e-gold-light) !important;
+  background: rgba(212,160,23,0.08) !important;
+}
+
+/* MSME badge */
+.msme-text {
+  background: rgba(22,163,74,0.10) !important;
+  border: 1px solid rgba(22,163,74,0.20) !important;
+}
+
+/* ══════════════════════════════════════════
+   5. HERO BRAND COLORS
+   ══════════════════════════════════════════ */
+.e2e { font-size: clamp(2rem, 5.5vw, 3.8rem) !important; }
+
+.welcome-text {
+  font-size: 0.32em !important;
+  letter-spacing: 6px !important;
+  color: var(--e2e-gold-light) !important;
+}
+
+/* Gradient: Red → Gold → Green — matches brand */
+.brand-highlight {
+  background: linear-gradient(
+    135deg,
+    var(--e2e-red-light) 0%,
+    var(--e2e-gold) 40%,
+    var(--e2e-green-light) 80%
+  ) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  animation: brandGlow 5s ease infinite alternate !important;
+  font-weight: 200 !important;
+}
+@keyframes brandGlow {
+  0%   { filter: brightness(1)    drop-shadow(0 0 8px  rgba(220,38,38,0.4));  }
+  50%  { filter: brightness(1.1)  drop-shadow(0 0 12px rgba(212,160,23,0.5)); }
+  100% { filter: brightness(1.05) drop-shadow(0 0 8px  rgba(22,163,74,0.4));  }
+}
+
+.tagline {
+  color: rgba(255,255,255,0.80) !important;
+  font-size: clamp(0.95rem, 2vw, 1.15rem) !important;
+}
+
+/* ── BUTTONS — brand colors ── */
+.hero-glass-card .btn-success,
+.btn-success {
+  background: linear-gradient(135deg, var(--e2e-green), #15803d) !important;
+  border: none !important;
+  border-radius: 50px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 4px 18px rgba(22,163,74,0.38) !important;
+  transition: all 0.3s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+.btn-success::before {
+  content:'';
+  position:absolute;
+  top:50%; left:-60%;
+  width:40%; height:100%;
+  background:rgba(255,255,255,0.18);
+  transform:translateY(-50%) skewX(-20deg);
+  transition:left 0.5s ease;
+}
+.btn-success:hover::before { left:130%; }
+.btn-success:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 28px rgba(22,163,74,0.5) !important;
+}
+
+.hero-glass-card .btn-outline-light {
+  border: 1.5px solid rgba(212,160,23,0.50) !important;
+  color: var(--e2e-gold-light) !important;
+  background: rgba(212,160,23,0.06) !important;
+  border-radius: 50px !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+}
+.hero-glass-card .btn-outline-light:hover {
+  background: rgba(212,160,23,0.14) !important;
+  border-color: var(--e2e-gold-light) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 6px 20px rgba(212,160,23,0.25) !important;
+}
+
+/* Trust badges */
+.trust-badge {
+  font-size: 12px;
+  color: rgba(255,255,255,0.70);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.trust-badge .check { color: var(--e2e-green-light); font-weight: 700; }
+
+/* ══════════════════════════════════════════
+   6. SECTION TITLES — gold accent
+   ══════════════════════════════════════════ */
+.section-title {
+  font-family: var(--font-display, 'Syne', sans-serif) !important;
+  color: #fff !important;
+  font-weight: 700 !important;
+}
+.section-title::after {
+  background: linear-gradient(90deg, var(--e2e-red), var(--e2e-gold), var(--e2e-green)) !important;
+  width: 60px !important;
+  height: 3px !important;
+}
+
+/* Section label eyebrows */
+.section-eyebrow {
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+  background: linear-gradient(90deg, var(--e2e-red-light), var(--e2e-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* ══════════════════════════════════════════
+   7. CARDS — brand-accented glass
+   ══════════════════════════════════════════ */
+.course-card {
+  background: rgba(8, 14, 10, 0.72) !important;
+  border: 1px solid rgba(212,160,23,0.14) !important;
+  border-radius: 16px !important;
+  transition: all 0.3s ease !important;
+}
+.course-card:hover {
+  transform: translateY(-8px) !important;
+  border-color: rgba(212,160,23,0.38) !important;
+  box-shadow: 0 20px 48px rgba(0,0,0,0.45),
+              0 0 0 1px rgba(22,163,74,0.15) !important;
+}
+.course-card h4 { color: #f0f6ff !important; }
+.course-card p  { color: rgba(255,255,255,0.60) !important; }
+
+.new-price { color: var(--e2e-green-light) !important; }
+.old-price  { color: rgba(255,255,255,0.40) !important; }
+
+.explore-btn {
+  background: linear-gradient(135deg, var(--e2e-green), #15803d) !important;
+  border-radius: 50px !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  box-shadow: 0 3px 12px rgba(22,163,74,0.30) !important;
+}
+.explore-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(22,163,74,0.45) !important;
+}
+
+.service-card {
+  background: rgba(8,14,10,0.70) !important;
+  border: 1px solid rgba(212,160,23,0.12) !important;
+  color: #fff !important;
+}
+.service-card:hover {
+  border-color: rgba(22,163,74,0.35) !important;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4),
+              0 0 0 1px rgba(212,160,23,0.15) !important;
+}
+.service-content h4 { color: #fff !important; }
+.service-content p  { color: rgba(255,255,255,0.62) !important; }
+
+.register-btn {
+  background: linear-gradient(135deg, var(--e2e-gold), #b8860b) !important;
+  border: none !important;
+  border-radius: 50px !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  box-shadow: 0 3px 14px rgba(212,160,23,0.35) !important;
+}
+.register-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 22px rgba(212,160,23,0.50) !important;
+}
+
+/* Project cards */
+.project-card {
+  background: rgba(8,14,10,0.72) !important;
+  border: 1px solid rgba(212,160,23,0.12) !important;
+}
+.project-card h4 { color: #fff !important; }
+.project-card p  { color: rgba(255,255,255,0.65) !important; }
+.arrow {
+  background: rgba(212,160,23,0.10) !important;
+  border: 1px solid rgba(212,160,23,0.25) !important;
+  color: var(--e2e-gold-light) !important;
+}
+.arrow:hover {
+  background: rgba(212,160,23,0.22) !important;
+  transform: scale(1.08) !important;
+}
+
+/* ══════════════════════════════════════════
+   8. MODALS — brand glass
+   ══════════════════════════════════════════ */
+.modal-content {
+  background: rgba(5,10,7,0.94) !important;
+  border: 1px solid rgba(212,160,23,0.20) !important;
+  backdrop-filter: blur(28px) !important;
+  border-radius: 20px !important;
+  color: #fff !important;
+}
+.modal-header { border-bottom: 1px solid rgba(212,160,23,0.12) !important; }
+.modal-title  { color: var(--e2e-gold-light) !important; font-weight: 700 !important; }
+.modal-footer { border-top: 1px solid rgba(212,160,23,0.12) !important; }
+.btn-close    { filter: invert(1) !important; }
+
+.modal-body input,
+.modal-body select,
+.modal-body textarea,
+.modal-body .form-control,
+.modal-body .form-select {
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  border-radius: 10px !important;
+  color: #fff !important;
+  padding: 11px 14px !important;
+}
+.modal-body input:focus,
+.modal-body select:focus,
+.modal-body textarea:focus,
+.modal-body .form-control:focus,
+.modal-body .form-select:focus {
+  border-color: var(--e2e-gold) !important;
+  box-shadow: 0 0 0 3px rgba(212,160,23,0.14) !important;
+  outline: none !important;
+}
+.modal-body input::placeholder,
+.modal-body textarea::placeholder { color: rgba(255,255,255,0.40) !important; }
+.modal-body .form-select option   { background: #0d1a0f !important; }
+
+/* ══════════════════════════════════════════
+   9. REVIEWS — white cards pop on dark bg
+   ══════════════════════════════════════════ */
+.reviews-section {
+  background: transparent !important;
+}
+.review-card {
+  background: rgba(255,255,255,0.94) !important;
+  border: 1px solid rgba(212,160,23,0.25) !important;
+  border-radius: 16px !important;
+}
+.review-card:hover {
+  transform: translateY(-8px) scale(1.02) !important;
+  box-shadow: 0 20px 45px rgba(0,0,0,0.35) !important;
+  border-color: rgba(22,163,74,0.35) !important;
+}
+.stars { color: var(--e2e-gold) !important; }
+
+/* ══════════════════════════════════════════
+   10. KALAM / MOTIVATION
+   ══════════════════════════════════════════ */
+.kalam-section { background: transparent !important; }
+.kalam-image img {
+  border: 2px solid rgba(212,160,23,0.30) !important;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5),
+              0 0 30px rgba(212,160,23,0.10) !important;
+}
+.kalam-quote {
+  border-left: 3px solid var(--e2e-gold) !important;
+  padding-left: 18px !important;
+  color: rgba(255,255,255,0.75) !important;
+}
+.kalam-author { color: var(--e2e-gold-light) !important; }
+.kalam-content h2 { color: #fff !important; }
+
+/* ══════════════════════════════════════════
+   11. COUNTER SECTION
+   ══════════════════════════════════════════ */
+.counter-section-wrap {
+  background: rgba(5,10,7,0.65) !important;
+  backdrop-filter: blur(20px) !important;
+  border-top: 1px solid rgba(212,160,23,0.14) !important;
+  border-bottom: 1px solid rgba(212,160,23,0.14) !important;
+  padding: 60px 20px !important;
+  text-align: center !important;
+}
+.counter-number {
+  font-size: clamp(3.5rem, 7vw, 5.5rem) !important;
+  font-weight: 800 !important;
+  background: linear-gradient(135deg, var(--e2e-red-light), var(--e2e-gold), var(--e2e-green-light)) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  line-height: 1 !important;
+}
+.counter-label {
+  color: rgba(255,255,255,0.70) !important;
+  font-size: 18px !important;
+  margin-top: 10px !important;
+}
+
+/* ══════════════════════════════════════════
+   12. FOOTER
+   ══════════════════════════════════════════ */
+footer.footer {
+  position: relative;
+  z-index: 1;
+  background: rgba(4, 7, 5, 0.97) !important;
+  backdrop-filter: blur(24px) !important;
+  border-top: 1px solid rgba(212,160,23,0.18) !important;
+}
+footer h5 { color: var(--e2e-gold-light) !important; }
+footer p, footer small { color: rgba(255,255,255,0.58) !important; }
+footer a { color: rgba(255,255,255,0.58) !important; transition: color 0.25s; }
+footer a:hover { color: var(--e2e-gold-light) !important; }
+footer hr { border-color: rgba(212,160,23,0.12) !important; }
+
+/* ══════════════════════════════════════════
+   13. SCROLL PROGRESS + BACK TO TOP — gold
+   ══════════════════════════════════════════ */
+#scroll-progress {
+  background: linear-gradient(90deg, var(--e2e-red), var(--e2e-gold), var(--e2e-green)) !important;
+  z-index: 10000 !important;
+}
+#back-to-top {
+  background: linear-gradient(135deg, var(--e2e-green), #15803d) !important;
+  box-shadow: 0 4px 18px rgba(22,163,74,0.45) !important;
+  z-index: 9990 !important;
+}
+
+/* ══════════════════════════════════════════
+   14. MODAL z-index
+   ══════════════════════════════════════════ */
+.modal          { z-index: 9999 !important; }
+.modal-backdrop { z-index: 9998 !important; }
+
+/* ══════════════════════════════════════════
+   15. INNER PAGES (about, careers, etc.)
+   Light glass wrapper so bg peeks through
+   ══════════════════════════════════════════ */
+#page-content > section,
+#page-content > div:not(.hero-parallax-bg) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ══════════════════════════════════════════
+   16. MOBILE
+   ══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .glass-section {
+    background: rgba(5,10,7,0.75) !important;
+    backdrop-filter: blur(14px) !important;
+  }
+  .hero-glass-card {
+    padding: 36px 22px;
+    border-radius: 18px;
+  }
+}
+
+/* ══════════════════════════════════════════
+   17. REDUCED MOTION
+   ══════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .hero-parallax-bg { animation: none !important; }
+  .brand-highlight  { animation: none !important; }
+}

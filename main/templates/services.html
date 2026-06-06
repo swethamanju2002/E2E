@@ -2,109 +2,97 @@
 {% load static %}
 {% block content %}
 
-
-<section class="services-section">
-    {% if messages %}
+<!-- Success message -->
+{% if messages %}
   {% for message in messages %}
-    <div class="success-box">
-        <h3>🎉 Thank You for Registering!</h3>
-        <p>We have received your service request successfully.</p>
-        <p>Our team will contact you very soon.</p>
-
-        <blockquote>
-            "Success begins with the right decision — and you just made one."
-        </blockquote>
-    </div>
+  <div style="max-width:700px;margin:20px auto;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.25);border-radius:16px;padding:28px;text-align:center;animation:fadeUp 0.6s ease">
+    <h3 style="color:var(--brand-green);font-family:var(--font-display);margin-bottom:8px">🎉 Thank You for Registering!</h3>
+    <p style="color:var(--text-muted);margin-bottom:6px">We have received your service request successfully.</p>
+    <p style="color:var(--text-muted);margin-bottom:0">Our team will contact you very soon.</p>
+    <blockquote style="font-style:italic;margin-top:16px;color:var(--text-muted);font-size:14px;border-left:3px solid var(--brand-green);padding-left:16px;text-align:left">
+      "Success begins with the right decision — and you just made one."
+    </blockquote>
+  </div>
   {% endfor %}
 {% endif %}
-    <div class="container">
-        <h2 class="section-title">Our Services</h2>
 
-        <div class="row">
-            {% for service in services %}
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="service-card" data-aos="zoom-in">
+<!-- Page header -->
+<div style="text-align:center;padding:60px 20px 40px;background:linear-gradient(180deg,rgba(59,130,246,0.05) 0%,transparent 100%)">
+  <p style="font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--brand-green);margin-bottom:10px;font-weight:600">WHAT WE OFFER</p>
+  <h1 style="font-family:var(--font-display);font-size:clamp(2rem,5vw,3rem);font-weight:800;margin-bottom:0">Our Services</h1>
+  <p style="color:var(--text-muted);margin-top:12px;font-size:16px;max-width:500px;margin-left:auto;margin-right:auto">
+    Professional IT services tailored to your organization's needs.
+  </p>
+  <div style="width:50px;height:3px;background:linear-gradient(90deg,var(--brand-green),var(--brand-teal));border-radius:3px;margin:16px auto 0"></div>
+</div>
 
-                    <div class="service-img">
-                        {% if service.image %}
-                            <img src="{{ service.image.url }}" alt="{{ service.title }}">
-                        {% else %}
-                            <img src="{% static 'images/default-service.jpg' %}" alt="Service">
-                        {% endif %}
-                    </div>
-
-                    <div class="service-content">
-                        <h4>{{ service.title }}</h4>
-                        <p>{{ service.description|truncatewords:20 }}</p>
-
-                       <button class="register-btn btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#serviceBookingModal"
-        onclick="setServiceName('{{ service.title }}')">
-    Register Now
-</button>
-                    </div>
-
-                </div>
-            </div>
-            {% endfor %}
+<section class="services-section py-5">
+  <div class="container">
+    <div class="row g-4 stagger-children">
+      {% for service in services %}
+      <div class="col-lg-4 col-md-6">
+        <div class="service-card">
+          <div class="service-img">
+            {% if service.image %}
+              <img src="{{ service.image.url }}" alt="{{ service.title }}">
+            {% else %}
+              <img src="{% static 'images/default-service.jpg' %}" alt="Service">
+            {% endif %}
+          </div>
+          <div class="service-content">
+            <h4>{{ service.title }}</h4>
+            <p>{{ service.description|truncatewords:20 }}</p>
+            <button class="register-btn"
+                data-bs-toggle="modal"
+                data-bs-target="#serviceBookingModal"
+                onclick="setServiceName('{{ service.title }}')">
+              Register Now →
+            </button>
+          </div>
         </div>
+      </div>
+      {% endfor %}
     </div>
-
-
-
+  </div>
 </section>
 
 <!-- Service Booking Modal -->
 <div class="modal fade" id="serviceBookingModal" tabindex="-1">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-
       <div class="modal-header">
         <h5 class="modal-title">Service Registration</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-
       <form method="POST" action="{% url 'service_booking' %}">
         {% csrf_token %}
         <div class="modal-body">
-
           <input type="hidden" name="service_name" id="serviceNameInput">
-
           <div class="mb-3">
             <input type="text" name="full_name" class="form-control" placeholder="Name of your organization" required>
           </div>
-
           <div class="mb-3">
             <input type="email" name="email" class="form-control" placeholder="Email Address" required>
           </div>
-
           <div class="mb-3">
             <input type="text" name="mobile" class="form-control" placeholder="Mobile Number" required>
           </div>
-
-          {% comment %} <div class="mb-3">
-            <input type="date" name="preferred_date" class="form-control">
-          </div> {% endcomment %}
-
           <div class="mb-3">
-            <textarea name="message" class="form-control" placeholder="Your Requirement"></textarea>
+            <textarea name="message" class="form-control" rows="3" placeholder="Your Requirement"></textarea>
           </div>
-
         </div>
-
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary px-4">Submit Request →</button>
         </div>
       </form>
-
     </div>
   </div>
 </div>
 
 <script>
 function setServiceName(serviceName) {
-    document.getElementById("serviceNameInput").value = serviceName;
+  document.getElementById("serviceNameInput").value = serviceName;
 }
 </script>
+
 {% endblock %}

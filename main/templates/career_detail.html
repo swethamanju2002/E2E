@@ -1,34 +1,49 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<section class="container mt-5">
+<section class="container py-5">
+  <div style="max-width:800px;margin:0 auto">
 
-    <div class="detail-card">
+    <!-- Back link -->
+    <a href="{% url 'careers' %}" style="color:var(--text-muted);font-size:14px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-bottom:24px">
+      ← Back to Careers
+    </a>
 
-        <h2>{{ career.role }}</h2>
+    <div style="background:rgba(13,27,42,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:24px;overflow:hidden">
 
-        <span class="badge-type">
-            {{ career.employment_type }}
-        </span>
+      <!-- Header -->
+      <div style="background:linear-gradient(135deg,rgba(16,185,129,0.10),rgba(59,130,246,0.06));border-bottom:1px solid rgba(255,255,255,0.06);padding:36px 40px">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px">
+          <div>
+            <h2 style="font-family:var(--font-display);font-weight:800;font-size:clamp(1.4rem,3vw,2rem);margin-bottom:12px;color:var(--text-primary)">{{ career.role }}</h2>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+              <span class="badge-type">{{ career.employment_type }}</span>
+              {% if career.salary %}
+              <span style="color:var(--brand-green);font-weight:600;font-size:15px">💰 {{ career.salary }}</span>
+              {% endif %}
+              <span style="color:var(--text-muted);font-size:13px">Posted: {{ career.posted_on|date:"d M Y" }}</span>
+            </div>
+          </div>
+          <a href="{% url 'apply_job' career.id %}" class="btn btn-success px-4 py-2" style="white-space:nowrap">
+            Apply Now →
+          </a>
+        </div>
+      </div>
 
-        {% if career.salary %}
-        <p class="salary">
-            💰 {{ career.salary }}
-        </p>
-        {% endif %}
+      <!-- Body -->
+      <div style="padding:36px 40px">
+        <h4 style="font-family:var(--font-display);font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--text-muted);margin-bottom:16px">Job Description</h4>
+        <p style="color:var(--text-muted);line-height:1.85;font-size:15.5px;white-space:pre-line">{{ career.job_description }}</p>
 
-        <hr>
-
-        <p>
-            {{ career.job_description }}
-        </p>
-
-        <button class="apply-btn"><a href="{% url 'apply_job' career.id %}" class="apply-btn">
-    Apply Now
-</a></button>
+        <div style="margin-top:36px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.06);display:flex;justify-content:center">
+          <a href="{% url 'apply_job' career.id %}" class="btn btn-success px-5 py-2" style="font-size:16px">
+            Apply for this Role →
+          </a>
+        </div>
+      </div>
 
     </div>
-
+  </div>
 </section>
 
 {% endblock %}

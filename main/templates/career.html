@@ -1,39 +1,45 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<section class="container mt-5">
-    <h2 class="text-center mb-4">Career Openings</h2>
+<!-- Page header -->
+<div style="text-align:center;padding:60px 20px 40px;background:linear-gradient(180deg,rgba(16,185,129,0.05) 0%,transparent 100%)">
+  <p style="font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--brand-green);margin-bottom:10px;font-weight:600">JOIN OUR TEAM</p>
+  <h1 style="font-family:var(--font-display);font-size:clamp(2rem,5vw,3rem);font-weight:800;margin-bottom:0">Career Openings</h1>
+  <p style="color:var(--text-muted);margin-top:12px;font-size:16px">Grow with us. Build the future of IT education.</p>
+  <div style="width:50px;height:3px;background:linear-gradient(90deg,var(--brand-green),var(--brand-teal));border-radius:3px;margin:16px auto 0"></div>
+</div>
 
-    {% if careers %}
-        {% for career in careers %}
-        <div class="career-row">
+<section class="container pb-5">
 
-            <!-- LEFT CARD -->
-            <div class="career-left">
-                <div class="mini-card">
-                    <h4>{{ career.role }}</h4>
-                    <span class="badge">{{ career.employment_type }}</span>
-                </div>
-            </div>
-
-            <!-- RIGHT CONTENT -->
-            <div class="career-right1">
-                <p>
-                    {{ career.job_description|truncatewords:25 }}
-                </p>
-
-                <a href="{% url 'career_detail' career.id %}" class="read-btn">
-                    Read More →
-                </a>
-            </div>
-
+  {% if careers %}
+    <div style="display:flex;flex-direction:column;gap:20px;max-width:900px;margin:0 auto" class="stagger-children">
+      {% for career in careers %}
+      <div style="background:rgba(13,27,42,0.7);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:28px 32px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;transition:border-color 0.3s ease" onmouseenter="this.style.borderColor='rgba(16,185,129,0.3)'" onmouseleave="this.style.borderColor='rgba(255,255,255,0.08)'">
+        <div style="flex:1;min-width:200px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap">
+            <h4 style="font-family:var(--font-display);font-weight:700;font-size:18px;margin:0;color:var(--text-primary)">{{ career.role }}</h4>
+            <span style="background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.25);border-radius:20px;padding:3px 12px;font-size:12px;color:var(--brand-teal);font-weight:500">{{ career.employment_type }}</span>
+          </div>
+          {% if career.salary %}
+          <p style="color:var(--brand-green);font-weight:600;font-size:14px;margin-bottom:8px">💰 {{ career.salary }}</p>
+          {% endif %}
+          <p style="color:var(--text-muted);font-size:14px;margin:0;line-height:1.6">{{ career.job_description|truncatewords:25 }}</p>
         </div>
-        {% endfor %}
-    {% else %}
-        <div class="text-center">
-            <h4>🚀 Right Now No Openings</h4>
+        <div style="flex-shrink:0">
+          <a href="{% url 'career_detail' career.id %}" class="btn btn-primary px-4 py-2" style="white-space:nowrap">
+            View Details →
+          </a>
         </div>
-    {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div style="text-align:center;padding:80px 20px;background:rgba(13,27,42,0.5);border:1px solid rgba(255,255,255,0.06);border-radius:20px;max-width:600px;margin:0 auto">
+      <div style="font-size:48px;margin-bottom:16px">🚀</div>
+      <h4 style="font-family:var(--font-display);font-weight:700;margin-bottom:8px">No Openings Right Now</h4>
+      <p style="color:var(--text-muted)">We'll be hiring soon! Follow us on social media to stay updated.</p>
+    </div>
+  {% endif %}
 
 </section>
 
