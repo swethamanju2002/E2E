@@ -27,7 +27,11 @@
         <tr>
             <td>{{ forloop.counter }}</td>
             <td>{{ module.module_name }}</td>
-            <td>{{ module.description|linebreaksbr }}</td>
+            <td class="description-cell">
+                <div style="white-space: pre-line;">
+                    {{ module.description }}
+                </div>
+            </td>
         </tr>
         {% empty %}
         <tr>
@@ -161,6 +165,12 @@
 .course-table td {
     padding: 12px;
     border: 1px solid #ddd;
+}
+.course-table td:nth-child(3) {
+    text-align: left;
+    vertical-align: top;
+    padding-left: 15px;
+    line-height: 1.8;
 }
 
 .course-table tr:nth-child(even) {
