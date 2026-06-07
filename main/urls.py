@@ -19,7 +19,7 @@ urlpatterns = [
     path('careers/<int:pk>/apply/', views.apply_job, name='apply_job'),
     path("demo-booking/", views.demo_booking, name="demo_booking"),
     path('book-course/<int:id>/', views.book_course, name="book_course"),
-    # path('reviews/', views.reviews_page, name='reviews'),
+    path('reviews/', views.review_page, name='reviews'),
     path('workshops/', views.workshop_gallery, name='workshops'),
     path('certificates/', views.certificate_gallery, name='certificates'),
  

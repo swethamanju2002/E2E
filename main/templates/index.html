@@ -19,10 +19,7 @@
             <p class="welcome-text">Tamil Nadu's Premier IT Training</p>
 
             <!-- Headline -->
-            <h1 class="e2e fw-bold">
-              Welcome to<br>
-              <span class="brand-highlight">Errors2Experts</span>
-            </h1>
+            <h1 class="e2e">Welcome to <span class="brand-errors">Errors</span>2<span class="brand-experts">Experts</span></h1>
 
             <p class="tagline">
               Transforming Beginners into Industry-Ready Professionals
@@ -31,15 +28,17 @@
             <!-- CTAs -->
             <div class="d-flex flex-wrap justify-content-center gap-3 mt-2"
                  style="opacity:0;animation:fadeUp 0.7s ease 1s forwards">
-              <a href="{% url 'allcourse' %}" class="btn btn-success px-4 py-2">
-                Explore Courses →
-              </a>
-              <button type="button"
-                      class="btn btn-outline-light px-4 py-2"
-                      data-bs-toggle="modal"
-                      data-bs-target="#demoModal">
-                Book Free Demo
-              </button>
+               <a href="{% url 'allcourse' %}" style="background:var(--e2e-green);color:var(--bg-white);border-radius:50px;padding:14px 36px;font-weight:700;font-size:15px;text-decoration:none;transition:0.3s"
+                  onmouseenter="this.style.background='var(--e2e-green-tint)';this.style.color='var(--e2e-green)'"
+                  onmouseleave="this.style.background='var(--e2e-green)';this.style.color='var(--bg-white)'">
+                  Browse Courses →
+                </a>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#demoModal"
+                        style="background:transparent;border:2px solid var(--e2e-red);border-radius:50px;padding:14px 36px;font-weight:600;font-size:15px;color:var(--e2e-red);cursor:pointer;transition:0.3s"
+                        onmouseenter="this.style.borderColor='var(--e2e-red)';this.style.background='var(--e2e-red-tint)'"
+                        onmouseleave="this.style.borderColor='var(--e2e-red)';this.style.background='transparent'">
+                  Book Free Demo
+                </button>
             </div>
 
             <!-- Trust badges -->
@@ -71,19 +70,19 @@
       </div>
       <div class="col-6 col-md-3">
         <div class="stat-item">
-          <div class="stat-num">400+</div>
+          <div class="stat-num counter-number">400+</div>
           <div class="stat-label">Students learned</div>
         </div>
       </div>
       <div class="col-6 col-md-3">
         <div class="stat-item">
-          <div class="stat-num">10+</div>
+          <div class="stat-num counter-number">10+</div>
           <div class="stat-label">Industry Courses</div>
         </div>
       </div>
       <div class="col-6 col-md-3">
         <div class="stat-item" style="border-right:none">
-          <div class="stat-num">99+</div>
+          <div class="stat-num counter-number">99+</div>
           <div class="stat-label">certifications</div>
         </div>
       </div>
@@ -236,113 +235,179 @@
   </div>
 </section>
 
-
 <!-- ══════════════════════════════════════════
-     WHY CHOOSE US — Trust strip
+     MODERNIZED WHY CHOOSE E2E SECTION
      ══════════════════════════════════════════ -->
-<section style="background:var(--e2e-green-tint);border-top:1px solid rgba(46,125,50,0.12);border-bottom:1px solid rgba(46,125,50,0.12);padding:48px 0"
-         aria-labelledby="why-heading">
+<section class="why-e2e-premium-section" aria-labelledby="why-heading">
   <div class="container">
-    <div class="text-center mb-4">
-      <span class="section-eyebrow" style="color:var(--e2e-green)">Why Choose Us</span>
-      <h2 id="why-heading" style="font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2rem);font-weight:700;color:var(--text-primary)">
-        What Makes E2E Different
-      </h2>
+    <div class="text-center mb-5" data-aos="fade-up">
+      <span class="section-eyebrow">The E2E Advantage</span>
+      <h2 id="why-heading" class="section-title">What Makes E2E Different</h2>
+      <p class="section-subtitle-muted">Skip the traditional generic bootcamps. Experience an elite training curriculum engineered for actual employment outcomes.</p>
     </div>
-    <div class="row g-4 justify-content-center stagger-children">
-        <div class="col-6 col-md-3">
-            <div class="why-card">
-                <span class="why-icon">✓</span>
-                <span class="why-text">MSME Udyam Registered</span>
-            </div>
-        </div>
 
-        <div class="col-6 col-md-3">
-            <div class="why-card">
-                <span class="why-icon">✓</span>
-                <span class="why-text">Corporate-Trained Instructors</span>
-            </div>
+    <div class="row g-4 stagger-children">
+      <!-- Feature Card 1 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="why-card-premium text-center">
+          <div class="why-icon-wrapper red-theme">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <h4>MSME Registered</h4>
+          <p>An officially certified and audited educational workflow recognized for meeting industry-level metrics.</p>
         </div>
-
-        <div class="col-6 col-md-3">
-            <div class="why-card">
-                <span class="why-icon">✓</span>
-                <span class="why-text">Real-Time Live Projects</span>
-            </div>
-        </div>
-        
-        <div class="col-6 col-md-3">
-            <div class="why-card">
-                <span class="why-icon">✓</span>
-                <span class="why-text">EMI / Easy Payment</span>
-            </div>
-        </div>
-
-        <div class="col-6 col-md-3">
-            <div class="why-card">
-                <span class="why-icon">✓</span>
-                <span class="why-text">Internship Programs</span>
-            </div>
-        </div>
-
-        <div class="col-6 col-md-3">
-            <div class="why-card">
-                <span class="why-icon">✓</span>
-                <span class="why-text">Mock Interviews & Resume Help</span>
-            </div>
-        </div>
-
-        <div class="col-6 col-md-3">
-            <div class="why-card">
-                <span class="why-icon">✓</span>
-                <span class="why-text">100% Placement Support</span>
-            </div>
-        </div>
-
-        <div class="col-6 col-md-3">
-            <div class="why-card">
-                <span class="why-icon">✓</span>
-                <span class="why-text">Industry-Standard Curriculum</span>
-            </div>
-        </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- ══════════════════════════════════════════
-     PROJECTS SECTION
-     ══════════════════════════════════════════ -->
-<section class="glass-section projects-section py-5" aria-labelledby="projects-heading">
-  <div class="container">
-    <div class="text-center mb-5">
-      <span class="section-eyebrow">Our Work</span>
-      <h2 id="projects-heading" class="section-title">Client Projects</h2>
-    </div>
-    <div class="project-slider" role="region" aria-label="Project showcase slider">
-      <button class="arrow prev" aria-label="Previous project">&lt;</button>
-      <div class="project-card-wrapper">
-        {% for project in projects %}
-        <article class="project-card {% if forloop.first %}active{% endif %}">
-          {% if project.image %}
-            <img src="{{ project.image.url }}" alt="{{ project.client_name }} project" loading="lazy">
-          {% else %}
-            <img src="{% static 'images/Python.png' %}" alt="Project" loading="lazy">
-          {% endif %}
-          <h4>{{ project.client_name }}</h4>
-          <p><strong style="color:var(--e2e-gold-dark)">Type:</strong> {{ project.project_type }}</p>
-          <p style="color:var(--text-muted)">{{ project.description }}</p>
-        </article>
-        {% endfor %}
       </div>
-      <button class="arrow next" aria-label="Next project">&gt;</button>
+
+      <!-- Feature Card 2 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="why-card-premium text-center">
+          <div class="why-icon-wrapper green-theme">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <h4>Corporate Mentorship</h4>
+          <p>Learn strictly from senior engineers currently handling active deployment frameworks in tech ecosystems.</p>
+        </div>
+      </div>
+
+      <!-- Feature Card 3 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="why-card-premium text-center">
+          <div class="why-icon-wrapper gold-theme">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+          </div>
+          <h4>Live Production Projects</h4>
+          <p>Build enterprise pipelines. Graduate with proof-of-work repositories instead of standard generic configurations.</p>
+        </div>
+      </div>
+
+      <!-- Feature Card 4 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="why-card-premium text-center">
+          <div class="why-icon-wrapper green-theme">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <h4>100% Hiring Support</h4>
+          <p>Gain access to automated reference setups, dynamic resume construction panels, and vetted interview streams.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 
+<!-- ══════════════════════════════════════════
+     DYNAMIC MULTI-PROJECT SHOWCASE LOOP
+     ══════════════════════════════════════════ -->
+<section class="modern-projects-section" aria-labelledby="projects-heading">
+  <div class="container">
+    
+    <div class="text-center mb-5">
+      <span class="section-eyebrow">Our Track Record</span>
+      <h2 id="projects-heading" class="section-title">Production Client Projects</h2>
+      <div class="title-accent-line"></div>
+    </div>
+
+    <!-- Main Slider Framework Wrapper -->
+<!-- This stops auto-play entirely; slides will ONLY change when arrows are clicked -->
+  <div id="modernProjectCarousel" class="carousel slide custom-project-slider" data-bs-ride="false">
+        <div class="carousel-inner">
+        
+        <!-- 1. THE DYNAMIC BACKEND LOOP START -->
+        {% for project in projects %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <div class="row align-items-center g-5">
+            
+            <!-- Left Side: Project Context Data -->
+            <div class="col-lg-5 order-2 order-lg-1">
+              <div class="project-meta-wrap">
+                
+                <!-- Dynamic Category Tag -->
+                <span class="project-category-badge">{{ project.project_type|default:"Live System" }}</span>
+                
+                <!-- Dynamic Title -->
+                <h3 class="project-display-title">{{ project.title }}</h3>
+                
+                <!-- Dynamic Description -->
+                <p class="project-description-text">
+                  {{ project.description }}
+                </p>
+
+                <!-- Dynamic Tech Stack Array (If your model stores technologies used) -->
+                <div class="project-tech-stack mt-4">
+                  {% if project.technologies %}
+                    {% for tech in project.technologies.all %}
+                      <span class="tech-pill">{{ tech.name }}</span>
+                    {% endfor %}
+                  {% else %}
+                    <span class="tech-pill">Production Build</span>
+                    <span class="tech-pill">Verified Deployment</span>
+                  {% endif %}
+                </div>
+
+                <!-- Custom Embedded Navigation Arrow Controls -->
+                <div class="slider-controls-group mt-5 d-none d-lg-flex">
+                  <button class="slider-arrow-btn me-3" type="button" data-bs-target="#modernProjectCarousel" data-bs-slide="prev" aria-label="Previous Project">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                  </button>
+                  <button class="slider-arrow-btn" type="button" data-bs-target="#modernProjectCarousel" data-bs-slide="next" aria-label="Next Project">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Right Side: Browser Canvas Mockup Frame -->
+            <div class="col-lg-7 order-1 order-lg-2">
+              <div class="browser-mockup-container">
+                <div class="browser-header-bar">
+                  <div class="browser-dots">
+                    <span class="dot-red"></span>
+                    <span class="dot-amber"></span>
+                    <span class="dot-green"></span>
+                  </div>
+                  <!-- Optional: Dynamic fake domain based on title -->
+                  <div class="browser-address-field">{{ project.title|slugify }}.com</div>
+                </div>
+                <div class="browser-screen-view">
+                  {% if project.image %}
+                    <img src="{{ project.image.url }}" class="img-fluid project-display-img" alt="{{ project.title }} Interface View">
+                  {% else %}
+                    <div class="project-placeholder-view">Preview Loading...</div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        {% empty %}
+        <!-- Fallback state if zero projects are uploaded yet -->
+        <div class="text-center py-5">
+          <p class="text-muted">Enterprise production pipelines are currently being compiled. Check back soon!</p>
+        </div>
+        {% endfor %}
+        <!-- THE LOOP END -->
+
+      </div>
+
+      <!-- Mobile Fallback Arrows (Displays underneath content block on mobile viewports) -->
+      {% if projects|length > 1 %}
+      <div class="d-flex justify-content-center mt-4 d-lg-none">
+        <button class="slider-arrow-btn me-3" type="button" data-bs-target="#modernProjectCarousel" data-bs-slide="prev">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button class="slider-arrow-btn" type="button" data-bs-target="#modernProjectCarousel" data-bs-slide="next">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+</section>
 <!--══════════════════════════════════════════════════
-   WORKSHOP GALLERY SECTION — paste into index.html
+   WORKSHOP GALLERY SECTION
    ══════════════════════════════════════════════════ 
  
  ── WORKSHOP GALLERY ── -->
@@ -376,6 +441,7 @@
           <img src="{{ photo.image.url }}" alt="{{ photo.title }}" loading="lazy">
           <div class="ws-preview-overlay">
             <span style="font-size:20px">🔍</span>
+            <span class="zoom-label">View Photo</span>
           </div>
         </div>
         {% if forloop.counter == 6 and workshops|length > 6 %}
@@ -397,68 +463,7 @@
   </div>
 </section>
  
-<style>
-.ws-preview-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto auto;
-  gap: 14px;
-}
-/* First item spans 2 rows — hero thumbnail */
-.ws-preview-item:first-child {
-  grid-row: span 2;
-}
-.ws-preview-item {
-  display: block;
-  text-decoration: none;
-  position: relative;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.32s var(--ease);
-}
-.ws-preview-item:hover {
-  transform: scale(1.03);
-  box-shadow: var(--shadow-lg);
-}
-.ws-preview-img {
-  width: 100%; height: 100%;
-  position: relative;
-  min-height: 160px;
-}
-.ws-preview-item:first-child .ws-preview-img { min-height: 334px; }
-.ws-preview-img img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.ws-preview-overlay {
-  position: absolute; inset: 0;
-  background: rgba(46,125,50,0.70);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0;
-  transition: opacity 0.28s;
-}
-.ws-preview-item:hover .ws-preview-overlay { opacity: 1; }
-.ws-more-overlay {
-  position: absolute; inset: 0;
-  background: rgba(26,26,26,0.72);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 4px; color: #fff;
-}
- 
-@media (max-width: 768px) {
-  .ws-preview-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .ws-preview-item:first-child { grid-row: span 1; }
-  .ws-preview-item:first-child .ws-preview-img { min-height: 160px; }
-}
-@media (max-width: 480px) {
-  .ws-preview-grid { grid-template-columns: 1fr 1fr; }
-}
-</style>
+
  
 
 
@@ -594,20 +599,7 @@
 </section>
  
 <style>
-.cert-preview-card {
-  background: var(--bg-white);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-lg);
-  padding: 18px;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.32s var(--ease);
-  height: 100%;
-}
-.cert-preview-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-xl);
-  border-color: var(--e2e-gold);
-}
+
 </style>
 
 
@@ -677,7 +669,7 @@
             <span style="font-size:20px;flex-shrink:0;margin-top:2px" aria-hidden="true">📍</span>
             <div>
               <div style="font-weight:600;font-size:14px;margin-bottom:2px">Address</div>
-              <div style="color:rgba(255,255,255,0.82);font-size:14px;line-height:1.65">Tamil Nadu, India</div>
+              <div style="color:rgba(255,255,255,0.82);font-size:14px;line-height:1.65">NGO colony,Dindigul,Tamil Nadu, India</div>
             </div>
           </div>
           <div style="display:flex;align-items:flex-start;gap:14px">

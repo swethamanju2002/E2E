@@ -42,6 +42,7 @@
   <!-- NEW: Brand tokens then full redesign (loads last = highest priority) -->
   <link rel="stylesheet" href="{% static 'css/brand_new.css' %}">
   <link rel="stylesheet" href="{% static 'css/e2e_redesign.css' %}">
+  <link rel="stylesheet" href="{% static 'css/modal-fix.css' %}">
 </head>
 
 <body>
@@ -78,29 +79,23 @@
           <li class="nav-item"><a class="nav-link" href="{% url 'allcourse' %}">Courses</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'services' %}">Services</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'workshops' %}">Workshops</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'reviews' %}">Reviews</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'certificates' %}">Certificates</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'careers' %}">Careers</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
-
-          <!-- CTA button in nav -->
-          <li class="nav-item ms-lg-2">
-            <button type="button"
-                    class="btn btn-success px-4 py-2"
-                    style="font-size:13px;font-weight:700;"
-                    data-bs-toggle="modal"
-                    data-bs-target="#demoModal"
-                    aria-label="Book a free demo session">
-              Free Demo ↗
-            </button>
-          </li>
         </ul>
       </div>
     </div>
   </nav>
 
   <!-- ══════════ PAGE CONTENT ══════════ -->
-  <main id="main-content" id="page-content" style="margin-top:76px;position:relative;z-index:1;">
-    {% block content %}{% endblock %}
+  <main id="main-content" class="page-content" style="margin-top:76px;position:relative;">
+    {% block content %}
+    
+    
+    
+    
+    {% endblock %}
   </main>
 
   <!-- ══════════ FOOTER ══════════ -->
@@ -111,7 +106,8 @@
         <!-- Brand col -->
         <div class="col-md-4">
           <div class="d-flex align-items-center gap-2 mb-3">
-            <img src="{% static 'images/e2elogo.png' %}" height="36" alt="Errors2Experts logo">
+            <img src="{% static 'images/logo.jpeg' %}" height="36" alt="Errors2Experts logo">
+            <span class='f-bold'>Errors2Experts</span>
           </div>
           <p style="font-size:14px;line-height:1.85;color:rgba(255,255,255,0.72)">
             Professional IT training institute with industry-oriented courses,
@@ -141,7 +137,7 @@
           <h5>Contact Us</h5>
           <address style="font-style:normal">
             <p style="font-size:14px;line-height:2.1;margin:0">
-              <span aria-label="Location">📍</span> Tamil Nadu, India<br>
+              <span aria-label="Location">📍</span>NGO Colony, Dindighl, Tamil Nadu, India<br>
               <a href="mailto:errors2experts.official@gmail.com" aria-label="Email us">
                 ✉️ errors2experts.official@gmail.com
               </a><br>

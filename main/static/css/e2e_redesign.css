@@ -71,7 +71,7 @@ body {
   padding-top: 12px !important;
   padding-bottom: 12px !important;
   transition: box-shadow var(--transition), background var(--transition) !important;
-  z-index: 1000 !important;
+  z-index: 1050 !important;  /* above hero layers, below modals */
 }
 .navbar.scrolled {
   box-shadow: var(--shadow-md) !important;
@@ -92,10 +92,17 @@ body {
   color: var(--text-primary) !important;
   text-decoration: none !important;
 }
-/* .error-part  { color: var(--e2e-red) !important;  }
-.two-part    { color: var(--e2e-gold) !important;  }
-.expert-part { color: var(--e2e-green) !important;  } */
+.e2e {
+  color: var(--e2e-text) !important; /* Base color for "Welcome to" and "2" */
+}
 
+.brand-errors {
+  color: var(--e2e-red) !important; /* Matches the red theme on the left student side */
+}
+
+.brand-experts {
+  color: var(--e2e-green) !important; /* Matches the green theme on the right student side */
+}
 .navbar .nav-link {
   font-family: var(--font-body) !important;
   font-size: 14px !important;
@@ -163,13 +170,13 @@ body {
   overflow: hidden !important;
 }
 
-/* Keep the bg image from parallax but override the filter */
+/* Decorative overlay — must NEVER intercept clicks/taps */
 .hero-slide::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
   z-index: 1;
+  pointer-events: none !important;  /* FIX: was silently blocking all clicks */
 }
 
 /* Grid mesh removed - use clean white overlay */
@@ -177,19 +184,14 @@ body {
   display: none !important;
 }
 
-/* Hero actual background via body or wrapper */
+/* Hero background — relative positioning only, no fixed layer */
 .hero-slider {
   background-image: url('/static/images/hero_img.png') !important;
   background-size: cover !important;
   background-position: center center !important;
-  background-attachment: fixed !important;
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-}
-.hero-slider {
-  position: relative;
-  z-index: 1;
+  background-attachment: scroll !important;  /* fixed caused stacking issues */
+  position: relative !important;
+  z-index: 1 !important;
 }
 .hero-slide {
   position: relative;
@@ -286,9 +288,11 @@ body {
   padding: 5px 14px;
 }
 .trust-badge .check { color: var(--e2e-green); font-weight: 700; }
-.e2e, .tagline, .welcome-text {
-  color: #FFFFFF !important;
-  text-shadow: 0 4px 12px rgba(0,0,0,0.4);
+.welcome-text , .hero-slide p{
+  color: #1A1A1A !important;
+}
+.hero-slide p{
+  color: #555555 !important;
 }
 /* Hero buttons */
 .hero-glass-card .btn-success,
@@ -707,38 +711,150 @@ body {
   box-shadow: 0 12px 28px rgba(201,162,39,0.4) !important;
   filter: brightness(1.05) !important;
 }
-
-/* ══════════════════════════════════════════
-   PROJECTS SECTION
-   ══════════════════════════════════════════ */
-.projects-section {
-  background: var(--bg-white) !important;
-  padding: 80px 0 !important;
-}
-.project-card {
-  background: var(--bg-white) !important;
-  border: 1px solid var(--border-light) !important;
-  border-radius: var(--radius-lg) !important;
-  box-shadow: var(--shadow-sm) !important;
+/* ==========================================================================
+   MODERN PROJECTS SHOWCASE DESIGN ARCHITECTURE
+   ========================================================================== */
+.modern-projects-section {
+  padding: 100px 0;
+  background-color: var(--bg-page);
   overflow: hidden;
-  padding: 20px !important;
-}
-.project-card h4 { color: var(--text-primary) !important; font-weight: 700 !important; }
-.project-card p  { color: var(--text-muted) !important; font-size: 14px !important; }
-.arrow {
-  background: var(--bg-soft) !important;
-  border: 1.5px solid var(--border-medium) !important;
-  color: var(--text-secondary) !important;
-  border-radius: var(--radius-sm) !important;
-  transition: var(--transition) !important;
-}
-.arrow:hover {
-  background: var(--e2e-green-tint) !important;
-  border-color: var(--e2e-green) !important;
-  color: var(--e2e-green) !important;
-  transform: scale(1.06) !important;
 }
 
+/* Typography & Layout Setup */
+.project-meta-wrap {
+  padding-right: 15px;
+}
+
+.project-category-badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--e2e-green);
+  background-color: var(--e2e-green-tint);
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+}
+
+.project-display-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  letter-spacing: -0.5px;
+}
+
+.project-description-text {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+/* Micro Tech Pills */
+.project-tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tech-pill {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  padding: 6px 16px;
+  border-radius: 30px;
+}
+
+/* CSS-Engineered Browser Canvas Mockup Frame */
+.browser-mockup-container {
+  background: var(--bg-white);
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.02);
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  transition: transform var(--transition);
+}
+
+.browser-mockup-container:hover {
+  transform: translateY(-4px);
+}
+
+.browser-header-bar {
+  background: #f1f3f4;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.browser-dots {
+  display: flex;
+  gap: 6px;
+  margin-right: 20px;
+}
+
+.browser-dots span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-red { background: #ff5f56; }
+.dot-amber { background: #ffbd2e; }
+.dot-green { background: #27c93f; }
+
+.browser-address-field {
+  background: var(--bg-white);
+  color: var(--text-muted);
+  font-size: 11px;
+  padding: 4px 24px;
+  border-radius: 6px;
+  flex-grow: 1;
+  max-width: 320px;
+  text-align: center;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.browser-screen-view {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+}
+
+.project-display-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+/* Custom Minimalist Navigation Chevrons */
+.slider-arrow-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  cursor: pointer;
+}
+
+.slider-arrow-btn:hover {
+  background: var(--text-primary);
+  color: var(--bg-white);
+  border-color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+}
 /* ══════════════════════════════════════════
    REVIEWS
    ══════════════════════════════════════════ */
@@ -820,7 +936,86 @@ body {
   margin-top: 10px !important;
   font-weight: 500 !important;
 }
-
+/* ══════════════════════════════════════════
+   workshop
+   ══════════════════════════════════════════ */
+.ws-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 14px;
+}
+/* First item spans 2 rows — hero thumbnail */
+.ws-preview-item:first-child {
+  grid-row: span 2;
+}
+.ws-preview-item {
+  display: block;
+  text-decoration: none;
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.32s var(--ease);
+}
+.ws-preview-item:hover {
+  transform: scale(1.03);
+  box-shadow: var(--shadow-lg);
+}
+.ws-preview-img {
+  width: 100%; height: 100%;
+  position: relative;
+  min-height: 160px;
+}
+.ws-preview-item:first-child .ws-preview-img { min-height: 334px; }
+.ws-preview-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.ws-preview-overlay {
+  position: absolute; inset: 0;
+  background: rgba(46,125,50,0.70);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  transition: opacity 0.28s;
+}
+.ws-preview-item:hover .ws-preview-overlay { opacity: 1; }
+.ws-more-overlay {
+  position: absolute; inset: 0;
+  background: rgba(26,26,26,0.72);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 4px; color: #fff;
+}
+ 
+@media (max-width: 768px) {
+  .ws-preview-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ws-preview-item:first-child { grid-row: span 1; }
+  .ws-preview-item:first-child .ws-preview-img { min-height: 160px; }
+}
+@media (max-width: 480px) {
+  .ws-preview-grid { grid-template-columns: 1fr 1fr; }
+}
+/* ══════════════════════════════════════════
+   certificate
+   ══════════════════════════════════════════ */
+.cert-preview-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.32s var(--ease);
+  height: 100%;
+}
+.cert-preview-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--e2e-gold);
+}
 /* ══════════════════════════════════════════
    MODALS
    ══════════════════════════════════════════ */
@@ -1004,28 +1199,207 @@ body {
   border-color: var(--e2e-green) !important;
 }
 
-/* ══════════════════════════════════════════
-   CAREER PAGE
-   ══════════════════════════════════════════ */
-.career-right, .career-left .mini-card {
-  background: var(--bg-white) !important;
-  border: 1px solid var(--border-light) !important;
-  box-shadow: var(--shadow-sm) !important;
-}
-.mini-card { color: var(--text-primary) !important; }
-.mini-card:hover { transform: scale(1.04) !important; }
-.badge-type {
-  background: var(--e2e-green-tint) !important;
-  border: 1px solid rgba(46,125,50,0.2) !important;
-  color: var(--e2e-green-dark) !important;
-  border-radius: var(--radius-pill) !important;
-  font-weight: 600 !important;
-  font-size: 12px !important;
+/* ==========================================================================
+   MODERN CAREER MATRIX ARCHITECTURE
+   ========================================================================== */
+.modern-careers-section {
+  padding: 90px 0;
+  background-color: var(--bg-page);
 }
 
-/* Career detail page */
-section.container.py-5 > div {
-  max-width: 800px; margin: 0 auto;
+.job-listings-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Premium Job Listing White Cards */
+.job-listing-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 32px 40px;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  box-shadow: var(--shadow-sm);
+}
+
+.job-listing-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(46, 125, 50, 0.25);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.04);
+}
+
+/* Decorative Micro Status Badges */
+.job-badge {
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+}
+
+.badge-time {
+  background-color: var(--e2e-green-tint);
+  color: var(--e2e-green);
+}
+
+.badge-dept {
+  background-color: var(--e2e-gold-tint);
+  color: var(--e2e-gold-dark);
+}
+
+/* Typography Hierarchy Enhancements */
+.job-card-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  letter-spacing: -0.3px;
+}
+
+.job-card-excerpt {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+
+/* Minimalist Context Meta Row */
+.job-metadata-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.meta-item svg {
+  color: rgba(0, 0, 0, 0.35);
+  flex-shrink: 0;
+}
+
+/* Modernized CTA Buttons */
+.btn-career-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: var(--e2e-green);
+  color: var(--bg-white);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 12px 28px;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.btn-career-action:hover {
+  background-color: #256829; /* Deepened semantic emerald tone focus override */
+  color: var(--bg-white);
+  box-shadow: 0 8px 20px rgba(46, 125, 50, 0.25);
+}
+
+.btn-career-action svg {
+  transition: transform var(--transition);
+}
+
+.btn-career-action:hover svg {
+  transform: translateX(4px);
+}
+
+/* White Fallback States */
+.white-fallback-box {
+  background: var(--bg-white);
+  border: 1px dashed var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+}
+/* ==========================================================================
+   E2E CAREER HUB UNIFIED ARCHITECTURE
+   ========================================================================== */
+.career-container-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 40px;
+  overflow: hidden;
+}
+
+/* Modern Form Field System (Skins Django {{ form.field }} widgets) */
+.modern-form-wrapper .form-group {
+  margin-bottom: 24px;
+}
+
+.modern-form-wrapper label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.modern-form-wrapper input,
+.modern-form-wrapper select,
+.modern-form-wrapper textarea {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 15px;
+  background-color: var(--bg-page);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  transition: all var(--transition);
+}
+
+.modern-form-wrapper input:focus,
+.modern-form-wrapper select:focus,
+.modern-form-wrapper textarea:focus {
+  outline: none;
+  background-color: var(--bg-white);
+  border-color: var(--e2e-green);
+  box-shadow: 0 0 0 4px var(--e2e-green-tint);
+}
+
+.modern-form-wrapper textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+/* Success Components */
+.success-checkmark-circle {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--e2e-green), #059669);
+  color: var(--bg-white);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  box-shadow: 0 8px 24px rgba(46, 125, 50, 0.25);
+  margin-bottom: 24px;
+}
+/* Responsive Adaptive Viewport Tweaks */
+@media (max-width: 991.98px) {
+  .job-listing-card {
+    padding: 24px;
+  }
+  .btn-career-action {
+    width: 100%;
+    margin-top: 8px;
+  }
 }
 
 /* ══════════════════════════════════════════
@@ -1164,11 +1538,90 @@ div[style*="rgba(16,185,129,0.08)"].reveal {
   border-bottom: 1px solid var(--border-light) !important;
 }
 
-/* Why-choose-us strip */
-div[style*="rgba(255,255,255,0.04)"] {
-  background: var(--bg-white) !important;
-  border: 1.5px solid var(--border-light) !important;
-  color: var(--text-secondary) !important;
+
+/* ══════════════════════════════════════════
+   Why-choose-us strip 
+   ══════════════════════════════════════════ */
+
+/* Premium Why Choose Us Modern Overhaul */
+.why-e2e-premium-section {
+  padding: 100px 0;
+  background: var(--bg-white);
+  border-top: 1px solid var(--border-light);
+}
+
+.section-subtitle-muted {
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 12px auto 0;
+  font-size: 15px;
+}
+
+.why-card-premium {
+  background: var(--bg-page);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 36px 24px;
+  height: 100%;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.why-card-premium::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--grad-brand);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition);
+}
+
+.why-card-premium:hover::before {
+  transform: scaleX(1);
+}
+
+.why-card-premium:hover {
+  transform: translateY(-8px);
+  background: var(--bg-white);
+  border-color: rgba(46, 125, 50, 0.2);
+  box-shadow: var(--shadow-lg);
+}
+
+.why-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  transition: transform var(--transition);
+}
+
+.why-card-premium:hover .why-icon-wrapper {
+  transform: scale(1.1) rotate(3deg);
+}
+
+/* Dynamic color profiles leveraging brand tokens */
+.why-icon-wrapper.red-theme { background: var(--e2e-red-tint); color: var(--e2e-red); }
+.why-icon-wrapper.green-theme { background: var(--e2e-green-tint); color: var(--e2e-green); }
+.why-icon-wrapper.gold-theme { background: var(--e2e-gold-tint); color: var(--e2e-gold-dark); }
+
+.why-card-premium h4 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.why-card-premium p {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 0;
 }
 
 /* ══════════════════════════════════════════

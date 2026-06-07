@@ -1,25 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<div style="min-height:60vh;display:flex;align-items:center;justify-content:center;padding:60px 20px">
-  <div style="background:rgba(13,27,42,0.8);border:1px solid rgba(16,185,129,0.2);border-radius:24px;padding:60px 48px;text-align:center;max-width:560px;animation:fadeUp 0.8s ease" class="reveal">
-
-    <div style="width:72px;height:72px;background:linear-gradient(135deg,var(--brand-green),#059669);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 24px;box-shadow:0 8px 30px rgba(16,185,129,0.4)">✓</div>
-
-    <h2 style="font-family:var(--font-display);font-weight:800;font-size:2rem;margin-bottom:12px">Application Submitted!</h2>
-
-    <p style="color:var(--text-muted);line-height:1.7;font-size:15px;margin-bottom:8px">
-      Thank you for your interest. We've received your application.
-    </p>
-    <p style="color:var(--text-muted);line-height:1.7;font-size:15px;margin-bottom:32px">
-      Our HR team will review your profile and reach out soon.
-    </p>
-
-    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px">
-      <a href="{% url 'careers' %}" class="btn btn-outline-light px-4">View More Openings</a>
-      <a href="{% url 'home' %}" class="btn btn-success px-4">Back to Home</a>
+<div style="min-height: 70vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px;">
+  <div class="career-container-card text-center" style="max-width: 540px; width: 100%;" data-aos="zoom-in">
+    
+    <!-- Success Animated Checkmark Chassis -->
+    <div class="success-checkmark-circle">
+      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
     </div>
+
+    <h2 style="font-size: 28px; font-weight: 800; color: var(--text-primary); margin-bottom: 12px; letter-spacing: -0.5px;">Application Received!</h2>
+    
+    <p style="color: var(--text-muted); line-height: 1.7; font-size: 15.5px; margin-bottom: 32px;">
+      Thank you for your interest in joining Errors2Experts. Our HR team will carefully evaluate your profile credentials against our open requirements and follow up with you shortly [source: 11].
+    </p>
+
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 14px;">
+      <a href="{% url 'careers' %}" class="btn-career-action" style="background-color: transparent; border: 1px solid var(--border-light); color: var(--text-primary);">
+        <span>View Openings</span>
+      </a>
+      <a href="{% url 'home' %}" class="btn-career-action">
+        <span>Return To Home</span>
+      </a>
+    </div>
+
   </div>
 </div>
-
 {% endblock %}

@@ -38,9 +38,9 @@ from .models import Course
 
 
 
-def index(request):
+def review_page(request):
     reviews = StudentReview.objects.all().order_by('-created_at')
-    return render(request, 'index.html', {'reviews': reviews})
+    return render(request, 'reviews.html', {'reviews': reviews})
 def course_detail(request, id):
     course = get_object_or_404(Course, id=id)
 
