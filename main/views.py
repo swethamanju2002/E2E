@@ -3,6 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.shortcuts import render, redirect
 from .models import Course, Service,CourseBooking, Contact,ClientProject,StudentReview
+from .models import WorkshopPhoto, Certificate
 
 def home(request):
     courses = Course.objects.all()
@@ -10,6 +11,8 @@ def home(request):
     projects=ClientProject.objects.all()
     reviews=StudentReview.objects.all()
     total_bookings = CourseBooking.objects.count()
+    workshops       = WorkshopPhoto.objects.all()    
+    certificates    = Certificate.objects.all()
 
     
 
@@ -25,7 +28,9 @@ def home(request):
         'services': services,
         'projects':projects,
         'reviews':reviews,
-        "total_bookings": total_bookings
+        "total_bookings": total_bookings,
+        'workshops': workshops,  
+        'certificates':  certificates,
     })
     
 from django.shortcuts import render, get_object_or_404
@@ -617,3 +622,15 @@ Errors2Experts Team
         )
         messages.success(request, "Service Registered Successfully")
         return redirect("services")  # change if needed
+    
+def workshop_gallery(request):
+    """Dedicated full-page workshop gallery."""
+    workshops = WorkshopPhoto.objects.all()
+    return render(request, 'workshop.html', {'workshops': workshops})
+ 
+ 
+def certificate_gallery(request):
+    """Dedicated full-page certificate gallery."""
+    certificates = Certificate.objects.all()
+    return render(request, 'certificate.html', {'certificates': certificates})
+ 

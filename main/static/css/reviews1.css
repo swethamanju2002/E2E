@@ -21,7 +21,7 @@
     display: flex;
     gap: 30px;
     width: max-content;
-    animation: reviewScroll 30s linear infinite;
+    animation: reviewScroll 80s linear infinite;
 }
 
 @keyframes reviewScroll {
@@ -36,7 +36,7 @@
     padding: 25px 20px;
     border-radius: 18px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    transition: transform .3s ease, box-shadow .3s ease;
+    /* transition: transform .3s ease, box-shadow .3s ease; */
 }
 
 .review-card:hover {

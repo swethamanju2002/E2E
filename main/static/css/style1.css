@@ -111,18 +111,18 @@ html, body {
 .error-part,
 .two-part,
 .expert-part {
-    color: #ffffff;
+    color : var(--grad-brand);
     transition: 0.5s ease;
 }
 
 .error-part { animation: errorColor 5s infinite; }
-@keyframes errorColor { 0%, 70%,100% { color: #fff; } 20% { color: #dc3545; } }
+@keyframes errorColor { 0%, 70%,100% { color: #dc3545; } 20% { color: #e65c5c; } }
 
 .two-part { display: inline-block; animation: twoRotate 5s infinite; }
-@keyframes twoRotate { 0%,70%,100%{transform:rotate(0deg);color:#fff;}30%{transform:rotate(360deg);color:#ffc107;} }
+@keyframes twoRotate { 0%,70%,100%{transform:rotate(0deg);color:#ebe973;}30%{transform:rotate(360deg);color:#ffc107;} }
 
 .expert-part { animation: expertColor 5s infinite; }
-@keyframes expertColor { 0%,70%,100%{color:#fff;}40%{color:#56ab2f;} }
+@keyframes expertColor { 0%,70%,100%{color:#56ab2f;}40%{color: #9feb81;} }
 
 /* ===== ENHANCED HERO SECTION ===== */
 .hero-slide {

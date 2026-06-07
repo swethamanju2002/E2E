@@ -132,3 +132,52 @@ class ServiceBooking(models.Model):
 
     def __str__(self):
         return f"{self.full_name} - {self.service_name}"
+
+class WorkshopPhoto(models.Model):
+    """
+    Stores photos from workshops / events conducted by Errors2Experts.
+    Upload images via Django admin → they appear in the Workshop Gallery section.
+    """
+    title       = models.CharField(max_length=200, help_text="e.g. 'Python Bootcamp – March 2025'")
+    description = models.TextField(blank=True, help_text="Short caption shown under the photo (optional)")
+    image       = models.ImageField(upload_to='workshop_photos/', help_text="Upload workshop photo")
+    event_date  = models.DateField(blank=True, null=True, help_text="Date the workshop was held (optional)")
+    order       = models.PositiveIntegerField(default=0, help_text="Lower number = shown first")
+    created_at  = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['order', '-created_at']
+        verbose_name        = 'Workshop Photo'
+        verbose_name_plural = 'Workshop Photos'
+
+    def __str__(self):
+        return self.title
+
+
+class Certificate(models.Model):
+    """
+    Stores certificate images that E2E issues to students.
+    Each certificate can have a name, course name, and an image (scan/design).
+    Upload via Django admin → they appear in the Certificates section.
+    """
+    CERT_TYPES = (
+        ('course',      'Course Completion'),
+        ('internship',  'Internship'),
+        ('workshop',    'Workshop'),
+        ('project',     'Live Project'),
+    )
+
+    cert_type   = models.CharField(max_length=20, choices=CERT_TYPES, default='course', verbose_name='Certificate Type')
+    course_name = models.CharField(max_length=200, help_text="e.g. 'Python Full Stack Development'")
+    image       = models.ImageField(upload_to='certificates/', help_text="Upload certificate image/scan")
+    description = models.TextField(blank=True, help_text="Optional tagline shown under the certificate")
+    order       = models.PositiveIntegerField(default=0, help_text="Lower number = shown first")
+    created_at  = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['order', '-created_at']
+        verbose_name        = 'Certificate'
+        verbose_name_plural = 'Certificates'
+
+    def __str__(self):
+        return f"{self.course_name} ({self.get_cert_type_display()})"

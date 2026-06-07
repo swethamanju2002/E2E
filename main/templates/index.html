@@ -7,7 +7,7 @@
      Background image visible through soft white overlay
      ══════════════════════════════════════════ -->
 <section class="hero-slider" aria-label="Hero banner">
-  <div id="heroCarousel" class="carousel slide carousel-fade">
+  <div id="heroCarousel" class="carousel slide ">
     <div class="carousel-inner">
       <div class="carousel-item active">
         <div class="hero-slide d-flex align-items-center justify-content-center text-center">
@@ -134,7 +134,7 @@
       </div>
 
       <div class="col-md-6" data-aos="fade-left">
-        <img src="{% static 'images/e2e1.png' %}"
+        <img src="{% static 'images/e2elogo.png' %}"
              class="img-fluid"
              style="border-radius:16px;box-shadow:var(--shadow-xl);border:1px solid var(--border-light)"
              alt="Errors2Experts training campus"
@@ -250,16 +250,61 @@
       </h2>
     </div>
     <div class="row g-4 justify-content-center stagger-children">
-      {% for item in "MSME Udyam Registered|Corporate-Trained Instructors|Real-Time Live Projects|EMI / Easy Payment|Internship Programs|Mock Interviews & Resume Help|100% Placement Support|Industry-Standard Curriculum" %}
-      <div class="col-6 col-md-3">
-        <div style="background:var(--bg-white);border:1.5px solid rgba(46,125,50,0.15);border-radius:14px;padding:20px 16px;text-align:center;box-shadow:var(--shadow-xs);transition:var(--transition)"
-             onmouseover="this.style.boxShadow='var(--shadow-md)';this.style.borderColor='rgba(46,125,50,0.35)'"
-             onmouseout="this.style.boxShadow='var(--shadow-xs)';this.style.borderColor='rgba(46,125,50,0.15)'">
-          <span style="color:var(--e2e-green);font-size:20px;font-weight:700;display:block;margin-bottom:8px">✓</span>
-          <span style="font-size:14px;font-weight:600;color:var(--text-primary)">{{ item }}</span>
+        <div class="col-6 col-md-3">
+            <div class="why-card">
+                <span class="why-icon">✓</span>
+                <span class="why-text">MSME Udyam Registered</span>
+            </div>
         </div>
-      </div>
-      {% endfor %}
+
+        <div class="col-6 col-md-3">
+            <div class="why-card">
+                <span class="why-icon">✓</span>
+                <span class="why-text">Corporate-Trained Instructors</span>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="why-card">
+                <span class="why-icon">✓</span>
+                <span class="why-text">Real-Time Live Projects</span>
+            </div>
+        </div>
+        
+        <div class="col-6 col-md-3">
+            <div class="why-card">
+                <span class="why-icon">✓</span>
+                <span class="why-text">EMI / Easy Payment</span>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="why-card">
+                <span class="why-icon">✓</span>
+                <span class="why-text">Internship Programs</span>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="why-card">
+                <span class="why-icon">✓</span>
+                <span class="why-text">Mock Interviews & Resume Help</span>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="why-card">
+                <span class="why-icon">✓</span>
+                <span class="why-text">100% Placement Support</span>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="why-card">
+                <span class="why-icon">✓</span>
+                <span class="why-text">Industry-Standard Curriculum</span>
+            </div>
+        </div>
     </div>
   </div>
 </section>
@@ -294,6 +339,127 @@
     </div>
   </div>
 </section>
+
+
+<!--══════════════════════════════════════════════════
+   WORKSHOP GALLERY SECTION — paste into index.html
+   ══════════════════════════════════════════════════ 
+ 
+ ── WORKSHOP GALLERY ── -->
+<section style="background:var(--bg-page);padding:80px 0;" aria-labelledby="workshops-heading">
+  <div class="container">
+ 
+    <!-- Header row -->
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:36px" class="reveal">
+      <div>
+        <span class="section-eyebrow">Captured Moments</span>
+        <h2 id="workshops-heading" class="section-title" style="text-align:left;margin-bottom:0">
+          Our Workshop Gallery
+        </h2>
+        <p style="color:var(--text-muted);margin-top:10px;max-width:440px;font-size:15px">
+          Real hands-on training sessions, bootcamps and events — see how we learn by doing.
+        </p>
+      </div>
+      <a href="{% url 'workshops' %}" class="btn btn-success px-4 py-2" style="white-space:nowrap">
+        View All Photos →
+      </a>
+    </div>
+ 
+    {% if workshops %}
+    <!-- Preview grid — shows first 6 photos -->
+    <div class="ws-preview-grid stagger-children">
+      {% for photo in workshops|slice:":6" %}
+      <a href="{% url 'workshops' %}"
+         class="ws-preview-item reveal-scale"
+         aria-label="{{ photo.title }}">
+        <div class="ws-preview-img">
+          <img src="{{ photo.image.url }}" alt="{{ photo.title }}" loading="lazy">
+          <div class="ws-preview-overlay">
+            <span style="font-size:20px">🔍</span>
+          </div>
+        </div>
+        {% if forloop.counter == 6 and workshops|length > 6 %}
+        <!-- "See more" overlay on last tile -->
+        <div class="ws-more-overlay">
+          <span style="font-size:28px">+{{ workshops|length|add:"-6" }}</span>
+          <span style="font-size:14px;font-weight:600">More Photos</span>
+        </div>
+        {% endif %}
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div style="text-align:center;padding:48px;background:var(--bg-white);border:1px dashed var(--border-medium);border-radius:var(--radius-lg)">
+      <p style="color:var(--text-muted);margin:0">Workshop photos will appear here once uploaded via Admin.</p>
+    </div>
+    {% endif %}
+ 
+  </div>
+</section>
+ 
+<style>
+.ws-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 14px;
+}
+/* First item spans 2 rows — hero thumbnail */
+.ws-preview-item:first-child {
+  grid-row: span 2;
+}
+.ws-preview-item {
+  display: block;
+  text-decoration: none;
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.32s var(--ease);
+}
+.ws-preview-item:hover {
+  transform: scale(1.03);
+  box-shadow: var(--shadow-lg);
+}
+.ws-preview-img {
+  width: 100%; height: 100%;
+  position: relative;
+  min-height: 160px;
+}
+.ws-preview-item:first-child .ws-preview-img { min-height: 334px; }
+.ws-preview-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.ws-preview-overlay {
+  position: absolute; inset: 0;
+  background: rgba(46,125,50,0.70);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  transition: opacity 0.28s;
+}
+.ws-preview-item:hover .ws-preview-overlay { opacity: 1; }
+.ws-more-overlay {
+  position: absolute; inset: 0;
+  background: rgba(26,26,26,0.72);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 4px; color: #fff;
+}
+ 
+@media (max-width: 768px) {
+  .ws-preview-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ws-preview-item:first-child { grid-row: span 1; }
+  .ws-preview-item:first-child .ws-preview-img { min-height: 160px; }
+}
+@media (max-width: 480px) {
+  .ws-preview-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+ 
 
 
 <!-- ══════════════════════════════════════════
@@ -341,6 +507,108 @@
     </div>
   </div>
 </section>
+ <!--════════════════════════════════════════════════════
+   CERTIFICATE GALLERY SECTION — paste into index.html
+   ════════════════════════════════════════════════════ 
+ 
+ ── CERTIFICATE SECTION ── -->
+<section style="background:var(--bg-white);padding:80px 0;" aria-labelledby="certs-heading">
+  <div class="container">
+ 
+    <!-- Header row -->
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:36px" class="reveal">
+      <div>
+        <span class="section-eyebrow" style="color:var(--e2e-gold)">RECOGNITION</span>
+        <h2 id="certs-heading" class="section-title" style="text-align:left;margin-bottom:0">
+          Certificates We Provide
+        </h2>
+        <p style="color:var(--text-muted);margin-top:10px;max-width:440px;font-size:15px">
+          Every student who completes our program earns an industry-recognised certificate.
+        </p>
+      </div>
+      <a href="{% url 'certificates' %}" class="btn btn-success px-4 py-2" style="white-space:nowrap">
+        View All Certificates →
+      </a>
+    </div>
+ 
+    {% if certificates %}
+    <!-- Horizontal scroll strip — show first 4 -->
+    <div style="display:flex;gap:20px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch" class="stagger-children">
+      {% for cert in certificates|slice:":4" %}
+      <a href="{% url 'certificates' %}"
+         style="flex-shrink:0;width:260px;scroll-snap-align:start;text-decoration:none"
+         aria-label="{{ cert.course_name }} certificate">
+        <div class="cert-preview-card reveal-scale">
+          <!-- Gold frame image -->
+          <div style="border:3px solid var(--e2e-gold);border-radius:var(--radius-md);padding:4px;background:var(--e2e-gold-bg);margin-bottom:14px;height:180px;overflow:hidden">
+            <img src="{{ cert.image.url }}"
+                 alt="{{ cert.course_name }}"
+                 loading="lazy"
+                 style="width:100%;height:100%;object-fit:cover;border-radius:10px;display:block">
+          </div>
+          <!-- Badge -->
+          <span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;
+                        border-radius:20px;padding:3px 10px;margin-bottom:8px;
+                        background:rgba(201,162,39,0.12);color:#a07c10;border:1px solid rgba(201,162,39,0.25)">
+            {% if cert.cert_type == 'course' %}📘{% elif cert.cert_type == 'internship' %}💼{% elif cert.cert_type == 'workshop' %}🎯{% else %}🔬{% endif %}
+            {{ cert.get_cert_type_display }}
+          </span>
+          <h3 style="font-family:var(--font-display);font-size:15px;font-weight:600;
+                     color:var(--text-primary);line-height:1.35;margin:0">{{ cert.course_name }}</h3>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div style="text-align:center;padding:48px;background:var(--bg-page);border:1px dashed var(--border-medium);border-radius:var(--radius-lg)">
+      <p style="color:var(--text-muted);margin:0">Certificate samples will appear here once uploaded via Admin.</p>
+    </div>
+    {% endif %}
+ 
+    <!-- Trust line -->
+    <div style="display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin-top:36px" class="reveal">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="width:40px;height:40px;background:var(--e2e-green-bg);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px">🏅</span>
+        <div>
+          <p style="font-weight:600;font-size:14px;color:var(--text-dark);margin:0">Industry Recognised</p>
+          <p style="font-size:12px;color:var(--text-muted);margin:0">Respected by hiring companies</p>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="width:40px;height:40px;background:var(--e2e-gold-bg);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px">📄</span>
+        <div>
+          <p style="font-weight:600;font-size:14px;color:var(--text-dark);margin:0">Official Certificate</p>
+          <p style="font-size:12px;color:var(--text-muted);margin:0">Issued by MSME-registered institute</p>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="width:40px;height:40px;background:var(--e2e-red-bg);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px">✅</span>
+        <div>
+          <p style="font-weight:600;font-size:14px;color:var(--text-dark);margin:0">Verifiable</p>
+          <p style="font-size:12px;color:var(--text-muted);margin:0">Backed by our institute records</p>
+        </div>
+      </div>
+    </div>
+ 
+  </div>
+</section>
+ 
+<style>
+.cert-preview-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.32s var(--ease);
+  height: 100%;
+}
+.cert-preview-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--e2e-gold);
+}
+</style>
 
 
 <!-- ══════════════════════════════════════════
@@ -369,7 +637,7 @@
 <!-- ══════════════════════════════════════════
      COUNTER / ENROLLMENT SECTION
      ══════════════════════════════════════════ -->
-<section class="counter-section-wrap" aria-label="Enrollment statistics">
+{% comment %} <section class="counter-section-wrap" aria-label="Enrollment statistics">
   <span class="section-eyebrow" style="color:rgba(255,255,255,0.8);-webkit-text-fill-color:rgba(255,255,255,0.8)">
     Our Impact
   </span>
@@ -382,6 +650,120 @@
       Join Them Today →
     </a>
   </div>
+</section> {% endcomment %}
+<!-- ══════════════════════════════════════════
+     getin touch / contact section
+     ══════════════════════════════════════════ -->
+<section class="glass-section contact-section">
+<div style="text-align:center;padding:60px 20px 40px;background:linear-gradient(180deg,var(--e2e-green-tint) 0%,var(--bg-white) 100%);border-bottom:1px solid var(--border-light)">
+  <span style="font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--e2e-red);font-weight:700;display:block;margin-bottom:10px">GET IN TOUCH</span>
+  <h1 style="font-family:var(--font-display);font-size:clamp(2rem,5vw,2.8rem);font-weight:700;color:var(--text-primary);margin-bottom:0">Contact Us</h1>
+  <p style="color:var(--text-muted);margin-top:12px;font-size:16px;max-width:480px;margin-left:auto;margin-right:auto">
+    Have a question? We'd love to hear from you. Send us a message and we'll respond within 24 hours.
+  </p>
+  <div style="width:50px;height:3px;background:linear-gradient(90deg,var(--e2e-red),var(--e2e-gold),var(--e2e-green));border-radius:3px;margin:16px auto 0"></div>
+</div>
+
+<div class="container py-5">
+  <div class="row g-5 justify-content-center">
+
+    <!-- Contact info col -->
+    <div class="col-md-4 reveal-left">
+      <div style="background:var(--e2e-green);border-radius:var(--radius-xl);padding:36px 32px;color:#fff;height:100%">
+        <h3 style="font-family:var(--font-display);font-weight:700;font-size:1.4rem;margin-bottom:24px">Contact Information</h3>
+
+        <div style="display:flex;flex-direction:column;gap:24px">
+          <div style="display:flex;align-items:flex-start;gap:14px">
+            <span style="font-size:20px;flex-shrink:0;margin-top:2px" aria-hidden="true">📍</span>
+            <div>
+              <div style="font-weight:600;font-size:14px;margin-bottom:2px">Address</div>
+              <div style="color:rgba(255,255,255,0.82);font-size:14px;line-height:1.65">Tamil Nadu, India</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:14px">
+            <span style="font-size:20px;flex-shrink:0;margin-top:2px" aria-hidden="true">✉️</span>
+            <div>
+              <div style="font-weight:600;font-size:14px;margin-bottom:2px">Email</div>
+              <a href="mailto:errors2experts.official@gmail.com"
+                 style="color:rgba(255,255,255,0.88);font-size:14px;word-break:break-all">
+                errors2experts.official@gmail.com
+              </a>
+            </div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:14px">
+            <span style="font-size:20px;flex-shrink:0;margin-top:2px" aria-hidden="true">📞</span>
+            <div>
+              <div style="font-weight:600;font-size:14px;margin-bottom:2px">Phone</div>
+              <a href="tel:+919363342646" style="color:rgba(255,255,255,0.88);font-size:14px">
+                +91 9363342646
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div style="border-top:1px solid rgba(255,255,255,0.18);margin:28px 0"></div>
+
+        <div>
+          <div style="font-weight:600;font-size:13px;margin-bottom:14px;color:var(--e2e-gold-light);letter-spacing:1px;text-transform:uppercase">
+            Business Hours
+          </div>
+          <p style="color:rgba(255,255,255,0.82);font-size:14px;line-height:2;margin:0">
+            Mon – Sat: 9:00 AM – 7:00 PM<br>
+            Sunday: By Appointment
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Form col -->
+    <div class="col-md-6 reveal-right">
+      <div style="background:var(--bg-white);border:1px solid var(--border-light);border-radius:var(--radius-xl);padding:40px;box-shadow:var(--shadow-md)">
+        <h3 style="font-family:var(--font-display);font-weight:700;color:var(--text-primary);margin-bottom:6px">Send a Message</h3>
+        <p style="color:var(--text-muted);font-size:14px;margin-bottom:28px">We'll get back to you within 24 hours.</p>
+
+        <form method="POST" novalidate>
+          {% csrf_token %}
+          <div class="mb-4">
+            <label for="c_name" style="display:block;font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:6px">
+              Full Name <span style="color:var(--e2e-red)" aria-hidden="true">*</span>
+            </label>
+            <input type="text" id="c_name" name="name"
+                   class="form-control"
+                   placeholder="Your full name"
+                   required
+                   style="background:var(--bg-soft);border:1.5px solid var(--border-medium);border-radius:var(--radius-md);padding:12px 16px;font-size:14px;color:var(--text-primary);transition:var(--transition)">
+          </div>
+          <div class="mb-4">
+            <label for="c_email" style="display:block;font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:6px">
+              Email Address <span style="color:var(--e2e-red)" aria-hidden="true">*</span>
+            </label>
+            <input type="email" id="c_email" name="email"
+                   class="form-control"
+                   placeholder="you@email.com"
+                   required
+                   style="background:var(--bg-soft);border:1.5px solid var(--border-medium);border-radius:var(--radius-md);padding:12px 16px;font-size:14px;color:var(--text-primary);transition:var(--transition)">
+          </div>
+          <div class="mb-4">
+            <label for="c_msg" style="display:block;font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:6px">
+              Message
+            </label>
+            <textarea id="c_msg" name="message"
+                      class="form-control"
+                      rows="5"
+                      placeholder="How can we help you?"
+                      style="background:var(--bg-soft);border:1.5px solid var(--border-medium);border-radius:var(--radius-md);padding:12px 16px;font-size:14px;color:var(--text-primary);transition:var(--transition);resize:vertical"></textarea>
+          </div>
+          <button type="submit" class="btn btn-success w-100 py-3" style="font-size:15px;font-weight:700">
+            Send Message →
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
 </section>
 
 
