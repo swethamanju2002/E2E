@@ -479,176 +479,169 @@ body {
   font-weight: 500;
   margin-top: 4px;
 }
-
-/* ══════════════════════════════════════════
-   COURSE CARDS
-   ══════════════════════════════════════════ */
-.auto-course-section {
-  padding: 80px 0 !important;
-  background: var(--bg-page) !important;
+/* ==========================================================================
+   MODERN MINI MODULE CARDS MATRIX
+   ========================================================================== */
+.course-main-title {
+  font-family: var(--font-display) !important;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
 }
-.auto-course-section::before { display: none !important; }
 
-.course-card {
-  background: var(--bg-white) !important;
-  border: 1px solid var(--border-light) !important;
-  border-radius: var(--radius-lg) !important;
-  box-shadow: var(--shadow-sm) !important;
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition) !important;
+.course-main-desc {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 620px;
+}
+
+.course-meta-pills .meta-pill {
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 8px 16px;
+  background: var(--bg-soft);
+  color: var(--text-secondary);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-light);
+}
+
+.course-meta-pills .price-pill {
+  background: var(--e2e-green-tint);
+  color: var(--e2e-green-dark);
+  border-color: rgba(46, 125, 50, 0.2);
+}
+
+.course-meta-pills .discount-pill {
+  background: var(--e2e-red-tint);
+  color: var(--e2e-red);
+  border-color: rgba(183, 28, 28, 0.15);
+}
+
+/* The Mini Card Component */
+.module-mini-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  position: relative;
+  height: 100%;
   overflow: hidden;
-  padding: 0 !important;
-  min-width: 290px !important;
-}
-.course-card > img,
-.course-card img:first-child {
-  width: 100% !important;
-  height: 180px !important;
-  object-fit: cover !important;
-  border-radius: 0 !important;
-  transition: transform 0.5s var(--ease) !important;
-  display: block;
-}
-.course-card:hover {
-  transform: translateY(-6px) !important;
-  box-shadow: var(--shadow-lg) !important;
-  border-color: rgba(46,125,50,0.25) !important;
-}
-.course-card:hover img { transform: scale(1.04) !important; }
-
-/* Text content inside course card */
-.course-card h4 {
-  font-family: var(--font-body) !important;
-  font-size: 15px !important;
-  font-weight: 700 !important;
-  color: var(--text-primary) !important;
-  padding: 16px 18px 4px !important;
-  margin: 0 !important;
-}
-.course-card p {
-  color: var(--text-muted) !important;
-  font-size: 13.5px !important;
-  line-height: 1.55 !important;
-  padding: 0 18px !important;
-  margin: 0 !important;
-}
-.price-box {
-  padding: 10px 18px 4px !important;
-  margin: 0 !important;
-}
-.new-price { color: var(--e2e-green) !important; font-weight: 800 !important; font-size: 1.25rem !important; }
-.old-price  { color: var(--text-light) !important; font-size: 0.875rem !important; }
-
-.explore-btn {
-  display: block !important;
-  margin: 12px 18px 18px !important;
-  padding: 10px 20px !important;
-  background: var(--e2e-green-tint) !important;
-  color: var(--e2e-green) !important;
-  border: 1.5px solid rgba(46,125,50,0.2) !important;
-  border-radius: var(--radius-pill) !important;
-  font-weight: 700 !important;
-  font-size: 13px !important;
-  text-align: center !important;
-  transition: var(--transition) !important;
-  text-decoration: none !important;
-  box-shadow: none !important;
-  filter: none !important;
-}
-.explore-btn:hover {
-  background: var(--e2e-green) !important;
-  color: #fff !important;
-  transform: none !important;
-  box-shadow: var(--shadow-green) !important;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
 }
 
-/* Course card top-bar accent on hover */
-.course-card::before {
-  content: '';
+.module-mini-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(46, 125, 50, 0.25);
+  box-shadow: var(--shadow-md);
+}
+
+/* Sleek top brand line accent */
+.card-accent-strip {
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 3px;
+  height: 4px;
   background: var(--grad-brand);
-  transform: scaleX(0);
+  transform: scaleX(0.1);
   transform-origin: left;
+  transition: transform var(--transition-slow);
+}
+
+.module-mini-card:hover .card-accent-strip {
+  transform: scaleX(1);
+}
+
+.module-card-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.module-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.module-step-badge {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background-color: var(--bg-soft);
+  color: var(--text-secondary);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-light);
+}
+
+.module-mini-card:hover .module-step-badge {
+  background-color: var(--e2e-green-tint);
+  color: var(--e2e-green);
+  border-color: rgba(46, 125, 50, 0.15);
+}
+
+.module-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--border-medium);
+  transition: background-color var(--transition);
+}
+
+.module-mini-card:hover .module-status-dot {
+  background-color: var(--e2e-gold);
+  box-shadow: 0 0 8px var(--e2e-gold);
+}
+
+.module-card-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+  letter-spacing: -0.2px;
+  line-height: 1.4;
+}
+
+.module-card-desc {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 0;
+}
+.btn-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  background: var(--bg-white);
+  transition: all var(--transition);
+}
+
+.btn-back-link i {
+  font-size: 16px;
   transition: transform var(--transition);
-  z-index: 1;
-}
-.course-card { position: relative; }
-.course-card:hover::before { transform: scaleX(1); }
-
-.popup-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background:var(--bg-soft);
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-}
-.submit-btn {
-    background: var(--e2e-green);
-    color: var(--bg-white);
-    padding: 10px;
-    border: none;
-    width: 100%;
-    cursor: pointer;
 }
 
-.close-btn {
-    position: absolute;
-    right: 15px;
-    top: 10px;
-    font-size: 22px;
-    cursor: pointer;
-    color: var(--text-muted);
+.btn-back-link:hover {
+  color: var(--e2e-green);
+  border-color: rgba(46, 125, 50, 0.25);
+  background: var(--e2e-green-tint);
+  box-shadow: var(--shadow-sm);
 }
 
-.book-btn {
-    background: var(--e2e-green);
-    color: var(--bg-white);
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
+.btn-back-link:hover i {
+  transform: translateX(-4px);
 }
-
-.course-table {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.course-table th {
-    background: var(--e2e-green);
-    color: var(--bg-white);
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-.course-table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-}
-
-.course-table tr:nth-child(even) {
-    background: rgba(255,255,255,0.05);
-}
-
-.course-table tr:hover {
-    background: rgba(255,255,255,0.1);
-}
-
-.course-table td:first-child {
-    width: 80px;
-    text-align: center;
-    font-weight: bold;
-}
-
 
 /* ══════════════════════════════════════════
    SERVICE CARDS

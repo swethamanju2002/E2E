@@ -1,130 +1,116 @@
 {% extends 'base.html' %}
-{% block content %}
 {% load static %}
 
-<div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
-
-      <!-- Breadcrumb / Back link -->
-      <nav aria-label="Breadcrumb" style="margin-bottom:24px">
-        <a href="{% url 'allcourse' %}"
-           style="display:inline-flex;align-items:center;gap:6px;color:var(--text-muted);font-size:14px;font-weight:500;text-decoration:none;transition:color var(--transition)"
-           onmouseover="this.style.color='var(--e2e-green)'"
-           onmouseout="this.style.color='var(--text-muted)'">
-          ← Back to All Courses
-        </a>
-      </nav>
-       {% if course.image %}
-          <div style="position:relative;overflow:hidden;height:280px">
-            <img src="{{ course.image.url }}"
-                 alt="{{ course.title }}"
-                 style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease"
-                 onmouseover="this.style.transform='scale(1.03)'"
-                 onmouseout="this.style.transform='scale(1)'"
-                 loading="eager">
-            <!-- Gradient fade at bottom -->
-            <div style="position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(transparent,rgba(0,0,0,0.55))"></div>
-            <div style="position:absolute;bottom:24px;left:28px;right:28px">
-              {% comment %} <h1 style="font-family:var(--font-display);font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:#fff;margin:0;text-shadow:0 2px 8px rgba(0,0,0,0.4)">
-                {{ course.title }}
-              </h1> {% endcomment %}
+{% block content %}
+<div class="course-detail-wrapper py-5">
+  <div class="container">
+    
+    <!-- Actionable Back Button -->
+    <div class="mb-4 animate-fade-in">
+      <a href="{% url 'courses' %}" class="btn-back-link">
+        <i class="bi bi-arrow-left"></i> Back to Courses
+      </a>
+    </div>
+    
+    <!-- Hero Course Meta Card -->
+    <div class="course-hero-banner mb-5 animate-fade-in">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+          <span class="section-eyebrow">Advanced Learning Track</span>
+          <h1 class="course-main-title">{{ course.title }}</h1>
+          <p class="course-main-desc">{{ course.description }}</p>
+          
+          <div class="course-meta-pills d-flex flex-wrap gap-3 my-4">
+            <span class="meta-pill"><i class="bi bi-clock"></i> {{ course.duration }}</span>
+            <span class="meta-pill price-pill"><i class="bi bi-tags"></i> ₹{{ course.price }}</span>
+            {% if course.discount %}
+              <span class="meta-pill discount-pill">Save ₹{{ course.discount }}</span>
+            {% endif %}
+          </div>
+          
+          <a href="{% url 'book_course' course.id %}" class="btn btn-success px-4 py-2.5">
+            Book Next Batch Slot <i class="bi bi-arrow-right-short"></i>
+          </a>
+        </div>
+        <div class="col-lg-5">
+          <div class="browser-mockup-container">
+            <div class="browser-header-bar">
+              <div class="browser-dots">
+                <span class="dot-red"></span>
+                <span class="dot-amber"></span>
+                <span class="dot-green"></span>
+              </div>
+              <div class="browser-address-field">errors2experts.com/course/{{ course.id }}</div>
+            </div>
+            <div class="browser-screen-view">
+              {% if course.image %}
+                <img src="{{ course.image.url }}" class="img-fluid project-display-img" alt="{{ course.title }}">
+              {% else %}
+                <img src="{% static 'main/images/no-image.png' %}" class="img-fluid project-display-img" alt="Default Image">
+              {% endif %}
             </div>
           </div>
-        {% else %}
-          <div style="padding:36px 32px 0;background:linear-gradient(135deg,var(--e2e-green-tint),var(--bg-white));border-bottom:1px solid var(--border-light)">
-            <span class="section-eyebrow">Course Details</span>
-            <h1 style="font-family:var(--font-display);font-size:clamp(1.4rem,3vw,2rem);font-weight:700;color:var(--text-primary);padding-bottom:24px">
-              {{ course.title }}
-            </h1>
-          </div>
-        {% endif %}
-
-        <h2>{{ course.title }}</h2>
-        <table class="course-table">
-            <thead>
-                <tr>
-                    <th>S.No</th>
-                    <th>Module</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                {% for module in course.modules.all %}
-                <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ module.module_name }}</td>
-                    <td>{{ module.description|linebreaksbr }}</td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="3" style="text-align:center;">
-                        No modules added
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-            <button class="book-btn" onclick="openBookingPopup()">
-                Book Now
-            </button>
-
         </div>
+      </div>
     </div>
-</section>
 
-<!-- BOOKING POPUP -->
-<div id="bookingPopup" class="popup-overlay">
-    <div class="popup-box">
+    <hr class="my-5" style="border-color: var(--border-light);">
 
-        <span class="close-btn" onclick="closeBookingPopup()">×</span>
-
-        <h3>Course Booking</h3>
-
-        <form method="POST" action="{% url 'book_course' course.id %}">
-            {% csrf_token %}
-
-            <input type="text" name="name" placeholder="Full Name" required>
-            <input type="email" name="email" placeholder="Email Address" required>
-            <input type="text" name="mobile" placeholder="Mobile Number" required>
-            <input type="text" name="education" placeholder="Education Qualification" required>
-            <input type="text" name="year_passed" placeholder="Year of Passed Out" required>
-
-            <input type="hidden" name="course" value="{{ course.title }}">
-            <input type="hidden" name="course_amount" value="{{ course.price }}">
-
-            <select name="payment_type" required>
-                <option value="">Select Payment Type</option>
-                <option value="full">Full Amount</option>
-                <option value="emi">Installment EMI (50%)</option>
-            </select>
-
-            <button type="submit" class="submit-btn">Proceed</button>
-        </form>
-
+    <!-- Module Details Section Header -->
+    <div class="text-center mb-5">
+      <span class="section-eyebrow">Curriculum Architecture</span>
+      <h2 class="section-title">Program Modules</h2>
+      <p class="text-muted mt-2">Carefully mapped structured milestones guiding you from syntax errors to architecture expert.</p>
     </div>
+
+    <!-- Mini Cards Architecture Grid -->
+    <div class="row g-4 justify-content-center">
+      <!-- 
+        Django Loop Troubleshooting Note: 
+        If 'course.modules.all' is empty, try using 'modules' directly if you passed it from views.py 
+      -->
+      {% if course.modules.all %}
+        {% for module in course.modules.all %}
+        <div class="col-md-6 col-lg-4">
+          <div class="module-mini-card">
+            <div class="card-accent-strip"></div>
+            <div class="module-card-body">
+              <div class="module-header-row">
+                <span class="module-step-badge">Module {{ forloop.counter }}</span>
+                <div class="module-status-dot"></div>
+              </div>
+              <h4 class="module-card-title">{{ module.module_name }}</h4>
+              <p class="module-card-desc">{{ module.description }}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      {% elif modules %}
+        {% for module in modules %}
+        <div class="col-md-6 col-lg-4">
+          <div class="module-mini-card">
+            <div class="card-accent-strip"></div>
+            <div class="module-card-body">
+              <div class="module-header-row">
+                <span class="module-step-badge">Module {{ forloop.counter }}</span>
+                <div class="module-status-dot"></div>
+              </div>
+              <h4 class="module-card-title">{{ module.module_name }}</h4>
+              <p class="module-card-desc">{{ module.description }}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="col-12 text-center py-5">
+          <div class="white-fallback-box" style="background: var(--bg-soft); border: 1px dashed var(--border-medium); padding: 40px; border-radius: var(--radius-lg);">
+            <i class="bi bi-inboxes text-muted fs-2 mb-2 d-block"></i>
+            <p class="text-muted mb-0">No modules linked to this course yet. Check your database admin configurations.</p>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
   </div>
 </div>
-
-<script>
-function openBookingPopup()  {
-  var p = document.getElementById("bookingPopup");
-  p.style.display = "flex";
-  document.body.style.overflow = "hidden";
-}
-function closeBookingPopup() {
-  var p = document.getElementById("bookingPopup");
-  p.style.display = "none";
-  document.body.style.overflow = "";
-}
-document.getElementById("bookingPopup").addEventListener("click", function(e) {
-  if (e.target === this) closeBookingPopup();
-});
-document.addEventListener("keydown", function(e) {
-  if (e.key === "Escape") closeBookingPopup();
-});
-</script>
-
 {% endblock %}
