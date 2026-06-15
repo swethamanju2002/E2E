@@ -99,6 +99,9 @@ body {
 .brand-errors {
   color: var(--e2e-red) !important; /* Matches the red theme on the left student side */
 }
+.two{
+  color: var(--e2e-gold-light) 
+}
 
 .brand-experts {
   color: var(--e2e-green) !important; /* Matches the green theme on the right student side */
@@ -409,6 +412,11 @@ body {
   border-radius: 3px;
   margin: 14px auto 0;
 }
+.counterbox{
+  font-size: 70px;
+  color: --bg-white;
+  font-weight: bold;
+}
 
 /* ══════════════════════════════════════════
    GLASS SECTIONS → light panels
@@ -489,6 +497,9 @@ body {
   color: var(--text-primary);
   letter-spacing: -0.5px;
 }
+.course-card{
+  background-color: --bg-white;
+}
 
 .course-main-desc {
   font-size: 16px;
@@ -517,6 +528,27 @@ body {
   background: var(--e2e-red-tint);
   color: var(--e2e-red);
   border-color: rgba(183, 28, 28, 0.15);
+}
+/*editted by shobana*/
+/* "Explore Course" Button Standard State (Pachai niram) */
+.course-card .explore-btn {
+  display: block;
+  text-align: center;
+  background-color: #198754 !important; /* Bootstrap Success Green */
+  color: #ffffff !important;           /* White Text */
+  padding: 12px;
+  margin-top: 15px;
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom-left-radius: 11px;    /* Card corner-ku etha maari valayurathuku */
+  border-bottom-right-radius: 11px;
+  transition: background-color 0.2s ease;
+}
+
+/* Button mela mouse kondu pogumbo thu (Hover Effect) */
+.course-card .explore-btn:hover {
+  background-color: #146c43 !important; /* Konjam dark green (hover nalla theriya) */
+  color: #ffffff !important;
 }
 
 /* The Mini Card Component */

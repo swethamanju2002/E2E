@@ -1,6 +1,81 @@
 {% extends 'base.html' %}
 {% block content %}
 {%load static%}
+<style>
+  /* Course card background dynamically white ah maarum */
+  .course-card {
+    background-color: #ffffff !important;
+    border: 1px solid #e0e0e0; /* Card structure theriyaradhukaaga oru light border */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Soft-ana shadow, card thoniyaga theriya */
+    border-radius: 12px; /* Card corners smooth-ah valayalaam */
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+
+  /* Card mela mouse vaiyumbo dhu light ah hover effect */
+  .course-card:hover {
+    transform: translateY(-5px);
+  }
+
+  /* Course title-a dark grey/black color-la mathuradhuku */
+  .course-card h4 {
+    color: #212529 !important;
+    padding: 15px 18px 5px 18px;
+    margin: 0;
+    font-weight: 600;
+  }
+
+  /* Description text color (Ippo light grey-ah irukku, adha dark-ah mathrom) */
+  .course-card p {
+    color: #495057 !important;
+    padding: 0 18px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* New price (Green text-a code-la vachurukinga, so white-la nalla theriyum) */
+  .course-card .new-price {
+    font-weight: bold;
+    font-size: 18px;
+    color: #198754 !important; /* Bootstrap success green */
+  }
+
+  /* Old price (Striked-out line nalla theriyaradhuku light-ah dark pandrom) */
+  .course-card .old-price {
+    color: #6c757d !important; 
+    margin-left: 8px;
+    text-decoration: line-line-through;
+  }
+
+  /* Price box alignments */
+  .course-card .price-box {
+    padding: 10px 18px;
+  }
+
+  /* Duration icon and text (⏱ 4 Months) clear-ah theriyardhuku */
+  .course-card p[style*="font-size:12px"] {
+    color: #6c757d !important;
+    font-weight: 500;
+  }
+
+  /* "Explore Course" button style-a nalla highlight panna */
+  .course-card .explore-btn {
+    display: block;
+    text-align: center;
+    background-color: #f8f9fa; /* Light grey background button */
+    color: #212529 !important;
+    padding: 12px;
+    margin-top: 15px;
+    text-decoration: none;
+    font-weight: 500;
+    border-top: 1px solid #f1f3f5;
+  }
+
+  .course-card .explore-btn:hover {
+    background-color: #198754; /* Hover pannum bodhu green-ah maarum */
+    color: #ffffff !important;
+  }
+</style>
 
 <!-- ══════════════════════════════════════════
      HERO SECTION
@@ -19,7 +94,7 @@
             <p class="welcome-text">Tamil Nadu's Premier IT Training</p>
 
             <!-- Headline -->
-            <h1 class="e2e">Welcome to <span class="brand-errors">Errors</span>2<span class="brand-experts">Experts</span></h1>
+            <h1 class="e2e">Welcome to <span class="brand-errors">Errors</span><span class="two">2</span><span class="brand-experts">Experts</span></h1>
 
             <p class="tagline">
               Transforming Beginners into Industry-Ready Professionals
@@ -64,13 +139,14 @@
     <div class="row g-0 justify-content-center">
       <div class="col-6 col-md-3">
         <div class="stat-item">
-          <div class="stat-num counter-number" data-target="{{ total_bookings }}">{{ total_bookings }}+</div>
+          <div class="stat-num counter-number" data-target="{{ total_bookings }}">{{ total_bookings }}+
+          </div>
           <div class="stat-label">Students Enrolled</div>
         </div>
       </div>
       <div class="col-6 col-md-3">
         <div class="stat-item">
-          <div class="stat-num counter-number">400+</div>
+          <div class="counterbox"><div class="stat-num counter-number">400</div></div>
           <div class="stat-label">Students learned</div>
         </div>
       </div>
@@ -161,7 +237,7 @@
     <div class="scroll-container" role="region" aria-label="Course cards, scroll to see all">
       <div class="scroll-track">
         {% for course in courses %}
-        <article class="course-card">
+        <article class="course-card" >
           {% if course.image %}
             <img src="{{ course.image.url }}" alt="{{ course.title }}" loading="lazy">
           {% else %}
@@ -286,7 +362,7 @@
           <div class="why-icon-wrapper green-theme">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
-          <h4>100% Hiring Support</h4>
+          <h4>100% Placement Support</h4>
           <p>Gain access to automated reference setups, dynamic resume construction panels, and vetted interview streams.</p>
         </div>
       </div>
