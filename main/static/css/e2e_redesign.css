@@ -100,7 +100,7 @@ body {
   color: var(--e2e-red) !important; /* Matches the red theme on the left student side */
 }
 .two{
-  color: var(--e2e-gold-light) 
+  color: var(--e2e-gold-dark) !important;
 }
 
 .brand-experts {
@@ -324,7 +324,20 @@ body {
   box-shadow: 0 12px 32px rgba(46,125,50,0.35) !important;
 }
 .btn-success:hover::after { background: rgba(255,255,255,0.12); }
-
+.btn-back{
+  color: var(--text-muted); 
+  font-size: 14px;
+  font-weight: 600; 
+  text-decoration: none; 
+  display: inline-flex; 
+  align-items: center; 
+  gap: 6px; 
+  margin-bottom: 24px;
+  transition: color var(--transition);
+}
+.btn-back:hover{
+  color: var(--e2e-green);
+}
 .hero-glass-card .btn-outline-light {
   border: 2px solid rgba(183,28,28,0.3) !important;
   color: var(--e2e-red) !important;
@@ -412,11 +425,11 @@ body {
   border-radius: 3px;
   margin: 14px auto 0;
 }
-.counterbox{
+/* .counterbox{
   font-size: 70px;
   color: --bg-white;
   font-weight: bold;
-}
+} */
 
 /* ══════════════════════════════════════════
    GLASS SECTIONS → light panels
@@ -498,7 +511,7 @@ body {
   letter-spacing: -0.5px;
 }
 .course-card{
-  background-color: --bg-white;
+  background-color: var(--bg--white);
 }
 
 .course-main-desc {
@@ -531,25 +544,18 @@ body {
 }
 /*editted by shobana*/
 /* "Explore Course" Button Standard State (Pachai niram) */
-.course-card .explore-btn {
+/* .course-card{
   display: block;
   text-align: center;
-  background-color: #198754 !important; /* Bootstrap Success Green */
-  color: #ffffff !important;           /* White Text */
+  background-color: #198754 !important; 
+  color: #ffffff !important;           
   padding: 12px;
   margin-top: 15px;
   text-decoration: none;
   font-weight: 600;
-  border-bottom-left-radius: 11px;    /* Card corner-ku etha maari valayurathuku */
-  border-bottom-right-radius: 11px;
+  border-bottom-left-radius: 11px;   
   transition: background-color 0.2s ease;
-}
-
-/* Button mela mouse kondu pogumbo thu (Hover Effect) */
-.course-card .explore-btn:hover {
-  background-color: #146c43 !important; /* Konjam dark green (hover nalla theriya) */
-  color: #ffffff !important;
-}
+} */
 
 /* The Mini Card Component */
 .module-mini-card {

@@ -4,8 +4,8 @@
 
 <!-- Page header -->
 <div style="text-align:center;padding:60px 20px 40px;background:linear-gradient(180deg,rgba(16,185,129,0.06) 0%,transparent 100%)">
-  <p style="font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--brand-green);margin-bottom:10px;font-weight:600">WHO WE ARE</p>
-  <h1 style="font-family:var(--font-display);font-size:clamp(2rem,5vw,3rem);font-weight:800;margin-bottom:0">About Errors2Experts</h1>
+  <p class="section-eyebrow">WHO WE ARE</p>
+  <h1 id="about-heading" class="section-title">About Errors2Experts</h1>
   <div style="width:50px;height:3px;background:linear-gradient(90deg,var(--brand-green),var(--brand-teal));border-radius:3px;margin:16px auto 0"></div>
 </div>
 
@@ -105,8 +105,12 @@
 <div style="margin:60px 5%;background:linear-gradient(135deg,rgba(16,185,129,0.10),rgba(59,130,246,0.08));border:1px solid rgba(16,185,129,0.15);border-radius:24px;padding:50px 40px;text-align:center" class="reveal">
   <h3 style="font-family:var(--font-display);font-weight:700;margin-bottom:12px">Ready to Start Your Journey?</h3>
   <p style="color:var(--text-muted);margin-bottom:28px;font-size:16px">Book a free demo session and see how we can transform your career.</p>
-  <a href="{% url 'allcourse' %}" class="btn btn-success px-5 py-2 me-3">Explore Courses</a>
-  <a href="{% url 'careers' %}" class="btn btn-outline-light px-5 py-2">View Careers</a>
-</div>
+  <div class="d-flex flex-wrap justify-content-center gap-3 mt-2"
+                 style="opacity:0;animation:fadeUp 0.7s ease 1s forwards;">
+    <a href="{% url 'allcourse' %}" class="btn btn-success px-5 py-2" style="height:40px;">Explore Courses</a>
+   <a href="{% url 'careers' %}" class="btn btn-outline-light px-5 py-1" style="height:40px;">View Careers</a>
+
+  </div>
+  </div>
 
 {% endblock %}

@@ -57,13 +57,16 @@ class ClientProject(models.Model):
 
 # Students Reviews Model
 class StudentReview(models.Model):
+    GENDER_CHOICES = (('M','Male'),('F','Female'),('O','Other/Prefer not to say'))
     student_name = models.CharField(max_length=120)
     course_name = models.CharField(max_length=150)
     review_text = models.TextField()
-    rating = models.PositiveIntegerField(default=5)  # optional: 1-5 stars
+    rating = models.PositiveIntegerField(default=5) 
     created_at = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to='course_images/', blank=True, null=True)
-
+    image = models.ImageField(upload_to='reviews/', blank=True, null=True)
+    gender = models.CharField(max_length=1,choices=GENDER_CHOICES,default='M',help_text="Used for default anime avatar if no custom image is uploaded")
+    created_at = models.DateTimeField(auto_now_add=True)
+    
     def __str__(self):
         return f"{self.student_name} - {self.course_name}"
     

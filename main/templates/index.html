@@ -1,82 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 {%load static%}
-<style>
-  /* Course card background dynamically white ah maarum */
-  .course-card {
-    background-color: #ffffff !important;
-    border: 1px solid #e0e0e0; /* Card structure theriyaradhukaaga oru light border */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Soft-ana shadow, card thoniyaga theriya */
-    border-radius: 12px; /* Card corners smooth-ah valayalaam */
-    overflow: hidden;
-    transition: transform 0.3s ease;
-  }
-
-  /* Card mela mouse vaiyumbo dhu light ah hover effect */
-  .course-card:hover {
-    transform: translateY(-5px);
-  }
-
-  /* Course title-a dark grey/black color-la mathuradhuku */
-  .course-card h4 {
-    color: #212529 !important;
-    padding: 15px 18px 5px 18px;
-    margin: 0;
-    font-weight: 600;
-  }
-
-  /* Description text color (Ippo light grey-ah irukku, adha dark-ah mathrom) */
-  .course-card p {
-    color: #495057 !important;
-    padding: 0 18px;
-    font-size: 14px;
-    line-height: 1.5;
-  }
-
-  /* New price (Green text-a code-la vachurukinga, so white-la nalla theriyum) */
-  .course-card .new-price {
-    font-weight: bold;
-    font-size: 18px;
-    color: #198754 !important; /* Bootstrap success green */
-  }
-
-  /* Old price (Striked-out line nalla theriyaradhuku light-ah dark pandrom) */
-  .course-card .old-price {
-    color: #6c757d !important; 
-    margin-left: 8px;
-    text-decoration: line-line-through;
-  }
-
-  /* Price box alignments */
-  .course-card .price-box {
-    padding: 10px 18px;
-  }
-
-  /* Duration icon and text (⏱ 4 Months) clear-ah theriyardhuku */
-  .course-card p[style*="font-size:12px"] {
-    color: #6c757d !important;
-    font-weight: 500;
-  }
-
-  /* "Explore Course" button style-a nalla highlight panna */
-  .course-card .explore-btn {
-    display: block;
-    text-align: center;
-    background-color: #f8f9fa; /* Light grey background button */
-    color: #212529 !important;
-    padding: 12px;
-    margin-top: 15px;
-    text-decoration: none;
-    font-weight: 500;
-    border-top: 1px solid #f1f3f5;
-  }
-
-  .course-card .explore-btn:hover {
-    background-color: #198754; /* Hover pannum bodhu green-ah maarum */
-    color: #ffffff !important;
-  }
-</style>
-
 <!-- ══════════════════════════════════════════
      HERO SECTION
      Background image visible through soft white overlay
@@ -104,8 +28,8 @@
             <div class="d-flex flex-wrap justify-content-center gap-3 mt-2"
                  style="opacity:0;animation:fadeUp 0.7s ease 1s forwards">
                <a href="{% url 'allcourse' %}" style="background:var(--e2e-green);color:var(--bg-white);border-radius:50px;padding:14px 36px;font-weight:700;font-size:15px;text-decoration:none;transition:0.3s"
-                  onmouseenter="this.style.background='var(--e2e-green-tint)';this.style.color='var(--e2e-green)'"
-                  onmouseleave="this.style.background='var(--e2e-green)';this.style.color='var(--bg-white)'">
+                  onmouseenter="this.style.background='var(--e2e-green-dark)';"
+                  onmouseleave="this.style.background='var(--e2e-green)';">
                   Browse Courses →
                 </a>
                 <button type="button" data-bs-toggle="modal" data-bs-target="#demoModal"
@@ -139,14 +63,13 @@
     <div class="row g-0 justify-content-center">
       <div class="col-6 col-md-3">
         <div class="stat-item">
-          <div class="stat-num counter-number" data-target="{{ total_bookings }}">{{ total_bookings }}+
-          </div>
+          <div class="stat-num counter-number" data-target="{{ total_bookings }}">{{ total_bookings }}+</div>
           <div class="stat-label">Students Enrolled</div>
         </div>
       </div>
       <div class="col-6 col-md-3">
         <div class="stat-item">
-          <div class="counterbox"><div class="stat-num counter-number">400</div></div>
+          <div class="stat-num counter-number">400+<span>+</span></div>
           <div class="stat-label">Students learned</div>
         </div>
       </div>
@@ -254,7 +177,7 @@
           {% if course.duration %}
           <p style="font-size:12px;color:var(--text-muted);padding:0 18px;margin-bottom:0">⏱ {{ course.duration }}</p>
           {% endif %}
-          <a href="{% url 'course_detail' course.id %}" class="explore-btn">Explore Course →</a>
+          <a href="{% url 'course_detail' course.id %}" class="btn btn-success">Explore Course →</a>
         </article>
         {% endfor %}
       </div>
@@ -561,8 +484,12 @@
           {% if r.image %}
             <img src="{{ r.image.url }}" alt="{{ r.student_name }}" loading="lazy">
           {% else %}
-            <img src="{% static 'main/images/user.png' %}" alt="{{ r.student_name }}" loading="lazy">
-          {% endif %}
+            {% if r.gender == 'F' %}
+            <img src="{% static 'images/girl_placeholder.jpeg' %}" alt="{{ r.student_name }}" loading="lazy">
+             {% else %}
+             <img src="{% static 'images/boy_placeholder.jpeg' %}" alt="{{ r.student_name }}" loading="lazy">
+             {% endif %}         
+         {% endif %}
         </div>
         <h4>{{ r.student_name }}</h4>
         <p class="role">{{ r.course_name }}</p>
@@ -577,7 +504,12 @@
       <article class="review-card" aria-hidden="true">
         <div class="review-img">
           {% if r.image %}<img src="{{ r.image.url }}" alt="" loading="lazy">
-          {% else %}<img src="{% static 'main/images/user.png' %}" alt="" loading="lazy">{% endif %}
+          {% if r.gender == 'F' %}
+        <img src="{% static 'images/girl_placeholder.jpeg' %}" alt="{{ r.student_name }}" loading="lazy">
+      {% else %}
+        <img src="{% static 'images/boy_placeholder.jpeg' %}" alt="{{ r.student_name }}" loading="lazy">
+      {% endif %}
+      {% endif %}
         </div>
         <h4>{{ r.student_name }}</h4>
         <p class="role">{{ r.course_name }}</p>

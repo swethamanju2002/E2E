@@ -51,7 +51,6 @@
 /* Modern Course Card */
 .course-card {
     min-width: 300px;
-    background: var(--glass-medium);
     border: 1px solid var(--border-glass);
     backdrop-filter: blur(var(--blur-md));
     padding: 20px;
@@ -146,8 +145,9 @@
 
 .old-price {
     text-decoration: line-through;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-size: 0.9rem ;
+  
 }
 
 .explore-btn {
