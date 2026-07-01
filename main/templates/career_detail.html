@@ -14,7 +14,7 @@
         <!-- Main Core Details Column -->
         <div class="col-lg-8">
           <span class="job-badge badge-time mb-3 d-inline-block">{{ career.employment_type }}</span>
-          <h1 style="font-size: clamp(24px, 4vw, 36px); font-weight: 800; color: var(--text-primary); margin-bottom: 12px; letter-spacing: -0.5px;">{{ career.role }}</h1>
+          <h1 style="font-family: var(--font-display); font-size: clamp(24px, 4vw, 36px); font-weight: 800; color: var(--text-primary); margin-bottom: 12px; letter-spacing: -0.5px;">{{ career.role }}</h1>
           
           <div style="display: flex; gap: 20px; font-size: 13.5px; color: var(--text-muted); margin-bottom: 32px; padding-bottom: 20px; border-bottom: 1px solid var(--border-light);">
             <span>Posted: <strong>{{ career.posted_on|date:"d M Y" }}</strong></span>
@@ -22,7 +22,7 @@
           </div>
 
           <h2 style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); margin-bottom: 16px;">Detailed Job Description</h2>
-          <div style="color: var(--text-primary); line-height: 1.8; font-size: 15.5px; white-space: pre-line;">
+          <div style="color: var(--text-muted); line-height: 1.8; font-size: 15.5px; white-space: pre-line;">
             {{ career.job_description }}
           </div>
         </div>

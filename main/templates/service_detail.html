@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ service.title }} — Errors2Experts{% endblock %}
+{% block meta_desc %}{{ service.title }} by Errors2Experts. Explore the technologies we use and view live demo websites.{% endblock %}
+{% block content %}
+ 
+<!-- ── HERO ── -->
+<div class="sd-hero">
+        <a href="{% url 'services' %}" class="sd-back">← Back to All Services</a>
+
+  <div class="sd-hero-inner">
+ 
+    <p class="sd-eyebrow">OUR SERVICE</p>
+    <h1>{{ service.title }}</h1>
+    <p class="sd-desc">{{ service.description }}</p>
+ 
+    <button type="button" class="sd-cta" data-bs-toggle="modal" data-bs-target="#serviceDetailBookingModal">
+      Register For This Service →
+    </button>
+  </div>
+</div>
+ 
+<!-- ── SERVICE IMAGE BANNER ── -->
+{% if service.image %}
+<div class="sd-banner-wrap">
+  <div class="sd-banner">
+    <img src="{{ service.image.url }}" alt="{{ service.title }}">
+  </div>
+</div>
+{% endif %}
+ 
+<!-- ── TECHNOLOGIES ── -->
+{% if service.tech_list %}
+<section class="sd-section">
+  <div class="sd-section-inner">
+    <div class="sd-section-heading">
+      <span class="sd-eyebrow-left">TECH STACK</span>
+      <h2>Technologies We Use</h2>
+    </div>
+    <div class="sd-tech-grid">
+      {% for tech in service.tech_list %}
+      <span class="sd-tech-pill">{{ tech }}</span>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+ 
+<!-- ── LIVE DEMOS ── -->
+<section class="sd-section sd-demos-section">
+  <div class="sd-section-inner">
+    <div class="sd-section-heading">
+      <span class="sd-eyebrow-left">SEE IT IN ACTION</span>
+      <h2>Live Demo Websites</h2>
+      <p>Browse real websites we've built for this service — client reference only.</p>
+    </div>
+ 
+    {% if service.demo_links.all %}
+    <div class="sd-demo-grid">
+      {% for demo in service.demo_links.all %}
+      <a href="{{ demo.url }}" target="_blank" rel="noopener noreferrer" class="sd-demo-card">
+        <div class="sd-browser-bar">
+          <span class="sd-dot sd-dot-red"></span>
+          <span class="sd-dot sd-dot-amber"></span>
+          <span class="sd-dot sd-dot-green"></span>
+          <span class="sd-browser-url">{{ demo.url }}</span>
+        </div>
+        <div class="sd-demo-body">
+          <span class="sd-demo-icon">🔗</span>
+          <div>
+            <h4>{{ demo.title }}</h4>
+            <span class="sd-demo-visit">Visit Live Site <span>→</span></span>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="sd-empty">
+      <p>Demo links for this service will be added soon.</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+ 
+<!-- ── BOTTOM CTA ── -->
+<div class="sd-bottom-cta">
+  <p class="sd-eyebrow" style="color:rgba(255,255,255,0.65)">READY TO GET STARTED?</p>
+  <h2>Let's Build Something Great Together</h2>
+  <p>Reach out and our team will get back to you within 24 hours.</p>
+  <button type="button" class="sd-cta sd-cta-light" data-bs-toggle="modal" data-bs-target="#serviceDetailBookingModal">
+    Register For This Service →
+  </button>
+</div>
+ 
+<!-- ── BOOKING MODAL (self-contained on this page) ── -->
+<div class="modal fade" id="serviceDetailBookingModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Service Registration</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="POST" action="{% url 'service_booking' %}">
+        {% csrf_token %}
+        <div class="modal-body">
+          <input type="hidden" name="service_name" value="{{ service.title }}">
+          <div class="mb-3">
+            <input type="text" name="full_name" class="form-control" placeholder="Name of your organization" required>
+          </div>
+          <div class="mb-3">
+            <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+          </div>
+          <div class="mb-3">
+            <input type="text" name="mobile" class="form-control" placeholder="Mobile Number" required>
+          </div>
+          <div class="mb-3">
+            <textarea name="message" class="form-control" rows="3" placeholder="Your Requirement"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary px-4">Submit Request →</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+ 
+{% endblock %}

@@ -6,12 +6,12 @@
     
     <div class="text-center mb-5">
       <span class="section-eyebrow">Application Entry Gateway</span>
-      <h2 class="section-title">Apply for <span style="color: var(--e2e-green)">{{ career.role }}</span></h2>
+      <h2 class="section-title"><span style="color: var(--e2e-green);">Apply for </span>{{ career.role }}</h2>
       <p class="section-subtitle-muted">Fill in your information fields below to initialize processing.</p>
     </div>
 
-    <div class="career-container-card modern-form-wrapper">
-      <form method="POST" enctype="multipart/form-data">
+    <div class="career-container-card modern-form-wrapper"> 
+      <form method="POST" enctype="multipart/form-data" >
         {% csrf_token %}
 
         <div class="row">

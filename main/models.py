@@ -27,13 +27,42 @@ class Module(models.Model):
     def __str__(self):
         return self.module_name
 
+
 class Service(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     image = models.ImageField(upload_to='course_images/', blank=True, null=True)
-
+    technologies = models.CharField(
+        max_length=400,
+        blank=True,
+        help_text="Comma-separated, e.g. 'Django, Bootstrap, PostgreSQL, REST API'"
+    )
+ 
     def __str__(self):
         return self.title
+ 
+    def tech_list(self):
+        """Returns technologies as a clean list for templates: service.tech_list"""
+        return [t.strip() for t in self.technologies.split(',') if t.strip()]
+ 
+ 
+class ServiceDemoLink(models.Model):
+
+    service = models.ForeignKey(
+        Service, on_delete=models.CASCADE, related_name='demo_links'
+    )
+    title = models.CharField(
+        max_length=150,
+        help_text="e.g. 'E-commerce Demo', 'Portfolio Demo'"
+    )
+    url = models.URLField(help_text="Full link to the live demo site")
+    order = models.PositiveIntegerField(default=0, help_text="Lower number = shown first")
+ 
+    class Meta:
+        ordering = ['order']
+ 
+    def __str__(self):
+        return f"{self.service.title} — {self.title}"
 
 
 class Contact(models.Model):
@@ -184,3 +213,16 @@ class Certificate(models.Model):
 
     def __str__(self):
         return f"{self.course_name} ({self.get_cert_type_display()})"
+
+from django.db import models
+
+class Internship(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    duration = models.CharField(max_length=100)
+    # Storing syllabus as a JSON list for easy iteration
+    syllabus = models.JSONField(help_text="Enter syllabus items as a list")
+
+    def __str__(self):
+        return self.title

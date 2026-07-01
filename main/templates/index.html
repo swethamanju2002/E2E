@@ -63,25 +63,25 @@
     <div class="row g-0 justify-content-center">
       <div class="col-6 col-md-3">
         <div class="stat-item">
-          <div class="stat-num counter-number" data-target="{{ total_bookings }}">{{ total_bookings }}+</div>
+          <div class="stat-num counter-number" data-target="{{ total_bookings }}">{{ total_bookings }}</div>
           <div class="stat-label">Students Enrolled</div>
         </div>
       </div>
       <div class="col-6 col-md-3">
         <div class="stat-item">
-          <div class="stat-num counter-number">400+<span>+</span></div>
+          <div class="stat-num counter-number">400</div>
           <div class="stat-label">Students learned</div>
         </div>
       </div>
       <div class="col-6 col-md-3">
         <div class="stat-item">
-          <div class="stat-num counter-number">10+</div>
+          <div class="stat-num counter-number">10</div>
           <div class="stat-label">Industry Courses</div>
         </div>
       </div>
       <div class="col-6 col-md-3">
         <div class="stat-item" style="border-right:none">
-          <div class="stat-num counter-number">99+</div>
+          <div class="stat-num counter-number">99</div>
           <div class="stat-label">certifications</div>
         </div>
       </div>
@@ -132,7 +132,7 @@
       </div>
 
       <div class="col-md-6" data-aos="fade-left">
-        <img src="{% static 'images/e2elogo.png' %}"
+        <img src="{% static 'images/e2ebanner.jpeg' %}"
              class="img-fluid"
              style="border-radius:16px;box-shadow:var(--shadow-xl);border:1px solid var(--border-light)"
              alt="Errors2Experts training campus"
@@ -195,44 +195,56 @@
 <!-- ══════════════════════════════════════════
      SERVICES SECTION
      ══════════════════════════════════════════ -->
-<section class="glass-section services-section" aria-labelledby="services-heading">
-  <div class="container py-5">
+ <section class="svc-grid-section">
+  <div class="container">
     <div class="text-center mb-5">
       <span class="section-eyebrow">What We Offer</span>
       <h2 id="services-heading" class="section-title">Our Services</h2>
     </div>
-    <div class="row g-4 stagger-children">
+    <div class="svc-grid">
       {% for service in services %}
-      <div class="col-lg-4 col-md-6">
-        <article class="service-card" data-aos="zoom-in">
-          <div class="service-img">
-            {% if service.image %}
-              <img src="{{ service.image.url }}" alt="{{ service.title }}" loading="lazy">
-            {% else %}
-              <img src="{% static 'images/default-service.jpg' %}" alt="{{ service.title }}" loading="lazy">
-            {% endif %}
+      <div class="svc-card">
+        <div class="svc-img">
+          {% if service.image %}
+            <img src="{{ service.image.url }}" alt="{{ service.title }}">
+          {% else %}
+            <img src="{% static 'images/default-service.jpg' %}" alt="Service">
+          {% endif %}
+        </div>
+        <div class="svc-content">
+          <h4>{{ service.title }}</h4>
+          <p>{{ service.description|truncatewords:20 }}</p>
+ 
+          {% if service.tech_list %}
+          <div class="svc-tech-preview">
+            {% for tech in service.tech_list|slice:":4" %}
+              <span class="svc-tech-chip">{{ tech }}</span>
+            {% endfor %}
           </div>
-          <div class="service-content">
-            <h4>{{ service.title }}</h4>
-            <p>{{ service.description|truncatewords:25 }}</p>
-            <button class="register-btn"
-                    data-bs-toggle="modal"
-                    data-bs-target="#serviceBookingModal"
-                    onclick="setServiceName('{{ service.title }}')"
-                    aria-label="Register for {{ service.title }}">
-              Register Now →
+          {% endif %}
+ 
+          <div class="svc-btn-row">
+            <a href="{% url 'service_detail' service.id %}" class="svc-btn-details">
+              View Details <span>→</span>
+            </a>
+            <button class="svc-btn-register"
+                data-bs-toggle="modal"
+                data-bs-target="#serviceBookingModal"
+                onclick="setServiceName('{{ service.title }}')">
+              Register Now
             </button>
           </div>
-        </article>
+        </div>
+      </div>
+      {% empty %}
+      <div class="svc-empty">
+        <p>Our services will be listed here soon.</p>
       </div>
       {% endfor %}
     </div>
-    <div class="text-center mt-4">
-      <a href="{% url 'services' %}" class="btn btn-outline-light px-5 py-2"
-         style="border-color:var(--e2e-green);color:var(--e2e-green)">View All Services →</a>
-    </div>
   </div>
 </section>
+ 
 
 <!-- ══════════════════════════════════════════
      MODERNIZED WHY CHOOSE E2E SECTION
@@ -461,10 +473,57 @@
  
   </div>
 </section>
- 
 
+ <!-- ══════════════════════════════════════════
+     internship SECTION
+     ══════════════════════════════════════════ -->
+<section id="internships" class="intern-home-section" aria-labelledby="internships-heading">
+  <div class="container">
  
-
+    <div class="text-center mb-2 reveal">
+      <span class="intern-home-eyebrow">Hands-On Career Tracks</span>
+      <h2 id="internships-heading" class="section-title">Our Internship Programs</h2>
+      <p class="section-subtitle-muted">
+        Structured, week-by-week internship tracks that take you from fundamentals
+        to full-stack, job-ready skills.
+      </p>
+    </div>
+ 
+    <div class="intern-home-grid stagger-children">
+      {% for internship in internships %}
+      <div class="intern-home-card reveal-scale">
+        <div class="intern-home-card-top">
+          <div class="intern-home-icon">💻</div>
+          <span class="intern-home-tag">Internship Program</span>
+          <h3>{{ internship.title }}</h3>
+          <p>{{ internship.description|truncatewords:18 }}</p>
+        </div>
+        <div class="intern-home-card-footer">
+          <div class="intern-home-price-block">
+            <span class="intern-home-price">₹{{ internship.price }}</span>
+            <span class="intern-home-duration">⏱ {{ internship.duration }}</span>
+          </div>
+          <a href="{% url 'internship_detail' internship.id %}" class="intern-home-explore-btn">
+            Explore <span>→</span>
+          </a>
+        </div>
+      </div>
+      {% empty %}
+      <div class="intern-home-empty">
+        <p class="mb-0">Internship programs will be listed here soon.</p>
+      </div>
+      {% endfor %}
+    </div>
+ 
+    {% if internships %}
+    <div class="text-center mt-5">
+      <a href="{% url 'internship_list' %}" class="btn btn-success px-5 py-2">View All Internships →</a>
+    </div>
+    {% endif %}
+ 
+  </div>
+</section>
+ 
 
 <!-- ══════════════════════════════════════════
      REVIEWS SECTION
@@ -476,7 +535,7 @@
       <h2 id="reviews-heading" class="section-title">What Students Say</h2>
     </div>
   </div>
-  <div class="reviews-marquee" role="region" aria-label="Student reviews marquee">
+  <div class="reviews-marquee p-4" role="region" aria-label="Student reviews marquee">
     <div class="reviews-track">
       {% for r in reviews %}
       <article class="review-card">
@@ -485,9 +544,9 @@
             <img src="{{ r.image.url }}" alt="{{ r.student_name }}" loading="lazy">
           {% else %}
             {% if r.gender == 'F' %}
-            <img src="{% static 'images/girl_placeholder.jpeg' %}" alt="{{ r.student_name }}" loading="lazy">
+            <img src="{% static 'images/default_girl_placeholder.jpeg' %}" alt="{{ r.student_name }}" loading="lazy">
              {% else %}
-             <img src="{% static 'images/boy_placeholder.jpeg' %}" alt="{{ r.student_name }}" loading="lazy">
+             <img src="{% static 'images/default_boy_placeholder.jpeg' %}" alt="{{ r.student_name }}" loading="lazy">
              {% endif %}         
          {% endif %}
         </div>
@@ -505,9 +564,9 @@
         <div class="review-img">
           {% if r.image %}<img src="{{ r.image.url }}" alt="" loading="lazy">
           {% if r.gender == 'F' %}
-        <img src="{% static 'images/girl_placeholder.jpeg' %}" alt="{{ r.student_name }}" loading="lazy">
+        <img src="{% static 'images/default_girl_placeholder.jpeg' %}" alt="{{ r.student_name }}" loading="lazy">
       {% else %}
-        <img src="{% static 'images/boy_placeholder.jpeg' %}" alt="{{ r.student_name }}" loading="lazy">
+        <img src="{% static 'images/default_boy_placeholder.jpeg' %}" alt="{{ r.student_name }}" loading="lazy">
       {% endif %}
       {% endif %}
         </div>
