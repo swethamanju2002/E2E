@@ -28,11 +28,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
    <!-- Bootstrap ICONS-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <!-- ── E2E CSS LAYER ── -->  
-  <!-- NEW: Brand tokens then full redesign (loads last = highest priority) -->
   <link rel="stylesheet" href="{% static 'css/swipe.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <link rel="stylesheet" href="{% static 'css/services.css' %}">
   <link rel="stylesheet" href="{% static 'css/motivation.css' %}">
   <link rel="stylesheet" href="{% static 'css/brand_new.css' %}">
   <link rel="stylesheet" href="{% static 'css/e2e_redesign.css' %}">
@@ -84,7 +81,7 @@
               <li class="nav-item-drop"><a class="nav-link" href="{% url 'internship_list' %}">Internships</a></li>
               <li class="nav-item-drop"><a class="nav-link" href="{% url 'certificates' %}">Certificates</a></li>
               <li class="nav-item-drop"><a class="nav-link" href="{% url 'reviews' %}">Reviews</a></li>
-              <li class="nav-item-drop"><a class="nav-link" href="#">Our Clients</a></li>
+              <li class="nav-item-drop"><a class="nav-link" href="#projects">Our Clients</a></li>
             </ul>
           </li>
           <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>

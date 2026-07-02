@@ -23,10 +23,10 @@
           
           <div class="course-meta-pills d-flex flex-wrap gap-3 my-4">
             <span class="meta-pill"><i class="bi bi-clock"></i> {{ course.duration }}</span>
-            <span class="meta-pill price-pill"><i class="bi bi-tags"></i> ₹{{ course.price }}</span>
             {% if course.discount %}
-              <span class="meta-pill discount-pill">Save ₹{{ course.discount }}</span>
+              <span class="meta-pill discount-pill">₹{{ course.discount }}</span>
             {% endif %}
+            <span class="meta-pill price-pill"><i class="bi bi-tags"></i>Save ₹{{ course.price }}</span>
           </div>
           
           <a href="{% url 'book_course' course.id %}" class="btn btn-success px-4 py-2.5">
@@ -66,10 +66,6 @@
 
     <!-- Mini Cards Architecture Grid -->
     <div class="row g-4 justify-content-center">
-      <!-- 
-        Django Loop Troubleshooting Note: 
-        If 'course.modules.all' is empty, try using 'modules' directly if you passed it from views.py 
-      -->
       {% if course.modules.all %}
         {% for module in course.modules.all %}
         <div class="col-md-6 col-lg-4">

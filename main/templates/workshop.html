@@ -114,6 +114,7 @@
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
   margin-top: 8px;
+  align-items: stretch !important;
 }
 
 /* Card */
@@ -125,6 +126,9 @@
   box-shadow: var(--shadow-sm);
   cursor: pointer;
   transition: all 0.35s var(--ease);
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
 }
 .workshop-card:hover {
   transform: translateY(-6px);
@@ -173,6 +177,9 @@
 /* Info block */
 .workshop-info {
   padding: 18px 20px 20px;
+  flex-grow: 1 !important; 
+  display: flex !important;
+  flex-direction: column !important;
 }
 .workshop-info h3 {
   font-family: var(--font-display);

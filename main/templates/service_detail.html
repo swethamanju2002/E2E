@@ -2,50 +2,50 @@
 {% load static %}
 {% block title %}{{ service.title }} — Errors2Experts{% endblock %}
 {% block meta_desc %}{{ service.title }} by Errors2Experts. Explore the technologies we use and view live demo websites.{% endblock %}
-{% block content %}
- 
-<!-- ── HERO ── -->
-<div class="sd-hero">
-        <a href="{% url 'services' %}" class="sd-back">← Back to All Services</a>
-
-  <div class="sd-hero-inner">
- 
-    <p class="sd-eyebrow">OUR SERVICE</p>
-    <h1>{{ service.title }}</h1>
-    <p class="sd-desc">{{ service.description }}</p>
- 
-    <button type="button" class="sd-cta" data-bs-toggle="modal" data-bs-target="#serviceDetailBookingModal">
-      Register For This Service →
-    </button>
-  </div>
-</div>
- 
-<!-- ── SERVICE IMAGE BANNER ── -->
-{% if service.image %}
-<div class="sd-banner-wrap">
-  <div class="sd-banner">
-    <img src="{{ service.image.url }}" alt="{{ service.title }}">
-  </div>
-</div>
-{% endif %}
- 
-<!-- ── TECHNOLOGIES ── -->
-{% if service.tech_list %}
-<section class="sd-section">
-  <div class="sd-section-inner">
-    <div class="sd-section-heading">
-      <span class="sd-eyebrow-left">TECH STACK</span>
-      <h2>Technologies We Use</h2>
+{% block content %} 
+<div class="container">
+    <!-- Hero Course Meta Card -->
+          <!-- Actionable Back Button -->
+    <div class="animate-fade-in">
+       <!-- Back Navigation Anchor Link -->
+    <a href="{% url 'services' %}" class="btn-back mt-5">
+      ← Back to All Services </a>
     </div>
-    <div class="sd-tech-grid">
-      {% for tech in service.tech_list %}
-      <span class="sd-tech-pill">{{ tech }}</span>
-      {% endfor %}
+    
+    <div class="course-hero-banner mb-5 animate-fade-in">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+          
+          <span class="section-eyebrow">Our Services</span>
+          <h1 class="course-main-title">{{ service.title }}</h1>
+          <p class="course-main-desc">{{ service.description }}</p>
+          
+           <button type="button" class="intern-explore-btn" data-bs-toggle="modal" data-bs-target="#serviceDetailBookingModal">
+    Register For This Service →
+  </button>
+        </div>
+        <div class="col-lg-5">
+          <div class="browser-mockup-container">
+            <div class="browser-header-bar">
+              <div class="browser-dots">
+                <span class="dot-red"></span>
+                <span class="dot-amber"></span>
+                <span class="dot-green"></span>
+              </div>
+              <div class="browser-address-field">errors2experts.com/service/{{ service.id }}</div>
+            </div>
+            <div class="browser-screen-view">
+              {% if service.image %}
+                <img src="{{ service.image.url }}" class="img-fluid project-display-img" alt="{{ service.title }}">
+              {% else %}
+                <img src="{% static 'main/images/no-image.png' %}" class="img-fluid project-display-img" alt="Default Image">
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</section>
-{% endif %}
- 
 <!-- ── LIVE DEMOS ── -->
 <section class="sd-section sd-demos-section">
   <div class="sd-section-inner">
@@ -58,6 +58,7 @@
     {% if service.demo_links.all %}
     <div class="sd-demo-grid">
       {% for demo in service.demo_links.all %}
+      {% if demo.url %}
       <a href="{{ demo.url }}" target="_blank" rel="noopener noreferrer" class="sd-demo-card">
         <div class="sd-browser-bar">
           <span class="sd-dot sd-dot-red"></span>
@@ -73,6 +74,20 @@
           </div>
         </div>
       </a>
+      {% elif demo.image %}
+          <a href="{{ demo.image.url }}" target="_blank" class="sd-demo-card">
+            <div class="sd-browser-bar" style="background:#f8f9fa; border-bottom:1px solid #eee;">
+               <span class="sd-browser-url">Document Download</span>
+            </div>
+            <div class="sd-demo-body">
+              <span class="sd-demo-icon">📄</span>
+              <div>
+                <h4>{{ demo.title }}</h4>
+                <span class="sd-demo-visit">Download Sample <span>↓</span></span>
+              </div>
+            </div>
+          </a>
+        {% endif %}
       {% endfor %}
     </div>
     {% else %}

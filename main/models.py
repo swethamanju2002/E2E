@@ -55,7 +55,8 @@ class ServiceDemoLink(models.Model):
         max_length=150,
         help_text="e.g. 'E-commerce Demo', 'Portfolio Demo'"
     )
-    url = models.URLField(help_text="Full link to the live demo site")
+    image = models.FileField(upload_to='service_images/', blank=True, null=True)
+    url = models.URLField(help_text="Full link to the live demo site",blank=True, null=True)
     order = models.PositiveIntegerField(default=0, help_text="Lower number = shown first")
  
     class Meta:
