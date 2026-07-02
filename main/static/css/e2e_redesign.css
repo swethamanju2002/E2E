@@ -1261,6 +1261,14 @@ body {
     width: 100%;
 }
 
+.reviews-marquee:hover .reviews-track {
+    animation-play-state: paused;
+}
+
+.reviews-marquee:active .reviews-track,
+.review-card:active ~ .reviews-track {
+    animation-play-state: paused;
+}
 .reviews-track {
     display: flex;
     gap: 30px;
