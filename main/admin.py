@@ -2,15 +2,29 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib import admin
-from .models import Course, Service, Contact
+from .models import Course, Service, ServiceDemoLink, Contact
 from .models import ClientProject, StudentReview,JobApplication
-
+from .models import WorkshopPhoto, Certificate
+from .models import Module
+from .models import Internship
 
 
 admin.site.register(ClientProject)
 admin.site.register(StudentReview)
 admin.site.register(Course)
-admin.site.register(Service)
+admin.site.register(Module)
+
+class ServiceDemoLinkInline(admin.TabularInline):
+    model = ServiceDemoLink
+    extra = 1
+ 
+@admin.register(Service)
+class ServiceAdmin(admin.ModelAdmin):
+    list_display = ('title',)
+    search_fields = ('title',)
+    inlines = [ServiceDemoLinkInline]
+ 
+
 admin.site.register(Contact)
 from django.contrib import admin
 from .models import Career
@@ -28,4 +42,26 @@ class JobApplicationAdmin(admin.ModelAdmin):
     
 # from .models import Course, CourseBooking
 
+@admin.register(WorkshopPhoto)
+class WorkshopPhotoAdmin(admin.ModelAdmin):
+    list_display  = ('title', 'event_date', 'order', 'created_at')
+    list_editable = ('order',)
+    search_fields = ('title', 'description')
+    list_filter   = ('event_date',)
+    ordering      = ('order', '-created_at')
 
+
+@admin.register(Certificate)
+class CertificateAdmin(admin.ModelAdmin):
+    list_display  = ('course_name', 'cert_type', 'order', 'created_at')
+    list_editable = ('order',)
+    list_filter   = ('cert_type',)
+    search_fields = ('course_name',)
+    ordering      = ('order', '-created_at')
+
+@admin.register(Internship)
+class InternshipAdmin(admin.ModelAdmin):
+    # This list_display makes it easier to see your internships in the dashboard
+    list_display = ('title', 'price', 'duration')
+    # This search_fields adds a search bar in the admin
+    search_fields = ('title',)

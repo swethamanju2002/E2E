@@ -13,15 +13,18 @@ urlpatterns = [
     path('service-booking/', views.service_booking, name='service_booking'),
 
     path('services/', views.services, name='services'),
+    path('services/<int:pk>/', views.service_detail, name='service_detail'),
     path('contact/', views.contact, name='contact'),
     path('careers/', views.career_list, name='careers'),
     path('careers/<int:pk>/', views.career_detail, name='career_detail'),
     path('careers/<int:pk>/apply/', views.apply_job, name='apply_job'),
     path("demo-booking/", views.demo_booking, name="demo_booking"),
     path('book-course/<int:id>/', views.book_course, name="book_course"),
-    # path('reviews/', views.reviews_page, name='reviews'),
-
-
+    path('reviews/', views.review_page, name='reviews'),
+    path('workshops/', views.workshop_gallery, name='workshops'),
+    path('certificates/', views.certificate_gallery, name='certificates'),
+    path('internships/', views.internship_list, name='internship_list'),
+    path('internships/<int:pk>/', views.internship_detail, name='internship_detail'),
 ]
 
 if settings.DEBUG:

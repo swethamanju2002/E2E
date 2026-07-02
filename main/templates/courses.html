@@ -1,148 +1,113 @@
 {% extends 'base.html' %}
-{% block content %}
 {% load static %}
 
-<section id="courses" class="container mt-5">
-    <div class="course-detail-container">
-        <div class="course-detail-card">
-
-            {% if course.image %}
-                <img src="{{ course.image.url }}" alt="{{ course.title }}">
-            {% else %}
-                <img src="{% static 'main/images/no-image.png' %}" alt="No Image">
+{% block content %}
+<div class="course-detail-wrapper py-5">
+  <div class="container">
+    
+    <!-- Actionable Back Button -->
+    <div class="mb-4 animate-fade-in">
+       <!-- Back Navigation Anchor Link -->
+    <a href="{% url 'allcourse' %}" class="btn-back">
+      ← Back to All Courses
+    </a>
+    </div>
+    
+    <!-- Hero Course Meta Card -->
+    <div class="course-hero-banner mb-5 animate-fade-in">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+          <span class="section-eyebrow">Advanced Learning Track</span>
+          <h1 class="course-main-title">{{ course.title }}</h1>
+          <p class="course-main-desc">{{ course.description }}</p>
+          
+          <div class="course-meta-pills d-flex flex-wrap gap-3 my-4">
+            <span class="meta-pill"><i class="bi bi-clock"></i> {{ course.duration }}</span>
+            {% if course.discount %}
+              <span class="meta-pill discount-pill">₹{{ course.discount }}</span>
             {% endif %}
-
-            <h2>{{ course.title }}</h2>
-            <ul>
-    {% for line in course.description.splitlines %}
-        <li>{{ line }}</li>
-    {% endfor %}
-</ul>
-
-            <div class="price-box">
-                <span class="new-price">₹{{ course.price }}</span>
-                {% if course.discount %}
-                    <span class="old-price">₹{{ course.discount }}</span>
-                {% endif %}
-            </div>
-
-            <!-- MAIN BUTTON -->
-            <button class="book-btn" onclick="openBookingPopup()">Book Now</button>
-
+            <span class="meta-pill price-pill"><i class="bi bi-tags"></i>Save ₹{{ course.price }}</span>
+          </div>
+          
+          <a href="{% url 'book_course' course.id %}" class="btn btn-success px-4 py-2.5">
+            Book Next Batch Slot <i class="bi bi-arrow-right-short"></i>
+          </a>
         </div>
+        <div class="col-lg-5">
+          <div class="browser-mockup-container">
+            <div class="browser-header-bar">
+              <div class="browser-dots">
+                <span class="dot-red"></span>
+                <span class="dot-amber"></span>
+                <span class="dot-green"></span>
+              </div>
+              <div class="browser-address-field">errors2experts.com/course/{{ course.id }}</div>
+            </div>
+            <div class="browser-screen-view">
+              {% if course.image %}
+                <img src="{{ course.image.url }}" class="img-fluid project-display-img" alt="{{ course.title }}">
+              {% else %}
+                <img src="{% static 'main/images/no-image.png' %}" class="img-fluid project-display-img" alt="Default Image">
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</section>
 
+    <hr class="my-5" style="border-color: var(--border-light);">
 
-<!-- BOOKING POPUP -->
-<div id="bookingPopup" class="popup-overlay">
-    <div class="popup-box">
-
-        <span class="close-btn" onclick="closeBookingPopup()">×</span>
-
-        <h3>Course Booking</h3>
-
-       <form method="POST" action="{% url 'book_course' course.id %}">
-            {% csrf_token %}
-
-            <input type="text" name="name" placeholder="Full Name" required>
-            <input type="email" name="email" placeholder="Email Address" required>
-            <input type="text" name="mobile" placeholder="Mobile Number" required>
-            <input type="text" name="education" placeholder="Education Qualification" required>
-            <input type="text" name="year_passed" placeholder="Year of Passed Out" required>
-
-            <!-- IMPORTANT FIX HERE -->
-            <input type="hidden" name="course" value="{{ course.title }}">
-            <input type="hidden" name="course_amount" value="{{ course.price }}">
-
-            <select name="payment_type" required>
-                <option value="">Select Payment Type</option>
-                <option value="full">Full Amount</option>
-                <option value="emi">Installment EMI (50%)</option>
-            </select>
-
-            <button type="submit" class="submit-btn">Proceed</button>
-        </form>
-
+    <!-- Module Details Section Header -->
+    <div class="text-center mb-5">
+      <span class="section-eyebrow">Curriculum Architecture</span>
+      <h2 class="section-title">Program Modules</h2>
+      <p class="text-muted mt-2">Carefully mapped structured milestones guiding you from syntax errors to architecture expert.</p>
     </div>
+
+    <!-- Mini Cards Architecture Grid -->
+    <div class="row g-4 justify-content-center">
+      {% if course.modules.all %}
+        {% for module in course.modules.all %}
+        <div class="col-md-6 col-lg-4">
+          <div class="module-mini-card">
+            <div class="card-accent-strip"></div>
+            <div class="module-card-body">
+              <div class="module-header-row">
+                <span class="module-step-badge">Module {{ forloop.counter }}</span>
+                <div class="module-status-dot"></div>
+              </div>
+              <h4 class="module-card-title">{{ module.module_name }}</h4>
+              <p class="module-card-desc">{{ module.description }}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      {% elif modules %}
+        {% for module in modules %}
+        <div class="col-md-6 col-lg-4">
+          <div class="module-mini-card">
+            <div class="card-accent-strip"></div>
+            <div class="module-card-body">
+              <div class="module-header-row">
+                <span class="module-step-badge">Module {{ forloop.counter }}</span>
+                <div class="module-status-dot"></div>
+              </div>
+              <h4 class="module-card-title">{{ module.module_name }}</h4>
+              <p class="module-card-desc">{{ module.description }}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="col-12 text-center py-5">
+          <div class="white-fallback-box" style="background: var(--bg-soft); border: 1px dashed var(--border-medium); padding: 40px; border-radius: var(--radius-lg);">
+            <i class="bi bi-inboxes text-muted fs-2 mb-2 d-block"></i>
+            <p class="text-muted mb-0">No modules linked to this course yet. Check your database admin configurations.</p>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+  </div>
 </div>
-
-
-<style>
-.popup-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.6);
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-}
-ul {
-    text-align: center;
-    padding-left: 20px;
-}
-
-
-ul li {
-    margin-bottom: 6px;
-    color: #fff;
-    list-style:none;
-}
-
-.popup-box {
-    background: #053142;
-    padding: 25px;
-    width: 400px;
-    border-radius: 8px;
-    position: relative;
-}
-
-.popup-box input,
-.popup-box select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-}
-
-.submit-btn {
-    background: linear-gradient(45deg, #007bff, #00c6ff);
-    color: rgb(255, 255, 255);
-    padding: 10px;
-    border: none;
-    width: 100%;
-    cursor: pointer;
-}
-
-.close-btn {
-    position: absolute;
-    right: 15px;
-    top: 10px;
-    font-size: 22px;
-    cursor: pointer;
-}
-
-.book-btn {
-    background: #111;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-}
-</style>
-
-
-<script>
-function openBookingPopup() {
-    document.getElementById("bookingPopup").style.display = "flex";
-}
-
-function closeBookingPopup() {
-    document.getElementById("bookingPopup").style.display = "none";
-}
-</script>
-
 {% endblock %}

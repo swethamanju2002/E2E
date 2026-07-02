@@ -3,6 +3,8 @@ from django.shortcuts import render
 # Create your views here.
 from django.shortcuts import render, redirect
 from .models import Course, Service,CourseBooking, Contact,ClientProject,StudentReview
+from .models import WorkshopPhoto, Certificate
+from .models import Internship
 
 def home(request):
     courses = Course.objects.all()
@@ -10,8 +12,10 @@ def home(request):
     projects=ClientProject.objects.all()
     reviews=StudentReview.objects.all()
     total_bookings = CourseBooking.objects.count()
-
-    
+    workshops       = WorkshopPhoto.objects.all()    
+    certificates    = Certificate.objects.all()
+    internships = Internship.objects.all()
+   
 
     if request.method == "POST":
         name = request.POST.get('name')
@@ -25,7 +29,11 @@ def home(request):
         'services': services,
         'projects':projects,
         'reviews':reviews,
-        "total_bookings": total_bookings
+        "total_bookings": total_bookings,
+        'workshops': workshops,  
+        'certificates':  certificates,
+        'internships': internships,
+
     })
     
 from django.shortcuts import render, get_object_or_404
@@ -33,12 +41,22 @@ from .models import Course
 
 
 
-def index(request):
+def review_page(request):
     reviews = StudentReview.objects.all().order_by('-created_at')
-    return render(request, 'index.html', {'reviews': reviews})
+    return render(request, 'reviews.html', {'reviews': reviews})
 def course_detail(request, id):
     course = get_object_or_404(Course, id=id)
-    return render(request, 'courses.html', {'course': course})
+
+    description_lines = course.description.splitlines()
+
+    return render(
+        request,
+        'courses.html',
+        {
+            'course': course,
+            'description_lines': description_lines
+        }
+    )
 def allcourse(request):
     allcourse = Course.objects.all()
     return render(request,'allcourse.html',{'allcourse':allcourse})
@@ -52,7 +70,12 @@ def courses(request):
 
 def services(request):
     services = Service.objects.all()
+    
     return render(request, 'services.html', {'services': services})
+
+def service_detail(request, pk):
+    service = get_object_or_404(Service, pk=pk)
+    return render(request, 'service_detail.html', {'service': service})
 
 def contact(request):
     if request.method == "POST":
@@ -607,3 +630,38 @@ Errors2Experts Team
         )
         messages.success(request, "Service Registered Successfully")
         return redirect("services")  # change if needed
+    
+def workshop_gallery(request):
+    """Dedicated full-page workshop gallery."""
+    workshops = WorkshopPhoto.objects.all()
+    return render(request, 'workshop.html', {'workshops': workshops})
+ 
+ 
+def certificate_gallery(request):
+    """Dedicated full-page certificate gallery."""
+    certificates = Certificate.objects.all()
+    return render(request, 'certificate.html', {'certificates': certificates})
+from django.shortcuts import render, get_object_or_404
+from collections import defaultdict
+from .models import Internship
+
+# View for the landing page (Cards)
+def internship_list(request):
+    internships = Internship.objects.all()
+    return render(request, 'all_internship.html', {'internships': internships})
+
+# View for the roadmap detail page
+def internship_detail(request, pk):
+    internship = get_object_or_404(Internship, pk=pk)
+    
+    # Logic to group days into weekly timeline blocks
+    timeline_data = defaultdict(list)
+    for index, topic in enumerate(internship.syllabus):
+        week = (index // 5) + 1  
+        timeline_data[week].append({'day': index + 1, 'topic': topic})
+        
+    return render(request, 'internship_detail.html', {
+        'internship': internship, 
+        'timeline_data': dict(timeline_data)
+    })
+ 

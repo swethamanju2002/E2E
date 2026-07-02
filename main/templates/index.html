@@ -1,127 +1,924 @@
 {% extends 'base.html' %}
-{% comment %} {% extends 'services.html'%} {% endcomment %}
 {% block content %}
 {%load static%}
+<!-- ══════════════════════════════════════════
+     HERO SECTION
+     Background image visible through soft white overlay
+     ══════════════════════════════════════════ -->
+<section class="hero-slider" aria-label="Hero banner">
+  <div id="heroCarousel" class="carousel slide ">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="hero-slide d-flex align-items-center justify-content-center text-center">
 
-<!-- HERO SECTION -->
-<!-- HERO SECTION -->
-<section class="hero-slider ">
+          <div class="hero-glass-card"
+               style="opacity:0;animation:fadeUp 0.8s ease 0.3s forwards">
 
-    <div id="heroCarousel" class="carousel slide carousel-fade" >
+            <!-- Eyebrow -->
+            <p class="welcome-text">Tamil Nadu's Premier IT Training</p>
 
-        <div class="carousel-inner">
+            <!-- Headline -->
+            <h1 class="e2e">Welcome to <span class="brand-errors">Errors</span><span class="two">2</span><span class="brand-experts">Experts</span></h1>
 
-            <!-- Slide 1 -->
-            <div class="carousel-item active">
-                <div class="hero-slide d-flex align-items-center justify-content-center text-center">
-                    <img src="{% static 'images/e2e.png' %}" class="hero-bg" alt="Errors to Experts">
-                    
-                    <div class="hero-content text-white">
-    
-    <h1 class="e2e fw-bold">
-        <span class="welcome-text">Welcome to</span> 
-        <span class="brand-highlight animate-brand">Errors2Experts</span>
-    </h1>
+            <p class="tagline">
+              Transforming Beginners into Industry-Ready Professionals
+            </p>
 
-    <p class="lead mt-3 tagline">
-        Transforming Beginners into Industry Experts
-    </p>
-
-    <a href="{% url 'allcourse' %}" class="btn btn-success mt-4 px-4 py-2">
-        Explore Courses
-    </a>
-
-    <button type="button" 
-        class="btn btn-outline-light px-4 py-2"
-        data-bs-toggle="modal" 
-        data-bs-target="#demoModal">
-        Book For Demo
-    </button>
-
-</div>
-                </div>
+            <!-- CTAs -->
+            <div class="d-flex flex-wrap justify-content-center gap-3 mt-2"
+                 style="opacity:0;animation:fadeUp 0.7s ease 1s forwards">
+               <a href="{% url 'allcourse' %}" style="background:var(--e2e-green);color:var(--bg-white);border-radius:50px;padding:14px 36px;font-weight:700;font-size:15px;text-decoration:none;transition:0.3s"
+                  onmouseenter="this.style.background='var(--e2e-green-dark)';"
+                  onmouseleave="this.style.background='var(--e2e-green)';">
+                  Browse Courses →
+                </a>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#demoModal"
+                        style="background:transparent;border:2px solid var(--e2e-red);border-radius:50px;padding:14px 36px;font-weight:600;font-size:15px;color:var(--e2e-red);cursor:pointer;transition:0.3s"
+                        onmouseenter="this.style.borderColor='var(--e2e-red)';this.style.background='var(--e2e-red-tint)'"
+                        onmouseleave="this.style.borderColor='var(--e2e-red)';this.style.background='transparent'">
+                  Book Free Demo
+                </button>
             </div>
 
+            <!-- Trust badges -->
+            <div class="d-flex flex-wrap justify-content-center gap-2 mt-4"
+                 style="opacity:0;animation:fadeUp 0.7s ease 1.3s forwards">
+              <span class="trust-badge"><span class="check">✓</span> MSME Registered</span>
+              <span class="trust-badge"><span class="check">✓</span> Industry Trainers</span>
+              <span class="trust-badge"><span class="check">✓</span> Placement Support</span>
+            </div>
+
+          </div>
         </div>
-
+      </div>
     </div>
-
+  </div>
 </section>
 
-<div class="modal fade" id="serviceBookingModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
+<!-- ══════════════════════════════════════════
+     STATS STRIP — Social proof above the fold
+     ══════════════════════════════════════════ -->
+<section class="stats-strip" aria-label="Key statistics">
+  <div class="container">
+    <div class="row g-0 justify-content-center">
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-num counter-number" data-target="{{ total_bookings }}">{{ total_bookings }}</div>
+          <div class="stat-label">Students Enrolled</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-num counter-number">400</div>
+          <div class="stat-label">Students learned</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item">
+          <div class="stat-num counter-number">10</div>
+          <div class="stat-label">Industry Courses</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-item" style="border-right:none">
+          <div class="stat-num counter-number">99</div>
+          <div class="stat-label">certifications</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <div class="modal-header">
-        <h5 class="modal-title">Service Registration</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
+<!-- ══════════════════════════════════════════
+     ABOUT SECTION
+     ══════════════════════════════════════════ -->
+<section id="about" class="glass-section" aria-labelledby="about-heading">
+  <div class="container py-5">
+    <div class="row align-items-center g-5">
+
+      <div class="col-md-6" data-aos="fade-right">
+        <span class="section-eyebrow">Who We Are</span>
+        <h2 id="about-heading"
+            style="font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:700;color:var(--text-primary);margin-bottom:20px">
+          About Us
+        </h2>
+        <p style="color:var(--text-muted);line-height:1.85;font-size:15.5px;margin-bottom:16px">
+          Errors2Experts is a <strong style="color:var(--text-primary)">MSME Udyam Registered</strong> professional IT training
+          institute delivering industry-relevant courses with high-quality, practical learning.
+          Our programs are led by experienced corporate trainers with real-time project exposure
+          and internship opportunities.
+        </p>
+        <p style="color:var(--text-muted);line-height:1.85;font-size:15.5px;margin-bottom:24px">
+          We focus on career growth through mentorship, placement preparation, and skill development
+          that transforms learners into industry-ready professionals.
+        </p>
+        <!-- Mini stat pills -->
+        <div class="d-flex flex-wrap gap-3">
+          <div style="background:var(--e2e-green-tint);border:1px solid rgba(46,125,50,0.2);border-radius:12px;padding:12px 20px;text-align:center">
+            <div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--e2e-green)">EMI</div>
+            <div style="font-size:12px;color:var(--text-muted);font-weight:500">Easy Installments</div>
+          </div>
+          <div style="background:var(--e2e-gold-tint);border:1px solid rgba(201,162,39,0.2);border-radius:12px;padding:12px 20px;text-align:center">
+            <div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--e2e-gold-dark)">100%</div>
+            <div style="font-size:12px;color:var(--text-muted);font-weight:500">Placement Support</div>
+          </div>
+          <div style="background:var(--e2e-red-tint);border:1px solid rgba(183,28,28,0.15);border-radius:12px;padding:12px 20px;text-align:center">
+            <div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--e2e-red)">MSME</div>
+            <div style="font-size:12px;color:var(--text-muted);font-weight:500">Registered</div>
+          </div>
+        </div>
+        <!-- Proposal Download Button -->
+        <div class="mt-4 d-flex">
+          <a href="{% url 'about' %}" class="btn btn-success mt-4">Read More About Us →</a>
+          <a href="{% static 'documents/proposal.pdf' %}" 
+            class="btn btn-success mt-4 mx-4" 
+            download="Errors2Experts_Proposal.pdf">
+            📥 Download Our Proposal
+          </a>
+        </div>
       </div>
 
+      <div class="col-md-6" data-aos="fade-left">
+        <img src="{% static 'images/e2ebanner.jpeg' %}"
+             class="img-fluid"
+             style="border-radius:16px;box-shadow:var(--shadow-xl);border:1px solid var(--border-light)"
+             alt="Errors2Experts training campus"
+             loading="lazy">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     COURSES SECTION
+     ══════════════════════════════════════════ -->
+<section class="auto-course-section glass-section" aria-labelledby="courses-heading">
+  <div class="container-fluid px-0">
+    <div class="px-4 text-center mb-2" style="padding:0 5%">
+      <span class="section-eyebrow">What We Teach</span>
+      <h2 id="courses-heading" class="section-title">Our Courses</h2>
+      <p style="color:var(--text-muted);font-size:15px;margin-top:8px;max-width:480px;margin-left:auto;margin-right:auto">
+        Industry-focused programs that make you job-ready from day one.
+      </p>
+    </div>
+
+    <div class="scroll-container" role="region" aria-label="Course cards, scroll to see all">
+      <div class="scroll-track">
+        {% for course in courses %}
+        <article class="course-card" >
+          {% if course.image %}
+            <img src="{{ course.image.url }}" alt="{{ course.title }}" loading="lazy">
+          {% else %}
+            <img src="{% static 'main/images/no-image.png' %}" alt="{{ course.title }}" loading="lazy">
+          {% endif %}
+          <h4>{{ course.title }}</h4>
+          <p>{{ course.description|truncatewords:15 }}</p>
+          <div class="price-box">
+            <span class="new-price">₹{{ course.price }}</span>
+            {% if course.discount %}
+            <span class="old-price">₹{{ course.discount }}</span>
+            {% endif %}
+          </div>
+          {% if course.duration %}
+          <p style="font-size:12px;color:var(--text-muted);padding:0 18px;margin-bottom:0">⏱ {{ course.duration }}</p>
+          {% endif %}
+          <a href="{% url 'course_detail' course.id %}" class="btn btn-success">Explore Course →</a>
+        </article>
+        {% endfor %}
+      </div>
+      <div class="swipe-indicator" aria-hidden="true"><span>Swipe to see more →</span></div>
+    </div>
+
+    <!-- View all CTA -->
+    <div class="text-center mt-4 pb-4">
+      <a href="{% url 'allcourse' %}" class="btn btn-success px-5 py-2">View All Courses</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SERVICES SECTION
+     ══════════════════════════════════════════ -->
+ <section class="svc-grid-section">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="section-eyebrow">What We Offer</span>
+      <h2 id="services-heading" class="section-title">Our Services</h2>
+    </div>
+    <div class="svc-grid">
+      {% for service in services %}
+      <div class="svc-card">
+        <div class="svc-img">
+          {% if service.image %}
+            <img src="{{ service.image.url }}" alt="{{ service.title }}">
+          {% else %}
+            <img src="{% static 'images/default-service.jpg' %}" alt="Service">
+          {% endif %}
+        </div>
+        <div class="svc-content">
+          <h4>{{ service.title }}</h4>
+          <p>{{ service.description|truncatewords:20 }}</p>
+ 
+          {% if service.tech_list %}
+          <div class="svc-tech-preview">
+            {% for tech in service.tech_list|slice:":4" %}
+              <span class="svc-tech-chip">{{ tech }}</span>
+            {% endfor %}
+          </div>
+          {% endif %}
+ 
+          <div class="svc-btn-row">
+            <a href="{% url 'service_detail' service.id %}" class="intern-explore-btn">
+              View Details <span>→</span>
+            </a>
+            <button class="svc-btn-register"
+                data-bs-toggle="modal"
+                data-bs-target="#serviceBookingModal"
+                onclick="setServiceName('{{ service.title }}')">
+              Register Now
+            </button>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="svc-empty">
+        <p>Our services will be listed here soon.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+ 
+
+<!-- ══════════════════════════════════════════
+     MODERNIZED WHY CHOOSE E2E SECTION
+     ══════════════════════════════════════════ -->
+<section class="why-e2e-premium-section" aria-labelledby="why-heading">
+  <div class="container">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <span class="section-eyebrow">The E2E Advantage</span>
+      <h2 id="why-heading" class="section-title">What Makes E2E Different</h2>
+      <p class="section-subtitle-muted">Skip the traditional generic bootcamps. Experience an elite training curriculum engineered for actual employment outcomes.</p>
+    </div>
+
+    <div class="row g-4 stagger-children">
+      <!-- Feature Card 1 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="why-card-premium text-center">
+          <div class="why-icon-wrapper red-theme">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <h4>MSME Registered</h4>
+          <p>An officially certified and audited educational workflow recognized for meeting industry-level metrics.</p>
+        </div>
+      </div>
+
+      <!-- Feature Card 2 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="why-card-premium text-center">
+          <div class="why-icon-wrapper green-theme">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <h4>Corporate Mentorship</h4>
+          <p>Learn strictly from senior engineers currently handling active deployment frameworks in tech ecosystems.</p>
+        </div>
+      </div>
+
+      <!-- Feature Card 3 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="why-card-premium text-center">
+          <div class="why-icon-wrapper gold-theme">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+          </div>
+          <h4>Live Production Projects</h4>
+          <p>Build enterprise pipelines. Graduate with proof-of-work repositories instead of standard generic configurations.</p>
+        </div>
+      </div>
+
+      <!-- Feature Card 4 -->
+      <div class="col-md-6 col-lg-3">
+        <div class="why-card-premium text-center">
+          <div class="why-icon-wrapper green-theme">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <h4>100% Placement Support</h4>
+          <p>Gain access to automated reference setups, dynamic resume construction panels, and vetted interview streams.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     DYNAMIC MULTI-PROJECT SHOWCASE LOOP
+     ══════════════════════════════════════════ -->
+<section id="projects" class="modern-projects-section" aria-labelledby="projects-heading">
+  <div class="container">
+    
+    <div class="text-center mb-5">
+      <span class="section-eyebrow">Our Track Record</span>
+      <h2 id="projects-heading" class="section-title">Production Client Projects</h2>
+      <div class="title-accent-line"></div>
+    </div>
+
+    <!-- Main Slider Framework Wrapper -->
+<!-- This stops auto-play entirely; slides will ONLY change when arrows are clicked -->
+  <div id="modernProjectCarousel" class="carousel slide custom-project-slider" data-bs-ride="false">
+        <div class="carousel-inner">
+        
+        <!-- 1. THE DYNAMIC BACKEND LOOP START -->
+        {% for project in projects %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <div class="row align-items-center g-5">
+            
+            <!-- Left Side: Project Context Data -->
+            <div class="col-lg-5 order-2 order-lg-1">
+              <div class="project-meta-wrap">
+                
+                <!-- Dynamic Category Tag -->
+                <span class="project-category-badge">{{ project.project_type|default:"Live System" }}</span>
+                
+                <!-- Dynamic Title -->
+                <h3 class="project-display-title">{{ project.title }}</h3>
+                
+                <!-- Dynamic Description -->
+                <p class="project-description-text">
+                  {{ project.description }}
+                </p>
+
+                <!-- Dynamic Tech Stack Array (If your model stores technologies used) -->
+                <div class="project-tech-stack mt-4">
+                  {% if project.technologies %}
+                    {% for tech in project.technologies.all %}
+                      <span class="tech-pill">{{ tech.name }}</span>
+                    {% endfor %}
+                  {% else %}
+                    <span class="tech-pill">Production Build</span>
+                    <span class="tech-pill">Verified Deployment</span>
+                  {% endif %}
+                </div>
+
+                <!-- Custom Embedded Navigation Arrow Controls -->
+                <div class="slider-controls-group mt-5 d-none d-lg-flex">
+                  <button class="slider-arrow-btn me-3" type="button" data-bs-target="#modernProjectCarousel" data-bs-slide="prev" aria-label="Previous Project">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                  </button>
+                  <button class="slider-arrow-btn" type="button" data-bs-target="#modernProjectCarousel" data-bs-slide="next" aria-label="Next Project">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Right Side: Browser Canvas Mockup Frame -->
+            <div class="col-lg-7 order-1 order-lg-2">
+              <div class="browser-mockup-container">
+                <div class="browser-header-bar">
+                  <div class="browser-dots">
+                    <span class="dot-red"></span>
+                    <span class="dot-amber"></span>
+                    <span class="dot-green"></span>
+                  </div>
+                  <!-- Optional: Dynamic fake domain based on title -->
+                  <div class="browser-address-field">{{ project.title|slugify }}.com</div>
+                </div>
+                <div class="browser-screen-view">
+                  {% if project.image %}
+                    <img src="{{ project.image.url }}" class="img-fluid project-display-img" alt="{{ project.title }} Interface View">
+                  {% else %}
+                    <div class="project-placeholder-view">Preview Loading...</div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        {% empty %}
+        <!-- Fallback state if zero projects are uploaded yet -->
+        <div class="text-center py-5">
+          <p class="text-muted">Enterprise production pipelines are currently being compiled. Check back soon!</p>
+        </div>
+        {% endfor %}
+        <!-- THE LOOP END -->
+
+      </div>
+
+      <!-- Mobile Fallback Arrows (Displays underneath content block on mobile viewports) -->
+      {% if projects|length > 1 %}
+      <div class="d-flex justify-content-center mt-4 d-lg-none">
+        <button class="slider-arrow-btn me-3" type="button" data-bs-target="#modernProjectCarousel" data-bs-slide="prev">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button class="slider-arrow-btn" type="button" data-bs-target="#modernProjectCarousel" data-bs-slide="next">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+</section>
+<!--══════════════════════════════════════════════════
+   WORKSHOP GALLERY SECTION
+   ══════════════════════════════════════════════════ 
+ 
+ ── WORKSHOP GALLERY ── -->
+<section style="background:var(--bg-page);padding:80px 0;" aria-labelledby="workshops-heading">
+  <div class="container">
+ 
+    <!-- Header row -->
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:36px" class="reveal">
+      <div>
+        <span class="section-eyebrow">Captured Moments</span>
+        <h2 id="workshops-heading" class="section-title" style="text-align:left;margin-bottom:0">
+          Our Workshop Gallery
+        </h2>
+        <p style="color:var(--text-muted);margin-top:10px;max-width:440px;font-size:15px">
+          Real hands-on training sessions, bootcamps and events — see how we learn by doing.
+        </p>
+      </div>
+      <a href="{% url 'workshops' %}" class="btn btn-success px-4 py-2" style="white-space:nowrap">
+        View All Photos →
+      </a>
+    </div>
+ 
+    {% if workshops %}
+    <!-- Preview grid — shows first 6 photos -->
+    <div class="ws-preview-grid stagger-children">
+      {% for photo in workshops|slice:":6" %}
+      <a href="{% url 'workshops' %}"
+         class="ws-preview-item reveal-scale"
+         aria-label="{{ photo.title }}">
+        <div class="ws-preview-img">
+          <img src="{{ photo.image.url }}" alt="{{ photo.title }}" loading="lazy">
+          <div class="ws-preview-overlay">
+            <span style="font-size:20px">🔍</span>
+            <span class="zoom-label">View Photo</span>
+          </div>
+        </div>
+        {% if forloop.counter == 6 and workshops|length > 6 %}
+        <!-- "See more" overlay on last tile -->
+        <div class="ws-more-overlay">
+          <span style="font-size:28px">+{{ workshops|length|add:"-6" }}</span>
+          <span style="font-size:14px;font-weight:600">More Photos</span>
+        </div>
+        {% endif %}
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div style="text-align:center;padding:48px;background:var(--bg-white);border:1px dashed var(--border-medium);border-radius:var(--radius-lg)">
+      <p style="color:var(--text-muted);margin:0">Workshop photos will appear here once uploaded via Admin.</p>
+    </div>
+    {% endif %}
+ 
+  </div>
+</section>
+
+ <!-- ══════════════════════════════════════════
+     internship SECTION
+     ══════════════════════════════════════════ -->
+<section id="internships" class="intern-home-section" aria-labelledby="internships-heading">
+  <div class="container">
+ 
+    <div class="text-center mb-2 reveal">
+      <span class="intern-home-eyebrow">Hands-On Career Tracks</span>
+      <h2 id="internships-heading" class="section-title">Our Internship Programs</h2>
+      <p class="section-subtitle-muted">
+        Structured, week-by-week internship tracks that take you from fundamentals
+        to full-stack, job-ready skills.
+      </p>
+    </div>
+ 
+    <div class="intern-home-grid stagger-children">
+      {% for internship in internships %}
+      <div class="intern-home-card reveal-scale">
+        <div class="intern-home-card-top">
+          <div class="intern-home-icon">💻</div>
+          <span class="intern-home-tag">Internship Program</span>
+          <h3>{{ internship.title }}</h3>
+          <p>{{ internship.description|truncatewords:18 }}</p>
+        </div>
+        <div class="intern-home-card-footer">
+          <div class="intern-home-price-block">
+            <span class="intern-home-price">₹{{ internship.price }}</span>
+            <span class="intern-home-duration">⏱ {{ internship.duration }}</span>
+          </div>
+          <a href="{% url 'internship_detail' internship.id %}" class="intern-home-explore-btn">
+            Explore <span>→</span>
+          </a>
+        </div>
+      </div>
+      {% empty %}
+      <div class="intern-home-empty">
+        <p class="mb-0">Internship programs will be listed here soon.</p>
+      </div>
+      {% endfor %}
+    </div>
+ 
+    {% if internships %}
+    <div class="text-center mt-5">
+          <a href="{% static 'documents/E2E_Internship_Syllabus_All_Plans.docx' %}" 
+            class="btn btn-success mt-4 mx-4" 
+            download="Errors2Experts_Proposal.pdf">
+            📥 Download Our syllabus
+          </a>    </div>
+    {% endif %}
+ 
+  </div>
+</section>
+ 
+
+<!-- ══════════════════════════════════════════
+     REVIEWS SECTION
+     ══════════════════════════════════════════ -->
+<section class="glass-section reviews-section" aria-labelledby="reviews-heading">
+  <div class="container pb-2 pt-5">
+    <div class="text-center mb-5">
+      <span class="section-eyebrow">Testimonials</span>
+      <h2 id="reviews-heading" class="section-title">What Students Say</h2>
+    </div>
+  </div>
+  <div class="reviews-marquee p-4" role="region" aria-label="Student reviews marquee">
+    <div class="reviews-track">
+      {% for r in reviews %}
+      <article class="review-card">
+        <div class="review-img">
+          {% if r.image %}
+            <img src="{{ r.image.url }}" alt="{{ r.student_name }}" loading="lazy">
+          {% else %}
+            {% if r.gender == 'F' %}
+            <img src="{% static 'images/default_girl_placeholder.jpeg' %}" alt="{{ r.student_name }}" loading="lazy">
+             {% else %}
+             <img src="{% static 'images/default_boy_placeholder.jpeg' %}" alt="{{ r.student_name }}" loading="lazy">
+             {% endif %}         
+         {% endif %}
+        </div>
+        <h4>{{ r.student_name }}</h4>
+        <p class="role">{{ r.course_name }}</p>
+        <div class="stars" aria-label="{{ r.rating }} out of 5 stars">
+          {% for i in "12345" %}{% if forloop.counter <= r.rating %}★{% else %}☆{% endif %}{% endfor %}
+        </div>
+        <p class="review-text">"{{ r.review_text|truncatewords:25 }}"</p>
+      </article>
+      {% endfor %}
+      <!-- Duplicate for infinite scroll -->
+      {% for r in reviews %}
+      <article class="review-card" aria-hidden="true">
+        <div class="review-img">
+          {% if r.image %}<img src="{{ r.image.url }}" alt="" loading="lazy">
+          {% if r.gender == 'F' %}
+        <img src="{% static 'images/default_girl_placeholder.jpeg' %}" alt="{{ r.student_name }}" loading="lazy">
+      {% else %}
+        <img src="{% static 'images/default_boy_placeholder.jpeg' %}" alt="{{ r.student_name }}" loading="lazy">
+      {% endif %}
+      {% endif %}
+        </div>
+        <h4>{{ r.student_name }}</h4>
+        <p class="role">{{ r.course_name }}</p>
+        <div class="stars">{% for i in "12345" %}{% if forloop.counter <= r.rating %}★{% else %}☆{% endif %}{% endfor %}</div>
+        <p class="review-text">"{{ r.review_text|truncatewords:25 }}"</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+ <!--════════════════════════════════════════════════════
+   CERTIFICATE GALLERY SECTION — paste into index.html
+   ════════════════════════════════════════════════════ 
+ 
+ ── CERTIFICATE SECTION ── -->
+<section style="background:var(--bg-white);padding:80px 0;" aria-labelledby="certs-heading">
+  <div class="container">
+ 
+    <!-- Header row -->
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:36px" class="reveal">
+      <div>
+        <span class="section-eyebrow" style="color:var(--e2e-gold)">RECOGNITION</span>
+        <h2 id="certs-heading" class="section-title" style="text-align:left;margin-bottom:0">
+          Certificates We Provide
+        </h2>
+        <p style="color:var(--text-muted);margin-top:10px;max-width:440px;font-size:15px">
+          Every student who completes our program earns an industry-recognised certificate.
+        </p>
+      </div>
+      <a href="{% url 'certificates' %}" class="btn btn-success px-4 py-2" style="white-space:nowrap">
+        View All Certificates →
+      </a>
+    </div>
+ 
+    {% if certificates %}
+    <!-- Horizontal scroll strip — show first 4 -->
+    <div style="display:flex;gap:20px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch" class="stagger-children">
+      {% for cert in certificates|slice:":4" %}
+      <a href="{% url 'certificates' %}"
+         style="flex-shrink:0;width:260px;scroll-snap-align:start;text-decoration:none"
+         aria-label="{{ cert.course_name }} certificate">
+        <div class="cert-preview-card reveal-scale">
+          <!-- Gold frame image -->
+          <div style="border:3px solid var(--e2e-gold);border-radius:var(--radius-md);padding:4px;background:var(--e2e-gold-bg);margin-bottom:14px;height:180px;overflow:hidden">
+            <img src="{{ cert.image.url }}"
+                 alt="{{ cert.course_name }}"
+                 loading="lazy"
+                 style="width:100%;height:100%;object-fit:cover;border-radius:10px;display:block">
+          </div>
+          <!-- Badge -->
+          <span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;
+                        border-radius:20px;padding:3px 10px;margin-bottom:8px;
+                        background:rgba(201,162,39,0.12);color:#a07c10;border:1px solid rgba(201,162,39,0.25)">
+            {% if cert.cert_type == 'course' %}📘{% elif cert.cert_type == 'internship' %}💼{% elif cert.cert_type == 'workshop' %}🎯{% else %}🔬{% endif %}
+            {{ cert.get_cert_type_display }}
+          </span>
+          <h3 style="font-family:var(--font-display);font-size:15px;font-weight:600;
+                     color:var(--text-primary);line-height:1.35;margin:0">{{ cert.course_name }}</h3>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div style="text-align:center;padding:48px;background:var(--bg-page);border:1px dashed var(--border-medium);border-radius:var(--radius-lg)">
+      <p style="color:var(--text-muted);margin:0">Certificate samples will appear here once uploaded via Admin.</p>
+    </div>
+    {% endif %}
+ 
+    <!-- Trust line -->
+    <div style="display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin-top:36px" class="reveal">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="width:40px;height:40px;background:var(--e2e-green-bg);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px">🏅</span>
+        <div>
+          <p style="font-weight:600;font-size:14px;color:var(--text-dark);margin:0">Industry Recognised</p>
+          <p style="font-size:12px;color:var(--text-muted);margin:0">Respected by hiring companies</p>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="width:40px;height:40px;background:var(--e2e-gold-bg);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px">📄</span>
+        <div>
+          <p style="font-weight:600;font-size:14px;color:var(--text-dark);margin:0">Official Certificate</p>
+          <p style="font-size:12px;color:var(--text-muted);margin:0">Issued by MSME-registered institute</p>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="width:40px;height:40px;background:var(--e2e-red-bg);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px">✅</span>
+        <div>
+          <p style="font-weight:600;font-size:14px;color:var(--text-dark);margin:0">Verifiable</p>
+          <p style="font-size:12px;color:var(--text-muted);margin:0">Backed by our institute records</p>
+        </div>
+      </div>
+    </div>
+ 
+  </div>
+</section>
+ 
+<style>
+
+</style>
+
+
+<!-- ══════════════════════════════════════════
+     MOTIVATION — KALAM QUOTE
+     ══════════════════════════════════════════ -->
+<section class="kalam-section" aria-labelledby="quote-heading">
+  <div class="kalam-container">
+    <div class="kalam-image p-4">
+      <img src="{% static 'images/apj.jpeg' %}" alt="Dr APJ Abdul Kalam, former President of India" loading="lazy">
+    </div>
+    <div class="kalam-content">
+      <h2 id="quote-heading">Inspiration for Learners</h2>
+      <blockquote class="kalam-quote">
+        "Learning gives creativity, Creativity leads to thinking,
+        Thinking provides knowledge, Knowledge makes you great."
+      </blockquote>
+      <p class="kalam-author">— Dr. A. P. J. Abdul Kalam</p>
+      <div class="mt-4">
+        <a href="{% url 'allcourse' %}" class="btn btn-success px-4 py-2">Start Learning Today →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     COUNTER / ENROLLMENT SECTION
+     ══════════════════════════════════════════ -->
+{% comment %} <section class="counter-section-wrap" aria-label="Enrollment statistics">
+  <span class="section-eyebrow" style="color:rgba(255,255,255,0.8);-webkit-text-fill-color:rgba(255,255,255,0.8)">
+    Our Impact
+  </span>
+  <div class="counter-number" aria-label="{{ total_bookings }} students enrolled">{{ total_bookings }}+</div>
+  <p class="counter-label">Students Successfully Enrolled 🚀</p>
+  <div class="mt-4">
+    <a href="{% url 'allcourse' %}"
+       class="btn px-5 py-2"
+       style="background:#fff;color:var(--e2e-red);border-radius:50px;font-weight:700;font-size:14px;box-shadow:0 4px 16px rgba(0,0,0,0.2)">
+      Join Them Today →
+    </a>
+  </div>
+</section> {% endcomment %}
+<!-- ══════════════════════════════════════════
+     getin touch / contact section
+     ══════════════════════════════════════════ -->
+<section class="glass-section contact-section">
+<div style="text-align:center;padding:60px 20px 40px;background:linear-gradient(180deg,var(--e2e-green-tint) 0%,var(--bg-white) 100%);border-bottom:1px solid var(--border-light)">
+  <span style="font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--e2e-red);font-weight:700;display:block;margin-bottom:10px">GET IN TOUCH</span>
+  <h1 style="font-family:var(--font-display);font-size:clamp(2rem,5vw,2.8rem);font-weight:700;color:var(--text-primary);margin-bottom:0">Contact Us</h1>
+  <p style="color:var(--text-muted);margin-top:12px;font-size:16px;max-width:480px;margin-left:auto;margin-right:auto">
+    Have a question? We'd love to hear from you. Send us a message and we'll respond within 24 hours.
+  </p>
+  <div style="width:50px;height:3px;background:linear-gradient(90deg,var(--e2e-red),var(--e2e-gold),var(--e2e-green));border-radius:3px;margin:16px auto 0"></div>
+</div>
+
+<div class="container py-5">
+  <div class="row g-5 justify-content-center">
+
+    <!-- Contact info col -->
+    <div class="col-md-4 reveal-left">
+      <div style="background:var(--e2e-green);border-radius:var(--radius-xl);padding:36px 32px;color:#fff;height:100%">
+        <h3 style="font-family:var(--font-display);font-weight:700;font-size:1.4rem;margin-bottom:24px">Contact Information</h3>
+
+        <div style="display:flex;flex-direction:column;gap:24px">
+          <div style="display:flex;align-items:flex-start;gap:14px">
+            <span style="font-size:20px;flex-shrink:0;margin-top:2px" aria-hidden="true">📍</span>
+            <div>
+              <div style="font-weight:600;font-size:14px;margin-bottom:2px">Address</div>
+              <div style="color:rgba(255,255,255,0.82);font-size:14px;line-height:1.65">NGO colony,Dindigul,Tamil Nadu, India</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:14px">
+            <span style="font-size:20px;flex-shrink:0;margin-top:2px" aria-hidden="true">✉️</span>
+            <div>
+              <div style="font-weight:600;font-size:14px;margin-bottom:2px">Email</div>
+              <a href="mailto:errors2experts.official@gmail.com"
+                 style="color:rgba(255,255,255,0.88);font-size:14px;word-break:break-all">
+                errors2experts.official@gmail.com
+              </a>
+            </div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:14px">
+            <span style="font-size:20px;flex-shrink:0;margin-top:2px" aria-hidden="true">📞</span>
+            <div>
+              <div style="font-weight:600;font-size:14px;margin-bottom:2px">Phone</div>
+              <a href="tel:+919363342646" style="color:rgba(255,255,255,0.88);font-size:14px">
+                +91 9363342646
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div style="border-top:1px solid rgba(255,255,255,0.18);margin:28px 0"></div>
+
+        <div>
+          <div style="font-weight:600;font-size:13px;margin-bottom:14px;color:var(--e2e-gold-light);letter-spacing:1px;text-transform:uppercase">
+            Business Hours
+          </div>
+          <p style="color:rgba(255,255,255,0.82);font-size:14px;line-height:2;margin:0">
+            Mon – Sat: 9:00 AM – 7:00 PM<br>
+            Sunday: By Appointment
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Form col -->
+    <div class="col-md-6 reveal-right">
+      <div style="background:var(--bg-white);border:1px solid var(--border-light);border-radius:var(--radius-xl);padding:40px;box-shadow:var(--shadow-md)">
+        <h3 style="font-family:var(--font-display);font-weight:700;color:var(--text-primary);margin-bottom:6px">Send a Message</h3>
+        <p style="color:var(--text-muted);font-size:14px;margin-bottom:28px">We'll get back to you within 24 hours.</p>
+
+        <form method="POST" novalidate>
+          {% csrf_token %}
+          <div class="mb-4">
+            <label for="c_name" style="display:block;font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:6px">
+              Full Name <span style="color:var(--e2e-red)" aria-hidden="true">*</span>
+            </label>
+            <input type="text" id="c_name" name="name"
+                   class="form-control"
+                   placeholder="Your full name"
+                   required
+                   style="background:var(--bg-soft);border:1.5px solid var(--border-medium);border-radius:var(--radius-md);padding:12px 16px;font-size:14px;color:var(--text-primary);transition:var(--transition)">
+          </div>
+          <div class="mb-4">
+            <label for="c_email" style="display:block;font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:6px">
+              Email Address <span style="color:var(--e2e-red)" aria-hidden="true">*</span>
+            </label>
+            <input type="email" id="c_email" name="email"
+                   class="form-control"
+                   placeholder="you@email.com"
+                   required
+                   style="background:var(--bg-soft);border:1.5px solid var(--border-medium);border-radius:var(--radius-md);padding:12px 16px;font-size:14px;color:var(--text-primary);transition:var(--transition)">
+          </div>
+          <div class="mb-4">
+            <label for="c_mobile" style="display:block;font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:6px">
+              Mobile Number <span style="color:var(--e2e-red)" aria-hidden="true">*</span>
+            </label>
+            <input type="number" id="c_mobile" name="mobile"
+                   class="form-control"
+                   placeholder="9056325645"
+                   required
+                   style="background:var(--bg-soft);border:1.5px solid var(--border-medium);border-radius:var(--radius-md);padding:12px 16px;font-size:14px;color:var(--text-primary);transition:var(--transition)">
+          </div>
+          <div class="mb-4">
+            <label for="c_msg" style="display:block;font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:6px">
+              Message
+            </label>
+            <textarea id="c_msg" name="message"
+                      class="form-control"
+                      rows="5"
+                      placeholder="How can we help you?"
+                      style="background:var(--bg-soft);border:1.5px solid var(--border-medium);border-radius:var(--radius-md);padding:12px 16px;font-size:14px;color:var(--text-primary);transition:var(--transition);resize:vertical"></textarea>
+          </div>
+          <button type="submit" class="btn btn-success w-100 py-3" style="font-size:15px;font-weight:700">
+            Send Message →
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     MODALS
+     ══════════════════════════════════════════ -->
+
+<!-- Service Booking Modal -->
+<div class="modal fade" id="serviceBookingModal" tabindex="-1" aria-labelledby="serviceModalLabel" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="serviceModalLabel">Service Registration</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
       <form method="POST" action="{% url 'service_booking' %}">
         {% csrf_token %}
         <div class="modal-body">
-
           <input type="hidden" name="service_name" id="serviceNameInput">
-
           <div class="mb-3">
-            <input type="text" name="full_name" class="form-control" placeholder="Name of your organization" required>
+            <label for="svc_org" class="form-label fw-semibold" style="font-size:13px;color:var(--text-secondary)">Organisation / Full Name *</label>
+            <input type="text" id="svc_org" name="full_name" class="form-control" placeholder="Your name or organisation" required>
           </div>
-
           <div class="mb-3">
-            <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+            <label for="svc_email" class="form-label fw-semibold" style="font-size:13px;color:var(--text-secondary)">Email Address *</label>
+            <input type="email" id="svc_email" name="email" class="form-control" placeholder="you@email.com" required>
           </div>
-
           <div class="mb-3">
-            <input type="text" name="mobile" class="form-control" placeholder="Mobile Number" required>
+            <label for="svc_mobile" class="form-label fw-semibold" style="font-size:13px;color:var(--text-secondary)">Mobile Number *</label>
+            <input type="text" id="svc_mobile" name="mobile" class="form-control" placeholder="10-digit mobile" required>
           </div>
-
-          {% comment %} <div class="mb-3">
-            <input type="date" name="preferred_date" class="form-control">
-          </div> {% endcomment %}
-
           <div class="mb-3">
-            <textarea name="message" class="form-control" placeholder="Your Requirement"></textarea>
+            <label for="svc_msg" class="form-label fw-semibold" style="font-size:13px;color:var(--text-secondary)">Your Requirement</label>
+            <textarea id="svc_msg" name="message" class="form-control" rows="3" placeholder="Tell us what you need…"></textarea>
           </div>
-
         </div>
-
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-success px-4">Submit Request →</button>
         </div>
       </form>
-
     </div>
   </div>
 </div>
 
-<script>
-function setServiceName(serviceName) {
-    document.getElementById("serviceNameInput").value = serviceName;
-}
-</script>
-
 <!-- Demo Booking Modal -->
-<div class="modal fade" id="demoModal" tabindex="-1" aria-labelledby="demoModalLabel" aria-hidden="true">
+<div class="modal fade" id="demoModal" tabindex="-1" aria-labelledby="demoModalLabel" aria-modal="true" role="dialog">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content shadow-lg p-4 rounded-3" data-aos="fade-up">
-      <div class="modal-header border-0">
-        <h5 class="modal-title " style="color:green;" id="demoModalLabel">Book For Demo</h5>
+    <div class="modal-content shadow-lg p-2 rounded-3">
+      <div class="modal-header border-0 pb-0">
+        <div>
+          <h5 class="modal-title" id="demoModalLabel">Book a Free Demo 🎓</h5>
+          <p style="font-size:13px;color:var(--text-muted);margin-top:4px;margin-bottom:0">
+            Experience our teaching quality before enrolling.
+          </p>
+        </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form id="demoForm" method="POST" action="{% url 'demo_booking' %}" class="modal-body">
+      <form id="demoForm" method="POST" action="{% url 'demo_booking' %}" class="modal-body pt-2">
         {% csrf_token %}
         <div class="mb-3">
-          <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+          <label for="demo_name" class="form-label fw-semibold" style="font-size:13px;color:var(--text-secondary)">Your Name *</label>
+          <input type="text" id="demo_name" name="name" class="form-control" placeholder="Full Name" required>
         </div>
         <div class="mb-3">
-          <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+          <label for="demo_email" class="form-label fw-semibold" style="font-size:13px;color:var(--text-secondary)">Email Address *</label>
+          <input type="email" id="demo_email" name="email" class="form-control" placeholder="you@email.com" required>
         </div>
         <div class="mb-3">
-          <input type="tel" name="mobile" class="form-control" placeholder="Mobile Number" required pattern="[0-9]{10}">
+          <label for="demo_mobile" class="form-label fw-semibold" style="font-size:13px;color:var(--text-secondary)">Mobile Number *</label>
+          <input type="tel" id="demo_mobile" name="mobile" class="form-control" placeholder="10-digit mobile" required pattern="[0-9]{10}">
         </div>
         <div class="mb-3">
-          <select name="education" class="form-select" required>
-            <option value="">Education Qualification</option>
+          <label for="demo_edu" class="form-label fw-semibold" style="font-size:13px;color:var(--text-secondary)">Education *</label>
+          <select id="demo_edu" name="education" class="form-select" required>
+            <option value="">Select qualification…</option>
             <option value="School">School</option>
             <option value="College">College</option>
             <option value="Graduate">Graduate</option>
@@ -129,274 +926,28 @@ function setServiceName(serviceName) {
           </select>
         </div>
         <div class="mb-3">
-          <select name="source" class="form-select" required>
-            <option value="">How did you hear about us?</option>
+          <label for="demo_src" class="form-label fw-semibold" style="font-size:13px;color:var(--text-secondary)">How did you hear about us?</label>
+          <select id="demo_src" name="source" class="form-select">
+            <option value="">Select…</option>
             <option value="Social Media">Social Media</option>
             <option value="Friend / Referral">Friend / Referral</option>
             <option value="Website / Google">Website / Google</option>
             <option value="Other">Other</option>
           </select>
         </div>
-        <button type="submit" class="btn btn-success w-100">Submit</button>
+        <button type="submit" class="btn btn-success w-100">Submit → Get Free Demo</button>
+        <p style="font-size:11px;color:var(--text-light);text-align:center;margin-top:10px">
+          We'll contact you within 24 hours. No spam.
+        </p>
       </form>
     </div>
   </div>
 </div>
 
-
-<!-- ABOUT SECTION -->
-<section id="about" class="container " style="margin-top:-70px;">
-    <div class="row align-items-center">
-        <div class="col-md-6" data-aos="fade-right">
-            <h2>About Us</h2>
-            <p>
-                Errors2Experts is a professional IT training institute delivering industry-relevant courses with high-quality, practical learning.
-We are an MSME Udyam Registered organization, committed to maintaining trusted standards and structured training practices.
-Our programs are led by experienced corporate trainers and include real-time project exposure with internship opportunities.
-We focus on career growth through mentorship, placement preparation, and skill development that transforms learners into industry-ready professionals.
-            </p>
-             <a href="{% url 'about' %}" class="btn btn-primary mt-3">
-        Read More
-    </a>
-     <br>
-        <br>
-        
-        </div>
-       
-        <div class="col-md-6" data-aos="fade-left">
-            <img src="{% static "images/e2e1.png" %}"
-                 class="img-fluid rounded shadow">
-        </div>
-    </div>
-</section>
-
-
-
-<section class="auto-course-section">
-    <h2 class="section-title text-center mb-4">Our Courses</h2>
-
-    <div class="scroll-container">
-        <div class="scroll-track">
-
-            {% for course in courses %}
-            <div class="course-card">
-                {% if course.image %}
-                    <img src="{{ course.image.url }}" alt="{{ course.title }}">
-                {% else %}
-                    <img src="{% static 'main/images/no-image.png' %}" alt="No Image">
-                {% endif %}
-
-                <h4>{{ course.title }}</h4>
-                <p>{{ course.description|truncatewords:15 }}</p>
-
-                <div class="price-box">
-                    <span class="new-price">₹{{ course.price }}</span>
-                    {% if course.discount %}
-                    <span class="old-price">₹{{ course.discount }}</span>
-                    {% endif %}
-                </div>
-
-                <a href="{% url 'course_detail' course.id %}" class="explore-btn">
-                    Explore Course
-                </a>
-            </div>
-            {% endfor %}
-
-        </div>
-          <div class="swipe-indicator">
-    <span>Swipe →</span>
-</div>
-    </div>
-  
-  
-</section>
-
-
-
-
-
-
-<!-- SERVICES SECTION -->
-<section class="services-section">
-    <div class="container">
-        <h2 class="section-title">Our Services</h2>
-
-        <div class="row">
-            {% for service in services %}
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="service-card" data-aos="zoom-in">
-
-                    <div class="service-img">
-                        {% if service.image %}
-                            <img src="{{ service.image.url }}" alt="{{ service.title }}">
-                        {% else %}
-                            <img src="{% static 'images/default-service.jpg' %}" alt="Service">
-                        {% endif %}
-                    </div>
-
-                    <div class="service-content">
-                        <h4>{{ service.title }}</h4>
-                        <p>{{ service.description|truncatewords:40 }}</p>
-
-<button class="register-btn btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#serviceBookingModal"
-        onclick="setServiceName('{{ service.title }}')">
-    Register Now
-</button>
-                    </div>
-
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
-
-<section class="projects-section py-5">
-  <div class="container">
-    <h2 class="text-center mb-4">Successfully Completed Client Projects</h2>
-
-    <div class="project-slider">
-      <button class="arrow prev">&lt;</button>
-
-      <div class="project-card-wrapper">
-        {% for project in projects %}
-        <div class="project-card {% if forloop.first %}active{% endif %}">
-            {% if project.image %}
-                            <img src="{{ project.image.url }}" alt="{{ project.title }}">
-                        {% else %}
-                            <img src="{% static 'images/Python.png' %}" alt="project">
-                        {% endif %}
-          {% comment %} <img src="{% static 'images/sample-project.png' %}" alt="Project Image"> {% endcomment %}
-          <h4>{{ project.client_name }}</h4>
-          <p><strong>Type:</strong> {{ project.project_type }}</p>
-          <p>{{ project.description }}</p>
-   
-        </div>
-        {% endfor %}
-      </div>
-
-      <button class="arrow next">&gt;</button>
-    </div>
-  </div>
-    <div class="swipe-indicator">
-    <span>Swipe →</span>
-</div>
-</section>
-
-<section class="reviews-section">
-    <h2 class="section-title">Student Reviews</h2>
-
-    <div class="reviews-marquee">
-        <div class="reviews-track">
-
-            {% for r in reviews %}
-            <div class="review-card">
-
-                <!-- IMAGE -->
-                <div class="review-img">
-                    {% if r.image %}
-                        <img src="{{ r.image.url }}" alt="{{ r.student_name }}">
-                    {% else %}
-                        <img src="{% static 'main/images/user.png' %}" alt="User">
-                    {% endif %}
-                </div>
-
-                <!-- STUDENT NAME -->
-                <h4>{{ r.student_name }}</h4>
-
-                <!-- COURSE NAME -->
-                <p class="role">{{ r.course_name }}</p>
-
-                <!-- STAR RATING -->
-                <div class="stars">
-                    {% for i in "12345" %}
-                        {% if forloop.counter <= r.rating %}
-                            ★
-                        {% else %}
-                            ☆
-                        {% endif %}
-                    {% endfor %}
-                </div>
-
-                <!-- REVIEW TEXT -->
-                <p class="review-text">
-                    “{{ r.review_text|truncatewords:25 }}”
-                </p>
-
-            </div>
-            {% endfor %}
-
-            <!-- DUPLICATE FOR SMOOTH SCROLL -->
-            {% for r in reviews %}
-            <div class="review-card">
-                <div class="review-img">
-                    {% if r.image %}
-                        <img src="{{ r.image.url }}">
-                    {% else %}
-                        <img src="{% static 'main/images/user.png' %}">
-                    {% endif %}
-                </div>
-
-                <h4>{{ r.student_name }}</h4>
-                <p class="role">{{ r.course_name }}</p>
-
-                <div class="stars">
-                    {% for i in "12345" %}
-                        {% if forloop.counter <= r.rating %}
-                            ★
-                        {% else %}
-                            ☆
-                        {% endif %}
-                    {% endfor %}
-                </div>
-
-                <p class="review-text">
-                    “{{ r.review_text|truncatewords:25 }}”
-                </p>
-            </div>
-            {% endfor %}
-
-        </div>
-    </div>
-</section>
-
-
-<section class="kalam-section">
-    <div class="kalam-container">
-
-        <div class="kalam-image">
-            <img src="{% static 'images/apj.jpeg' %}" alt="Dr APJ Abdul Kalam">
-        </div>
-
-        <div class="kalam-content">
-            <h2>Motivation for Learning</h2>
-
-            <p class="kalam-quote">
-                “Learning gives creativity, Creativity leads to thinking,
-                Thinking provides knowledge, Knowledge makes you great.”
-            </p>
-
-            <p class="kalam-author">
-                — Dr. A. P. J. Abdul Kalam
-            </p>
-        </div>
-
-    </div>
-</section>
-<div style="text-align:center; padding:40px; background:#053142;">
-    <h1 style="font-size:48px; color:#fff;">
-        {{ total_bookings }}+
-    </h1>
-    <p style="font-size:20px; color:#fff;">
-        Students Successfully Enrolled 🚀
-    </p>
-</div>
-
-
-<!-- CONTACT SECTION -->
-
+<script>
+function setServiceName(s){
+  document.getElementById("serviceNameInput").value = s;
+}
+</script>
 
 {% endblock %}

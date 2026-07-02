@@ -1,0 +1,194 @@
+/* ===== SERVICE CARDS WITH GLASS EFFECT ===== */
+.services-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    position: relative;
+    overflow: hidden;
+}
+
+.services-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(102, 126, 234, 0.1), transparent);
+    border-radius: 50%;
+    animation: float 15s ease-in-out infinite;
+    z-index: 0;
+}
+
+.services-section::after {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    left: -5%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(245, 87, 108, 0.1), transparent);
+    border-radius: 50%;
+    animation: float 18s ease-in-out infinite reverse;
+    z-index: 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 60px;
+    position: relative;
+    z-index: 1;
+    letter-spacing: -1px;
+}
+
+/* Service Card with Glass Effect */
+.service-card {
+    background: var(--glass-medium);
+    border: 1px solid var(--border-glass);
+    backdrop-filter: blur(var(--blur-md));
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    z-index: 1;
+    padding: 0;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    pointer-events: none;
+    z-index: -1;
+}
+
+.service-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+    background: var(--glass-light);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Image section */
+.service-img {
+    position: relative;
+    height: 240px;
+    overflow: hidden;
+}
+
+.service-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-card:hover .service-img img {
+    transform: scale(1.1) rotate(1deg);
+}
+
+.service-img::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent, rgba(0,0,0,0.3));
+    pointer-events: none;
+}
+
+/* Content section */
+.service-content {
+    padding: 30px 25px;
+    background: rgba(255, 255, 255, 0.02);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.service-content h4 {
+    font-weight: 700;
+    margin-bottom: 12px;
+    font-size: 1.3rem;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+}
+
+.service-content p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Button */
+.register-btn {
+    display: inline-block;
+    padding: 12px 28px;
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.25);
+}
+
+.register-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+}
+
+.register-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.register-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(102, 126, 234, 0.35);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .services-section {
+        padding: 60px 0;
+    }
+
+    .service-card {
+        border-radius: 16px;
+    }
+
+    .service-img {
+        height: 200px;
+    }
+
+    .service-content {
+        padding: 20px;
+    }
+
+    .service-content h4 {
+        font-size: 1.1rem;
+    }
+}
