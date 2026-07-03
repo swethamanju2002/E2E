@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect
 from .models import Course, Service,CourseBooking, Contact,ClientProject,StudentReview
 from .models import WorkshopPhoto, Certificate
-from .models import Internship
+from .models import Internship, ProcessStep
 
 def home(request):
     courses = Course.objects.all()
@@ -73,10 +73,18 @@ def services(request):
     
     return render(request, 'services.html', {'services': services})
 
+# views.py — replace service_detail
+from .models import ProcessStep
+
 def service_detail(request, pk):
     service = get_object_or_404(Service, pk=pk)
-    return render(request, 'service_detail.html', {'service': service})
-
+    return render(request, 'service_detail.html', {
+        'service': service,
+        'featured_demos': service.demo_links.filter(is_featured=True),
+        'features': service.features.all(),
+        'faqs': service.faqs.all(),
+        'process_steps': ProcessStep.objects.all(),
+    })
 def contact(request):
     if request.method == "POST":
         name = request.POST.get('name')
@@ -663,5 +671,43 @@ def internship_detail(request, pk):
     return render(request, 'internship_detail.html', {
         'internship': internship, 
         'timeline_data': dict(timeline_data)
+    })
+    
+    # views.py — new live_demo view
+from django.core.paginator import Paginator
+from django.db.models import Q
+from .models import ServiceDemoLink
+
+def live_demo(request):
+    demos = (ServiceDemoLink.objects
+             .select_related('service')
+             .exclude(url__isnull=True).exclude(url='')
+             .order_by('order', 'service__title'))
+
+    query = request.GET.get('q', '').strip()
+    category = request.GET.get('category', 'all').strip()
+
+    if query:
+        demos = demos.filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(technologies__icontains=query)
+        )
+    if category and category.lower() != 'all':
+        demos = demos.filter(category__iexact=category)
+
+    categories = (ServiceDemoLink.objects
+                  .exclude(category='')
+                  .values_list('category', flat=True)
+                  .distinct().order_by('category'))
+
+    paginator = Paginator(demos, 9)
+    page_obj = paginator.get_page(request.GET.get('page'))
+
+    return render(request, 'live_demo.html', {
+        'page_obj': page_obj,
+        'categories': categories,
+        'query': query,
+        'active_category': category or 'all',
     })
  

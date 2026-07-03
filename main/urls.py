@@ -11,7 +11,7 @@ urlpatterns = [
     path('allcourse/', views.allcourse, name='allcourse'),
     path('course/<int:id>/', views.course_detail, name='course_detail'),
     path('service-booking/', views.service_booking, name='service_booking'),
-
+    path('live-demo/', views.live_demo, name='live_demo'),
     path('services/', views.services, name='services'),
     path('services/<int:pk>/', views.service_detail, name='service_detail'),
     path('contact/', views.contact, name='contact'),

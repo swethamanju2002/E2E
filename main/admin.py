@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.contrib import admin
 from .models import Course, Service, ServiceDemoLink, Contact
 from .models import ClientProject, StudentReview,JobApplication
-from .models import WorkshopPhoto, Certificate
+from .models import WorkshopPhoto, Certificate, ServiceFeature, ServiceFAQ, ProcessStep
 from .models import Module
 from .models import Internship
 
@@ -17,13 +17,27 @@ admin.site.register(Module)
 class ServiceDemoLinkInline(admin.TabularInline):
     model = ServiceDemoLink
     extra = 1
- 
+    fields = ('title', 'image', 'url', 'category', 'technologies', 'description', 'is_featured', 'order')
+
+class ServiceFeatureInline(admin.TabularInline):
+    model = ServiceFeature
+    extra = 1
+
+class ServiceFAQInline(admin.TabularInline):
+    model = ServiceFAQ
+    extra = 1
+
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ('title',)
     search_fields = ('title',)
-    inlines = [ServiceDemoLinkInline]
- 
+    inlines = [ServiceDemoLinkInline, ServiceFeatureInline, ServiceFAQInline]
+
+@admin.register(ProcessStep)
+class ProcessStepAdmin(admin.ModelAdmin):
+    list_display = ('title', 'order')
+    list_editable = ('order',)
+    ordering = ('order',) 
 
 admin.site.register(Contact)
 from django.contrib import admin
