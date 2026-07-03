@@ -25,7 +25,8 @@ urlpatterns = [
     path('certificates/', views.certificate_gallery, name='certificates'),
     path('internships/', views.internship_list, name='internship_list'),
     path('internships/<int:pk>/', views.internship_detail, name='internship_detail'),
-]
+    
+]    
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

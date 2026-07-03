@@ -501,7 +501,11 @@
       {% for internship in internships %}
       <div class="intern-home-card reveal-scale">
         <div class="intern-home-card-top">
-          <div class="intern-home-icon">💻</div>
+           {% if internship.image %}
+         <img src="{{ internship.image.url }}" alt="{{ internship.title }}">
+          {% else %}
+         <img src="{% static 'images/default-course.jpg' %}" alt="Default Image">
+          {% endif %}
           <span class="intern-home-tag">Internship Program</span>
           <h3>{{ internship.title }}</h3>
           <p>{{ internship.description|truncatewords:18 }}</p>

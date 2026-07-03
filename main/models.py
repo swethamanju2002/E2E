@@ -225,5 +225,9 @@ class Internship(models.Model):
     # Storing syllabus as a JSON list for easy iteration
     syllabus = models.JSONField(help_text="Enter syllabus items as a list")
 
+
+    # Image Field
+    image = models.ImageField(upload_to='internships/', blank=True, null=True)
+
     def __str__(self):
         return self.title
