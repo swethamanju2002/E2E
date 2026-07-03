@@ -9,10 +9,13 @@ from .models import Module
 from .models import Internship
 
 
+
+
 admin.site.register(ClientProject)
 admin.site.register(StudentReview)
 admin.site.register(Course)
 admin.site.register(Module)
+
 
 class ServiceDemoLinkInline(admin.TabularInline):
     model = ServiceDemoLink
@@ -79,3 +82,4 @@ class InternshipAdmin(admin.ModelAdmin):
     list_display = ('title', 'price', 'duration')
     # This search_fields adds a search bar in the admin
     search_fields = ('title',)
+    
