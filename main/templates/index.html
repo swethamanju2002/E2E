@@ -140,7 +140,7 @@
       </div>
 
       <div class="col-md-6" data-aos="fade-left">
-        <img src="{% static 'images/e2ebanner.jpeg' %}"
+        <img src="{% static 'images/banner-new.jpeg' %}"
              class="img-fluid"
              style="border-radius:16px;box-shadow:var(--shadow-xl);border:1px solid var(--border-light)"
              alt="Errors2Experts training campus"
@@ -676,30 +676,96 @@
   </div>
 </section>
  
-<style>
-
-</style>
 
 
 <!-- ══════════════════════════════════════════
      MOTIVATION — KALAM QUOTE
      ══════════════════════════════════════════ -->
-<section class="kalam-section" aria-labelledby="quote-heading">
-  <div class="kalam-container">
-    <div class="kalam-image p-4">
-      <img src="{% static 'images/apj.jpeg' %}" alt="Dr APJ Abdul Kalam, former President of India" loading="lazy">
-    </div>
-    <div class="kalam-content">
-      <h2 id="quote-heading">Inspiration for Learners</h2>
-      <blockquote class="kalam-quote">
-        "Learning gives creativity, Creativity leads to thinking,
-        Thinking provides knowledge, Knowledge makes you great."
-      </blockquote>
-      <p class="kalam-author">— Dr. A. P. J. Abdul Kalam</p>
-      <div class="mt-4">
-        <a href="{% url 'allcourse' %}" class="btn btn-success px-4 py-2">Start Learning Today →</a>
+<section class="kalam-hero-section">
+  <div class="kalam-wrapper">
+
+    <!-- LEFT: IMAGE -->
+    <div class="kalam-image-block">
+      <div class="kalam-glow-blob"></div>
+      <div class="kalam-orbit-ring"></div>
+      <div class="kalam-wavy-border"></div>
+
+      <div class="kalam-photo-frame">
+        <img src="{% static 'images/apj.jpeg' %}" alt="Dr. A. P. J. Abdul Kalam">
+      </div>
+
+      <div class="kalam-icon-badge grad-cap">🎓</div>
+      <div class="kalam-icon-badge book">📗</div>
+      <div class="kalam-icon-badge bulb">💡</div>
+      <div class="kalam-icon-badge laptop">💻</div>
+
+      <span class="kalam-sparkle s1">✦</span>
+      <span class="kalam-sparkle s2">✦</span>
+      <span class="kalam-sparkle s3">✦</span>
+
+      <div class="kalam-quote-tag">
+        <span class="star-ic">★</span>
+        <span>Great dreams of great dreamers are always transcended.</span>
       </div>
     </div>
+
+    <!-- RIGHT: CONTENT -->
+    <div class="kalam-content-block">
+      <span class="kalam-badge">⭐ DAILY INSPIRATION</span>
+
+      <h1 class="kalam-heading">Inspiration for<br><span class="accent">Learners</span></h1>
+
+      <div class="kalam-quote-card">
+        <span class="kalam-quote-mark open">&ldquo;</span>
+        <p class="kalam-quote-text">
+          Learning gives <b>creativity</b>.<br>
+          Creativity leads to <b>thinking</b>.<br>
+          Thinking provides <b>knowledge</b>,<br>
+          Knowledge makes you <b>great</b>.
+        </p>
+        <div class="kalam-quote-author">— Dr. A. P. J. Abdul Kalam</div>
+        <span class="kalam-quote-mark close">&rdquo;</span>
+      </div>
+
+      <div class="kalam-stats-row">
+        <div class="kalam-stat-card">
+          <div class="kalam-stat-icon green">👥</div>
+          <span class="counter-value" data-target="5000" data-suffix="+">0</span>
+          <div class="stat-label">Students Trained</div>
+        </div>
+        <div class="kalam-stat-card">
+          <div class="kalam-stat-icon red">💼</div>
+          <span class="counter-value" data-target="1000" data-suffix="+">0</span>
+          <div class="stat-label">Successful Placements</div>
+        </div>
+        <div class="kalam-stat-card">
+          <div class="kalam-stat-icon gold">📖</div>
+          <span class="counter-value" data-target="50" data-suffix="+">0</span>
+          <div class="stat-label">Industry Relevant Courses</div>
+        </div>
+        <div class="kalam-stat-card msme">
+          <div class="kalam-stat-icon check">✅</div>
+          <span class="counter-value" data-target="0" data-suffix="MSME">MSME</span>
+          <div class="stat-label">Certified &amp; Registered</div>
+        </div>
+      </div>
+
+      <div class="kalam-cta-row">
+        <a href="{% url 'allcourse' %}" class="btn-kalam-primary">🚀 Start Learning Courses →</a>
+        <!-- <a href="#" class="btn-kalam-outline">Explore Courses →</a> -->
+      </div>
+
+      <div class="kalam-trust-row">
+        <div class="kalam-avatars">
+          <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
+          <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="">
+          <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="">
+        </div>
+        <span>Trusted by <b>thousands</b> of learners across Tamil Nadu ❤️</span>
+      </div>
+    </div>
+
   </div>
 </section>
 

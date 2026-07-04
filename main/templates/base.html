@@ -34,6 +34,8 @@
   <link rel="stylesheet" href="{% static 'css/brand_new.css' %}">
   <link rel="stylesheet" href="{% static 'css/e2e_redesign.css' %}">
   <link rel="stylesheet" href="{% static 'css/modal-fix.css' %}">
+  <link rel="stylesheet" href="{% static 'css/placement.css' %}">
+  
 </head>
 
 <body>
@@ -68,6 +70,7 @@
           <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'allcourse' %}">Courses</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'placement' %}">Placement</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'services' %}">Services</a></li>
           <!-- Explore Dropdown Navigation -->
           <li class="nav-item dropdown">
@@ -278,5 +281,6 @@
 
   <!-- Interactions: scroll progress, back-to-top, reveal -->
   <script src="{% static 'js/modern-interaction.js' %}"></script>
+  <script src="{% static 'js/placement.js' %}"></script>
 </body>
 </html>

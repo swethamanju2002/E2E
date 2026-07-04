@@ -189,3 +189,52 @@
   });
 
 })();
+
+
+// kalam page counts
+
+document.addEventListener('DOMContentLoaded', function () {
+  var counters = document.querySelectorAll('.kalam-hero-section .counter-value');
+  if (!counters.length) return;
+
+  var animated = false;
+
+  function animateCounters() {
+    if (animated) return;
+    animated = true;
+    counters.forEach(function (el) {
+      var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+      var suffix = el.getAttribute('data-suffix') || '';
+      if (target === 0) { return; }
+      var duration = 1400;
+      var startTime = null;
+
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        var progress = Math.min((timestamp - startTime) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(eased * target) + suffix;
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = target + suffix;
+        }
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  var section = document.querySelector('.kalam-hero-section');
+  if (!section) return;
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        animateCounters();
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(section);
+});
