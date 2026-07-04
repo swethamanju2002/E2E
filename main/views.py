@@ -361,7 +361,7 @@ def book_course(request, id):
         mobile = request.POST.get("mobile")
         education = request.POST.get("education")
         year_passed = request.POST.get("year_passed")
-        payment_type = request.POST.get("payment_type")
+        payment_type = "full"
 
         price = int(course.price)
 
@@ -384,7 +384,7 @@ def book_course(request, id):
             year_passed=year_passed,
             course=course.title,
             amount=amount,
-            payment_type=payment_type
+            
         )
 
         # ---------------- SAVE TO EXCEL ----------------
@@ -616,6 +616,13 @@ Hi {full_name},
 Thank you for registering for our {service_name} service.
 
 Our team will contact you as soon as possible.
+
+Stay connected with us:
+
+🌐 Website: https://yourwebsite.com
+📸 Instagram: https://www.instagram.com/errors2experts_2026/
+
+Let’s learn, grow, and build your future together!
 
 Best Regards,
 Errors2Experts Team
