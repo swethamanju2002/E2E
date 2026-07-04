@@ -28,10 +28,51 @@
             {% endif %}
             <span class="meta-pill price-pill"><i class="bi bi-tags"></i>Save ₹{{ course.price }}</span>
           </div>
-          
-          <a href="{% url 'book_course' course.id %}" class="btn btn-success px-4 py-2.5">
-            Book Next Batch Slot <i class="bi bi-arrow-right-short"></i>
-          </a>
+          <button type="button" class="btn btn-success px-4 py-2" data-bs-toggle="modal" data-bs-target="#courseBookingModal"> Book Next Batch Slot <i class="bi bi-arrow-right-short"></i></button>
+
+<!-- Course Booking Modal -->
+<div class="modal fade" id="courseBookingModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4>Book Your Batch</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                
+  <form method="POST" action="{% url 'book_course' course.id %}">
+    {% csrf_token %}
+
+    <input type="hidden" name="course_name" value="{{ course.title }}">
+
+    <input type="text" name="name" class="form-control mb-3" placeholder="Full Name" required>
+
+    <input type="email" name="email" class="form-control mb-3" placeholder="Email" required>
+
+    <input type="text" name="education" class="form-control mb-3" placeholder="Education" required>
+
+    <input type="text" name="mobile" class="form-control mb-3" placeholder="Mobile Number" required>
+
+    <input type="text" name="year_passed" class="form-control mb-3" placeholder="Passed Out Year" required>
+
+   
+        
+    </select>
+
+    <button type="submit" class="btn btn-success w-100">
+        Register Now
+    </button>
+
+</form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
         </div>
         <div class="col-lg-5">
           <div class="browser-mockup-container">

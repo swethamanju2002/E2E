@@ -344,14 +344,6 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .section-title {
 .service-content h4 { color: var(--text-primary) !important; }
 .service-content p  { color: var(--text-muted) !important; }
 
-/* Course image with overlay */
-.course-card img {
-  border-radius: 12px !important;
-  transition: transform 0.5s ease !important;
-}
-.course-card:hover img {
-  transform: scale(1.04) !important;
-}
 
 /* ── EXPLORE / CTA BUTTONS ── */
 .explore-btn,
@@ -428,16 +420,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .section-title {
   padding: 0 5%;
 }
 
-.course-card h4 {
-  font-family: var(--font-display) !important;
-  font-size: 16px !important;
-  font-weight: 600 !important;
-  color: var(--text-primary) !important;
-}
-.course-card p {
-  color: var(--text-muted) !important;
-  font-size: 13.5px !important;
-}
+
 
 /* ── PROJECTS SECTION ── */
 .projects-section {
@@ -855,9 +838,6 @@ section#about p {
   font-size: 13px !important;
 }
 .salary { color: var(--brand-green) !important; }
-
-/* ── SWIPE INDICATOR ── */
-.swipe-indicator { color: var(--text-muted) !important; }
 
 /* ── SUCCESS BOX ── */
 .success-box {

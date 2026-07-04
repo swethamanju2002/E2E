@@ -1,14 +1,5 @@
 
-.swipe-indicator {
-    text-align: right;
-    margin-top: 15px;
-    padding-right: 20px;
-    font-size: 18px;
-    font-weight: 600;
-    color:var(--text-primary);
-    animation: blinkSwipe 1.2s infinite;
-    bottom: 10px;
-}
+
 
 /* Blink Effect */
 @keyframes blinkSwipe {

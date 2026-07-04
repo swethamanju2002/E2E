@@ -122,30 +122,6 @@
 
 
 
-/* Default - Hide Swipe Indicator */
-.swipe-indicator {
-    display: none;
-}
 
-/* Show Only on Mobile Screens */
-@media (max-width: 768px) {
-    .swipe-indicator {
-        display: block;
-        text-align: right;
-        margin-top: 15px;
-        padding-right: 20px;
-        font-size: 16px;
-        font-weight: 600;
-        color: #c6dee2;
-        animation: blinkSwipe 1.2s infinite;
-    }
-}
-
-/* Blink Animation */
-@keyframes blinkSwipe {
-    0% { opacity: 1; transform: translateX(0); }
-    50% { opacity: 0.4; transform: translateX(10px); }
-    100% { opacity: 1; transform: translateX(0); }
-}
 
 
