@@ -12,32 +12,53 @@
 </div>
 
 <section class="">
-  <div class="scroll-container" role="region" aria-label="Course cards, scroll to see all">
-    <div class="scroll-track">
-      {% for course in allcourse %}
-      <article class="course-card" >
-        {% if course.image %}
-          <img src="{{ course.image.url }}" alt="{{ course.title }}">
-        {% else %}
-          <img src="{% static 'main/images/no-image.png' %}" alt="No Image">
-        {% endif %}
+  <div class="course-grid">
+
+  {% for course in allcourse %}
+
+  <div class="course-item">
+
+    <article class="course-card">
+
+      {% if course.image %}
+        <img src="{{ course.image.url }}" alt="{{ course.title }}">
+      {% else %}
+        <img src="{% static 'main/images/no-image.png' %}" alt="No Image">
+      {% endif %}
+
+      <div class="course-content">
+
         <h4>{{ course.title }}</h4>
+
         <p>{{ course.description|truncatewords:15 }}</p>
-        <div class="price-box">
-          <span class="new-price">₹{{ course.price }}</span>
-           {% if course.discount %}
-            <span class="old-price course-meta-pills discount-pill">₹{{ course.discount }}</span>
+
+        <div class="course-price">
+          ₹{{ course.price }}
+
+          {% if course.discount %}
+          <span class="old-price">₹{{ course.discount }}</span>
           {% endif %}
         </div>
+
         {% if course.duration %}
-        <p style="font-size:12px;color:var(--text-muted);padding:0 18px;margin-bottom:0">⏱{{ course.duration }}</p>
-          {% endif %}
-        <a href="{% url 'course_detail' course.id %}" class="btn btn-success">Explore Course →</a>
-      </article>
-      {% endfor %}
-    </div>
-    <div class="swipe-indicator"><span>Swipe →</span></div>
+        <p class="course-duration">
+          ⏱ {{ course.duration }}
+        </p>
+        {% endif %}
+
+        <a href="{% url 'course_detail' course.id %}" class="explore-btn">
+          Explore Course →
+        </a>
+
+      </div>
+
+    </article>
+
   </div>
+
+  {% endfor %}
+
+</div>
 </section>
 
 <!-- Why choose us strip -->

@@ -417,24 +417,11 @@ body {
   animation: scrollBounce 1.6s ease infinite;
 }
 
-.scroll-container {
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    cursor: grab;
-    position: relative;
-    z-index: 1;
-}
 
-.scroll-container:active {
-    cursor: grabbing;
-}
 
-.scroll-track {
-    display: flex;
-    gap: 24px;
-    padding: 20px 5%;
-}
+
+
+
 @keyframes scrollBounce {
   0%, 100% { transform: translateY(0); opacity: 1; }
   50%       { transform: translateY(8px); opacity: 0.3; }
@@ -459,7 +446,7 @@ body {
 }
 
 .section-title {
-  font-family: var(--font-display) !important;
+  
   font-size: clamp(1.8rem, 4vw, 2.6rem) !important;
   font-weight: 700 !important;
   color: var(--text-primary) !important;
@@ -558,45 +545,12 @@ body {
 /* ==========================================================================
    MODERN MINI MODULE CARDS MATRIX
    ========================================================================== */
-.course-main-title {
+rse-main-title {
   font-family: var(--font-display) !important;
   font-size: clamp(2.2rem, 5vw, 3.2rem);
   font-weight: 800;
   color: var(--text-primary);
   letter-spacing: -0.5px;
-}
-
-.course-card{
-  background-color: var(--bg--white);
-}
-
-.course-main-desc {
-  font-size: 16px;
-  line-height: 1.7;
-  color: var(--text-secondary);
-  max-width: 620px;
-}
-
-.course-meta-pills .meta-pill {
-  font-size: 13.5px;
-  font-weight: 600;
-  padding: 8px 16px;
-  background: var(--bg-soft);
-  color: var(--text-secondary);
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--border-light);
-}
-
-.course-meta-pills .price-pill {
-  background: var(--e2e-green-tint);
-  color: var(--e2e-green-dark);
-  border-color: rgba(46, 125, 50, 0.2);
-}
-
-.course-meta-pills .discount-pill {
-  background: var(--e2e-red-tint);
-  color: var(--e2e-red);
-  border-color: rgba(183, 28, 28, 0.15);
 }
 
 /* The Mini Card Component */
@@ -1252,14 +1206,17 @@ body {
   @media (max-width:768px){ .intern-home-grid{ grid-template-columns:1fr; } }
   /* Internship Card Image */
 .intern-home-card-top img{
-    width:100%;
-    height:220px;
-    object-fit:cover;
+   width:100%;
+    height:250px;
+    object-fit:contain;
+    object-position:center;
+    background:#fff;
+    padding:3px;
     display:block;
     border-radius:20px 20px 0 0;
 }
 .intern-home-card-top{
-    padding:0;
+   padding:22px 28px 25px;
     flex:1;
 }
 
@@ -2102,24 +2059,6 @@ div[style*="rgba(16,185,129,0.08)"].reveal {
   border-radius: var(--radius-pill) !important;
 }
 
-/* ══════════════════════════════════════════
-   ALL COURSE PAGE
-   ══════════════════════════════════════════ */
-.allcourse-header {
-  background: linear-gradient(135deg, var(--e2e-green-tint), var(--bg-white)) !important;
-  border-bottom: 1px solid var(--border-light) !important;
-}
-.course-card h4 {
-    margin-top: 15px;
-  font-family: var(--font-display) !important;
-
-  color: var(--text-primary) !important;
-}
-.course-card p {
-  color: var(--text-muted) !important;
-    line-height: 1.5;
-    margin-top: 8px;
-}
 
 /* ==========================================
    WHY E2E PREMIUM SECTION
@@ -2156,9 +2095,23 @@ div[style*="rgba(16,185,129,0.08)"].reveal {
     line-height:1.8;
 }
 
+.why-trust-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top:30px;
+    padding:14px 28px;
+    background:#fff;
+    border:1px solid #ececec;
+    border-radius:50px;
+    font-size:13px;
+    font-weight:600;
+    box-shadow:0 10px 25px rgba(0,0,0,.05);
+}
 
-
-
+.why-trust-badge strong{
+    color:#c62828;
+}
 
 /* CARD */
 
@@ -2373,8 +2326,6 @@ font-size:18px;}
 .why-trust-badge{font-size:15px;padding:12px 20px;}
 
 }
-
-
 /* ══════════════════════════════════════════
    PAGE HEADERS
    ══════════════════════════════════════════ */
@@ -2438,10 +2389,7 @@ font-size:18px;}
 .stagger-children.visible > *:nth-child(6) { transition-delay: 0.40s; }
 .stagger-children.visible > * { opacity: 1; transform: translateY(0); }
 
-/* ══════════════════════════════════════════
-   SWIPE INDICATOR
-   ══════════════════════════════════════════ */
-.swipe-indicator { color: var(--text-muted) !important; font-size: 13px !important; }
+
 
 /* ══════════════════════════════════════════
    APPLICATION SUCCESS
@@ -2691,10 +2639,12 @@ a:focus-visible, button:focus-visible {
     /* Internship Card Image */
 .intern-card-top img{
     width:100%;
-    height:220px;
-    object-fit:cover;
+    height:250px;
+    object-fit:contain;     
+    background:#fff;
     display:block;
     border-radius:20px 20px 0 0;
+    padding:10px;
 }
 .intern-card-top{
     padding:0;
@@ -2739,7 +2689,7 @@ a:focus-visible, button:focus-visible {
     border-bottom:1px solid var(--border-light);
     padding:64px 20px 56px;
   }
-  .ih-hero-inner{ max-width:760px; margin:0 auto; text-align:center; }
+  .ih-hero-inner{ max-width:760px;height:100%; margin:0 auto; text-align:center; }
 
   .ih-back{
     display:inline-flex;align-items:center;gap:6px;
@@ -2921,6 +2871,7 @@ a:focus-visible, button:focus-visible {
     color:var(--text-muted);font-size:13px;margin-top:16px;
   }
  
+ 
   @media (max-width:768px){
     .ih-hero{ padding:48px 18px 40px; }
     .ih-roadmap-wrap{ padding:54px 16px 70px; }
@@ -2931,3 +2882,187 @@ a:focus-visible, button:focus-visible {
     .ih-stats{ gap:10px; }
     .ih-stat{ padding:11px 16px; }
   }
+
+
+  /* ==========================================
+   COURSE GRID
+========================================== */
+
+.course-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:30px;
+    padding:40px 5%;
+}
+
+.course-item{
+    display:flex;
+}
+
+/* ==========================================
+   COURSE CARD
+========================================== */
+
+.course-card{
+    background:#fbfefa41;
+    border:1px solid #e8e8e8;
+    border-radius:18px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    height:100%;
+    transition:.35s ease;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.course-card:hover{
+   background-color:white;
+    transform:translateY(-10px);
+    box-shadow:0 18px 40px rgba(0,0,0,.15);
+}
+
+/* Image */
+
+.course-card img{
+    width:100%;
+    height:210px;
+    object-fit:cover;
+    transition:.4s ease;
+}
+
+.course-card:hover img{
+    transform:scale(1.08);
+}
+
+/* Body */
+
+.course-content{
+    display:flex;
+    flex-direction:column;
+    padding:20px;
+    height:100%;
+}
+
+/* Heading */
+
+.course-content h4{
+    font-size:20px;
+    font-weight:700;
+    font-family:var(--font-display);
+    color:rgb(32, 112, 41);
+    min-height:55px;
+    margin-bottom:12px;
+   
+}
+
+/* Description */
+
+.course-content p{
+    color:#666;
+    line-height:1.7;
+    font-size:14px;
+}
+
+/* Price */
+
+.course-price{
+    margin-top:auto;
+    border-top:2px solid #c12020;
+    padding-top:15px;
+    font-size:24px;
+    font-weight:700;
+    color:#1c6320;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+/* Old Price */
+
+.old-price{
+    text-decoration:line-through;
+    color:#999;
+    font-size:15px;
+    font-weight:500;
+}
+
+/* Duration */
+
+.course-duration{
+    margin-top:10px;
+    font-size:13px;
+    color:#777;
+}
+
+/* Button */
+
+.explore-btn{
+    margin-top:18px;
+    text-align:center;
+    text-decoration:none;
+    background:linear-gradient(135deg,#268d18c7,#0f8116f1);
+    color:#fff;
+    padding:12px;
+    border-radius:8px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.explore-btn:hover{
+    background:#1b5e20;
+    color:#fff;
+    transform:translateY(-3px);
+}
+/* ================================
+      RESPONSIVE
+================================ */
+
+@media(max-width:1200px){
+
+.course-grid{
+
+grid-template-columns:repeat(3,1fr);
+
+}
+
+}
+
+@media(max-width:992px){
+
+.course-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:576px){
+
+.course-grid{
+
+grid-template-columns:1fr;
+
+gap:20px;
+
+padding:20px;
+
+}
+
+.course-card img{
+
+height:220px;
+
+}
+
+}
+.btn-outline-success{
+  background-color: rgb(164, 35, 35);
+  color: white;
+}
+.btn-outline-success:hover{
+  background-color: rgba(5, 134, 22, 0.934);
+  color: white;
+}
+

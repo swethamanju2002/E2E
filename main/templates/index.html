@@ -165,35 +165,68 @@
       </p>
     </div>
 
-    <div class="scroll-container" role="region" aria-label="Course cards, scroll to see all">
-      <div class="scroll-track">
-        {% for course in courses %}
-        <article class="course-card" >
-          {% if course.image %}
-            <img src="{{ course.image.url }}" alt="{{ course.title }}" loading="lazy">
-          {% else %}
-            <img src="{% static 'main/images/no-image.png' %}" alt="{{ course.title }}" loading="lazy">
-          {% endif %}
-          <h4>{{ course.title }}</h4>
-          <p>{{ course.description|truncatewords:15 }}</p>
-          <div class="price-box">
-            <span class="new-price">₹{{ course.price }}</span>
-            {% if course.discount %}
-            <span class="old-price">₹{{ course.discount }}</span>
+    <div class="course-grid">
+
+    {% for course in courses %}
+
+    <div class="course-item {% if forloop.counter > 4 %}extra-course d-none{% endif %}">
+
+        <article class="course-card">
+
+            {% if course.image %}
+            <img src="{{ course.image.url }}" alt="{{ course.title }}">
+            {% else %}
+            <img src="{% static 'main/images/no-image.png' %}" alt="No Image">
             {% endif %}
-          </div>
-          {% if course.duration %}
-          <p style="font-size:12px;color:var(--text-muted);padding:0 18px;margin-bottom:0">⏱ {{ course.duration }}</p>
-          {% endif %}
-          <a href="{% url 'course_detail' course.id %}" class="btn btn-success">Explore Course →</a>
+
+            <div class="course-content">
+
+                <h4>{{ course.title }}</h4>
+
+                <p>{{ course.description|truncatewords:15 }}</p>
+
+                <div class="course-price">
+                    ₹{{ course.price }}
+
+                    {% if course.discount %}
+                    <span class="old-price">₹{{ course.discount }}</span>
+                    {% endif %}
+                </div>
+
+                {% if course.duration %}
+                <p class="course-duration">
+                    ⏱ {{ course.duration }}
+                </p>
+                {% endif %}
+
+                <a href="{% url 'course_detail' course.id %}" class="explore-btn">
+                    Explore Course →
+                </a>
+
+            </div>
+
         </article>
-        {% endfor %}
-      </div>
-      <div class="swipe-indicator" aria-hidden="true"><span>Swipe to see more →</span></div>
+
     </div>
 
+    {% endfor %}
+
+</div>
+    </div>
+    <div class="text-center mt-4">
+
+    <button
+        id="toggleCourses"
+        class="btn btn-outline-success px-4">
+
+        View More
+
+    </button>
+
+</div>
+
     <!-- View all CTA -->
-    <div class="text-center mt-4 pb-4">
+    <div class="text-center mt-3 pb-4">
       <a href="{% url 'allcourse' %}" class="btn btn-success px-5 py-2">View All Courses</a>
     </div>
   </div>
@@ -435,7 +468,6 @@
         </div>
 
     </div>
-    
 
 </section>
 
@@ -1078,5 +1110,25 @@ function setServiceName(s){
   document.getElementById("serviceNameInput").value = s;
 }
 </script>
+<script>
 
+const toggleBtn = document.getElementById("toggleCourses");
+
+const hiddenCards = document.querySelectorAll(".extra-course");
+
+let expanded = false;
+
+toggleBtn.addEventListener("click", function () {
+
+    expanded = !expanded;
+
+    hiddenCards.forEach(card => {
+        card.classList.toggle("d-none");
+    });
+
+    toggleBtn.textContent = expanded ? "View Less" : "View More";
+
+});
+
+</script>
 {% endblock %}
