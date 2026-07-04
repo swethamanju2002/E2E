@@ -7,7 +7,7 @@ from .models import ClientProject, StudentReview,JobApplication
 from .models import WorkshopPhoto, Certificate, ServiceFeature, ServiceFAQ, ProcessStep
 from .models import Module
 from .models import Internship
-
+from .models import SiteOffer
 
 
 
@@ -82,4 +82,8 @@ class InternshipAdmin(admin.ModelAdmin):
     list_display = ('title', 'price', 'duration')
     # This search_fields adds a search bar in the admin
     search_fields = ('title',)
-    
+   
+
+@admin.register(SiteOffer)
+class SiteOfferAdmin(admin.ModelAdmin):
+    list_display = ('title', 'is_active', 'created_at')

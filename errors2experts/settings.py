@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main'
+    'main',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -63,10 +64,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'main.context_processors.latest_offer',
+
             ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'errors2experts.wsgi.application'
 
