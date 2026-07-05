@@ -15,6 +15,7 @@ urlpatterns = [
     path('services/', views.services, name='services'),
     path('services/<int:pk>/', views.service_detail, name='service_detail'),
     path('contact/', views.contact, name='contact'),
+    path('placement/', views.placement, name='placement'),
     path('careers/', views.career_list, name='careers'),
     path('careers/<int:pk>/', views.career_detail, name='career_detail'),
     path('careers/<int:pk>/apply/', views.apply_job, name='apply_job'),

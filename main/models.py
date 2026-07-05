@@ -11,6 +11,22 @@ class Course(models.Model):
     def __str__(self):
         return self.title
     
+
+
+class Placement(models.Model):
+    student_name = models.CharField(max_length=100)
+    student_image = models.ImageField(upload_to='placements/')
+    company_name = models.CharField(max_length=100)
+    company_logo = models.ImageField(upload_to='company_logos/', blank=True, null=True)
+    job_role = models.CharField(max_length=100)
+    package = models.CharField(max_length=50)
+    location = models.CharField(max_length=100, blank=True)
+    placed_year = models.PositiveIntegerField()
+    course = models.CharField(max_length=100, blank=True)
+
+    def __str__(self):
+        return f"{self.student_name} - {self.company_name}"
+
 class Module(models.Model):
     course = models.ForeignKey(
         Course,

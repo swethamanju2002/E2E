@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.shortcuts import render, redirect
-from .models import Course, Service,CourseBooking, Contact,ClientProject,StudentReview
+from .models import Course,Placement, Service,CourseBooking, Contact,ClientProject,StudentReview
 from .models import WorkshopPhoto, Certificate
 from .models import Internship, ProcessStep
 
@@ -93,6 +93,13 @@ def contact(request):
         Contact.objects.create(name=name, email=email, message=message)
         return redirect('contact')
     return render(request, 'contact.html')
+
+
+def placement(request):
+    placements = Placement.objects.all()
+    return render(request, 'placement.html', {
+        'placements': placements
+    })
 
 from django.shortcuts import render
 from .models import Career
