@@ -1,9 +1,5 @@
 from django.db import models
 
-# Create your models here.
-from ckeditor.fields import RichTextField
-from django.db import models
-
 class Course(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
@@ -296,7 +292,7 @@ class Internship(models.Model):
 
 class SiteOffer(models.Model):
     title = models.CharField(max_length=200)
-    description = RichTextField()
+    description = models.TextField()
     image = models.ImageField(upload_to='site_offers/', blank=True, null=True)
     link_url = models.CharField(max_length=200, help_text="e.g., /internships/")
     is_active = models.BooleanField(default=True)

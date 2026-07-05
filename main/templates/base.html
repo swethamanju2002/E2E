@@ -118,7 +118,7 @@
  
         <div class="e2e-offer-body">
           <h2 id="e2eOfferModalLabel" class="e2e-offer-title">{{ active_offer.title }}</h2>
-          <div class="e2e-offer-desc">{{ active_offer.description|safe }}</div>
+          <div class="e2e-offer-desc">{{ active_offer.description| linebreaks}}</div>
  
           <div class="e2e-offer-actions">
             <a href="{{ active_offer.link_url }}" class="e2e-offer-btn e2e-offer-btn-primary">
