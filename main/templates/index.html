@@ -25,7 +25,7 @@
             </p>
 
             <!-- CTAs -->
-            <div class="d-flex flex-wrap justify-content-center gap-3 mt-2"
+            <div class="home-buttons d-flex flex-wrap justify-content-center gap-3 mt-2"
                  style="opacity:0;animation:fadeUp 0.7s ease 1s forwards">
                <a href="{% url 'allcourse' %}" style="background:var(--e2e-green);color:var(--bg-white);border-radius:50px;padding:14px 36px;font-weight:700;font-size:15px;text-decoration:none;transition:0.3s"
                   onmouseenter="this.style.background='var(--e2e-green-dark)';"
@@ -114,7 +114,7 @@
           that transforms learners into industry-ready professionals.
         </p>
         <!-- Mini stat pills -->
-        <div class="d-flex flex-wrap gap-3">
+        <div class="about-mini-cards d-flex flex-wrap gap-3">
           <div style="background:var(--e2e-green-tint);border:1px solid rgba(46,125,50,0.2);border-radius:12px;padding:12px 20px;text-align:center">
             <div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--e2e-green)">EMI</div>
             <div style="font-size:12px;color:var(--text-muted);font-weight:500">Easy Installments</div>
@@ -129,7 +129,7 @@
           </div>
         </div>
         <!-- Proposal Download Button -->
-        <div class="mt-4 d-flex">
+        <div class="mt-4 d-flex home-about-buttons ">
           <a href="{% url 'about' %}" class="btn btn-success mt-4">Read More About Us →</a>
           <a href="{% static 'documents/proposal.pdf' %}" 
             class="btn btn-success mt-4 mx-4" 
