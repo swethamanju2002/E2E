@@ -39,75 +39,11 @@
   </form>
 </section>
 
-<!-- ── PROJECT GRID ── -->
+<!-- ── PROJECT GRID (AJAX target — swapped in-place on search/filter/page, no full reload) ── -->
 <section class="container pb-5" style="padding-top:12px">
-
-  {% if page_obj.object_list %}
-  <div class="ld-grid stagger-children">
-    {% for demo in page_obj.object_list %}
-    <div class="ld-card reveal-scale">
-      <div class="ld-img-wrap">
-        {% if demo.image %}
-          <img src="{{ demo.image.url }}" alt="{{ demo.title }}" loading="lazy">
-        {% else %}
-          <img src="{% static 'images/default-service.jpg' %}" alt="{{ demo.title }}" loading="lazy">
-        {% endif %}
-        {% if demo.category %}
-        <span class="ld-badge">{{ demo.category }}</span>
-        {% endif %}
-      </div>
-
-      <div class="ld-card-body">
-        <h3>{{ demo.title }}</h3>
-        {% if demo.description %}
-        <p>{{ demo.description }}</p>
-        {% endif %}
-
-        {% if demo.technologies %}
-        <div class="svc-tech-preview">
-          {% for tech in demo.tech_list %}
-            <span class="svc-tech-chip">{{ tech }}</span>
-          {% endfor %}
-        </div>
-        {% endif %}
-
-        <div class="ld-cta-row">
-          {% if demo.url %}
-          <a href="{{ demo.url }}" target="_blank" rel="noopener noreferrer" class="intern-explore-btn">
-            Live Demo <span>→</span>
-          </a>
-          {% endif %}
-          <a href="{% url 'service_detail' demo.service.id %}" class="svc-btn-register" style="text-align:center;text-decoration:none;display:inline-flex;align-items:center;justify-content:center">
-            View Details
-          </a>
-        </div>
-      </div>
-    </div>
-    {% endfor %}
+  <div id="ld-results-wrapper">
+    {% include 'partials/live_demo_results.html' %}
   </div>
-
-  <!-- ── PAGINATION ── -->
-  {% if page_obj.paginator.num_pages > 1 %}
-  <nav class="ld-pagination" aria-label="Project pages">
-    {% if page_obj.has_previous %}
-    <a href="?page={{ page_obj.previous_page_number }}&category={{ active_category }}{% if query %}&q={{ query|urlencode }}{% endif %}" aria-label="Previous page">‹</a>
-    {% endif %}
-    {% for num in page_obj.paginator.page_range %}
-      <a href="?page={{ num }}&category={{ active_category }}{% if query %}&q={{ query|urlencode }}{% endif %}"
-         class="{% if page_obj.number == num %}active{% endif %}">{{ num }}</a>
-    {% endfor %}
-    {% if page_obj.has_next %}
-    <a href="?page={{ page_obj.next_page_number }}&category={{ active_category }}{% if query %}&q={{ query|urlencode }}{% endif %}" aria-label="Next page">›</a>
-    {% endif %}
-  </nav>
-  {% endif %}
-
-  {% else %}
-  <div class="svc-empty" style="margin-top:20px">
-    <p>No projects match your search. Try a different keyword or category.</p>
-  </div>
-  {% endif %}
-
 </section>
 
 <!-- ── BOTTOM CTA ── -->
@@ -163,43 +99,7 @@
 }
 .ld-clear-btn:hover{ color:var(--e2e-red); }
 
-/* Grid + Card */
-.ld-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:26px;
-}
-.ld-card{
-  background:var(--bg-white);border:1px solid var(--border-light);
-  border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);
-  transition:transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s;
-  display:flex;flex-direction:column;
-}
-.ld-card:hover{
-  transform:translateY(-8px);box-shadow:var(--shadow-xl);border-color:rgba(46,125,50,0.25);
-}
-.ld-img-wrap{ position:relative;height:190px;overflow:hidden; }
-.ld-img-wrap img{
-  width:100%;height:100%;object-fit:cover;display:block;
-  transition:transform .5s var(--ease);
-}
-.ld-card:hover .ld-img-wrap img{ transform:scale(1.06); }
-.ld-badge{
-  position:absolute;top:12px;left:12px;
-  background:rgba(46,125,50,0.92);color:#fff;
-  font-size:11px;font-weight:700;letter-spacing:0.3px;
-  border-radius:20px;padding:4px 12px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.15);
-}
-.ld-card-body{ padding:20px 22px 22px;flex:1;display:flex;flex-direction:column; }
-.ld-card-body h3{
-  font-family:var(--font-display);font-size:17px;font-weight:700;
-  color:var(--text-primary);margin-bottom:6px;
-}
-.ld-card-body p{
-  font-size:13.5px;line-height:1.6;color:var(--text-muted);margin-bottom:14px;flex:1;
-}
-.ld-cta-row{ display:flex;flex-wrap:wrap;gap:10px;margin-top:auto; }
-.ld-cta-row .intern-explore-btn,
-.ld-cta-row .svc-btn-register{ flex:1;min-width:120px; }
+/* Grid + Card + Pagination styles now live in static/css/demo-cards.css (shared with service_detail.html) */
 
 /* Pagination */
 .ld-pagination{
@@ -217,10 +117,98 @@
 }
 
 @media (max-width:768px){
-  .ld-grid{ grid-template-columns:1fr; }
   .ld-toolbar{ flex-direction:column;align-items:stretch; }
   .ld-search-btn, .ld-clear-btn{ align-self:flex-start; }
 }
+.ld-loading{ opacity:0.5;pointer-events:none;transition:opacity .2s ease; }
 </style>
+
+<!-- ── AJAX: search / filter / paginate without a full page reload ── -->
+<script>
+(function () {
+  var form        = document.querySelector('.ld-toolbar');
+  var searchInput = form.querySelector('input[name="q"]');
+  var resultsWrap = document.getElementById('ld-results-wrapper');
+  var LIVE_DEMO_URL = "{% url 'live_demo' %}";
+  var debounceTimer;
+
+  function currentParams(overrides) {
+    var params = new URLSearchParams(window.location.search);
+    if (overrides) {
+      Object.keys(overrides).forEach(function (k) { params.set(k, overrides[k]); });
+    }
+    if (!overrides || !('page' in overrides)) params.delete('page');
+    return params;
+  }
+
+  function loadResults(url, pushState) {
+    resultsWrap.classList.add('ld-loading');
+    fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+      .then(function (r) { return r.text(); })
+      .then(function (html) {
+        resultsWrap.innerHTML = html;
+        resultsWrap.classList.remove('ld-loading');
+        if (pushState !== false) history.pushState({}, '', url);
+      })
+      .catch(function () { window.location.href = url; }); // graceful fallback
+  }
+
+  // Debounced live search-as-you-type
+  if (searchInput) {
+    searchInput.addEventListener('input', function () {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(function () {
+        var params = currentParams({ q: searchInput.value });
+        loadResults(LIVE_DEMO_URL + '?' + params.toString());
+      }, 400);
+    });
+  }
+
+  // Prevent full submit on Enter / Search button — still works without JS via normal form action
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearTimeout(debounceTimer);
+    var params = currentParams({ q: searchInput.value });
+    loadResults(LIVE_DEMO_URL + '?' + params.toString());
+  });
+
+  // Category tabs — instant filter, no reload
+  form.querySelectorAll('.ld-tab').forEach(function (tab) {
+    tab.addEventListener('click', function (e) {
+      e.preventDefault();
+      var url = new URL(this.href, window.location.origin);
+      form.querySelectorAll('.ld-tab').forEach(function (t) { t.classList.remove('active'); });
+      this.classList.add('active');
+      loadResults(url.pathname + url.search);
+    });
+  });
+
+  // Clear filters
+  var clearBtn = form.querySelector('.ld-clear-btn');
+  if (clearBtn) {
+    clearBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      searchInput.value = '';
+      form.querySelectorAll('.ld-tab').forEach(function (t, i) { t.classList.toggle('active', i === 0); });
+      loadResults(LIVE_DEMO_URL);
+    });
+  }
+
+  // Pagination — results are re-rendered each time, so use event delegation
+  resultsWrap.addEventListener('click', function (e) {
+    var link = e.target.closest('.ld-pagination a');
+    if (!link) return;
+    e.preventDefault();
+    var url = new URL(link.href, window.location.origin);
+    loadResults(url.pathname + url.search);
+    resultsWrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  // Back/forward browser buttons
+  window.addEventListener('popstate', function () {
+    loadResults(window.location.pathname + window.location.search, false);
+  });
+})();
+</script>
 
 {% endblock %}

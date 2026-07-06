@@ -91,40 +91,50 @@
     </div>
  
     {% if featured_demos %}
-    <div class="ld-grid">
-      {% for demo in featured_demos %}
-      <div class="ld-card reveal-scale">
-        <div class="ld-img-wrap">
-          {% if demo.image %}
-            <img src="{{ demo.image.url }}" alt="{{ demo.title }}" loading="lazy">
-          {% else %}
-            <img src="{% static 'images/default-service.jpg' %}" alt="{{ demo.title }}" loading="lazy">
-          {% endif %}
-          {% if demo.category %}<span class="ld-badge">{{ demo.category }}</span>{% endif %}
-        </div>
-        <div class="ld-card-body">
-          <h4>{{ demo.title }}</h4>
-          {% if demo.description %}<p>{{ demo.description }}</p>{% endif %}
-          {% if demo.technologies %}
-          <div class="svc-tech-preview">
-            {% for tech in demo.tech_list %}<span class="svc-tech-chip">{{ tech }}</span>{% endfor %}
+    <div class="ld-scroll-wrap">
+      <button type="button" class="slider-arrow-btn ld-arrow" onclick="e2eScrollDemos(-1)" aria-label="Previous project">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+ 
+      <div class="ld-scroll-track" id="svcDemoScroll">
+        {% for demo in featured_demos %}
+        <div class="ld-mini-card">
+          <div class="ld-mini-img">
+            {% if demo.image %}
+              <img src="{{ demo.image.url }}" alt="{{ demo.title }}" loading="lazy">
+            {% else %}
+              <img src="{% static 'images/default-service.jpg' %}" alt="{{ demo.title }}" loading="lazy">
+            {% endif %}
+            {% if demo.category %}<span class="ld-mini-badge">{{ demo.category }}</span>{% endif %}
           </div>
-          {% endif %}
-          <div class="ld-cta-row">
+          <div class="ld-mini-body">
+            <h4>{{ demo.title }}</h4>
+            {% if demo.description %}<p>{{ demo.description }}</p>{% endif %}
+            {% if demo.technologies %}
+            <div class="ld-mini-tech">
+              {% for tech in demo.tech_list|slice:":3" %}<span>{{ tech }}</span>{% endfor %}
+            </div>
+            {% endif %}
             {% if demo.url %}
-            <a href="{{ demo.url }}" target="_blank" rel="noopener noreferrer" class="intern-explore-btn">
-              Visit Live Site <span>→</span>
-            </a>
+            <a href="{{ demo.url }}" target="_blank" rel="noopener noreferrer" class="ld-mini-cta">Visit Live Site →</a>
             {% elif demo.image %}
-            <a href="{{ demo.image.url }}" target="_blank" class="intern-explore-btn">
-              View Sample <span>↓</span>
-            </a>
+            <a href="{{ demo.image.url }}" target="_blank" class="ld-mini-cta">View Sample ↓</a>
             {% endif %}
           </div>
         </div>
+        {% endfor %}
       </div>
-      {% endfor %}
+ 
+      <button type="button" class="slider-arrow-btn ld-arrow" onclick="e2eScrollDemos(1)" aria-label="Next project">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+      </button>
     </div>
+    <script>
+      function e2eScrollDemos(dir){
+        var track = document.getElementById('svcDemoScroll');
+        if (track) track.scrollBy({ left: dir * 280, behavior: 'smooth' });
+      }
+    </script>
     <div class="text-center mt-4">
       <a href="{% url 'live_demo' %}{% if featured_demos.0.category %}?category={{ featured_demos.0.category|urlencode }}{% endif %}"
          class="svc-btn-register" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center">
@@ -137,6 +147,7 @@
   </div>
 </section>
  
+
 <!-- ── DEVELOPMENT PROCESS ── -->
 {% if process_steps %}
 <section style="background:var(--bg-page);padding:70px 20px" aria-labelledby="process-heading">

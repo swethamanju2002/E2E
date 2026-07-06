@@ -6,7 +6,8 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("main", "0020_alter_servicedemolink_url"),
+        ("main", "0027_merge_20260705_1242"),
+
     ]
 
     operations = [

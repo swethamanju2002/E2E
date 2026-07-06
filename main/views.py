@@ -684,7 +684,7 @@ def internship_detail(request, pk):
 from django.core.paginator import Paginator
 from django.db.models import Q
 from .models import ServiceDemoLink
-
+# views.py — replace live_demo
 def live_demo(request):
     demos = (ServiceDemoLink.objects
              .select_related('service')
@@ -711,10 +711,15 @@ def live_demo(request):
     paginator = Paginator(demos, 9)
     page_obj = paginator.get_page(request.GET.get('page'))
 
-    return render(request, 'live_demo.html', {
+    context = {
         'page_obj': page_obj,
         'categories': categories,
         'query': query,
         'active_category': category or 'all',
-    })
- 
+    }
+
+    # AJAX request → return only the results fragment, no full-page render
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        return render(request, 'partials/live_demo_results.html', context)
+
+    return render(request, 'live_demo.html', context)
