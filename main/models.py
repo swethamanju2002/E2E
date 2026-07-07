@@ -212,7 +212,10 @@ class JobApplication(models.Model):
         return f"{self.full_name} - {self.career.role}"
     
 class CourseBooking(models.Model):
-  
+    PAYMENT_CHOICES = (
+        ('full', 'Full Amount'),
+        ('emi', 'Installment EMI'),
+    )
 
     name = models.CharField(max_length=100)
     email = models.EmailField()
@@ -220,8 +223,8 @@ class CourseBooking(models.Model):
     education = models.CharField(max_length=200)
     year_passed = models.CharField(max_length=10)
     course = models.CharField(max_length=200)
+    amount = models.IntegerField(default=0)
     
-   
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

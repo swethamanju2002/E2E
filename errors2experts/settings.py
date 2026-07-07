@@ -140,6 +140,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = 'errors2experts.official@gmail.com'
-EMAIL_HOST_PASSWORD = 'fhmrauciadxmutcl'
+EMAIL_HOST_PASSWORD = 'otli vhwd qvdv kmwt '
 
 ADMIN_NOTIFICATION_EMAIL = 'errors2experts.official@gmail.com'

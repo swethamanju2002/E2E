@@ -78,9 +78,9 @@ class CertificateAdmin(admin.ModelAdmin):
 
 @admin.register(Internship)
 class InternshipAdmin(admin.ModelAdmin):
-    # This list_display makes it easier to see your internships in the dashboard
+    
     list_display = ('title', 'price', 'duration')
-    # This search_fields adds a search bar in the admin
+  
     search_fields = ('title',)
    
 
