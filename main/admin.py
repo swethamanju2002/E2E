@@ -8,14 +8,13 @@ from .models import WorkshopPhoto, Certificate, ServiceFeature, ServiceFAQ, Proc
 from .models import Module
 from .models import Internship
 from .models import SiteOffer
-
-
+from .models import UpcomingWorkshop
 
 admin.site.register(ClientProject)
 admin.site.register(StudentReview)
 admin.site.register(Course)
 admin.site.register(Module)
-
+admin.site.register(UpcomingWorkshop)
 
 class ServiceDemoLinkInline(admin.TabularInline):
     model = ServiceDemoLink
