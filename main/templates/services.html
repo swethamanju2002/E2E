@@ -49,12 +49,12 @@
             <a href="{% url 'service_detail' service.id %}" class="btn btn-primary px-4 py-2">
               View Details <span>→</span>
             </a>
-            <button class="svc-btn-register"
+            {% comment %} <button class="svc-btn-register"
                 data-bs-toggle="modal"
                 data-bs-target="#serviceBookingModal"
                 onclick="setServiceName('{{ service.title }}')">
               Register Now
-            </button>
+            </button> {% endcomment %}
           </div>
         </div>
       </div>

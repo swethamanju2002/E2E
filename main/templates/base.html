@@ -30,11 +30,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="{% static 'css/swipe.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <link rel="stylesheet" href="{% static 'css/motivation.css' %}">
   <link rel="stylesheet" href="{% static 'css/brand_new.css' %}">
   <link rel="stylesheet" href="{% static 'css/e2e_redesign.css' %}">
   <link rel="stylesheet" href="{% static 'css/modal-fix.css' %}">
   <link rel="stylesheet" href="{% static 'css/placement.css' %}">
+  <link rel="stylesheet" href="{% static 'css/motivation.css' %}">
+
   
 </head>
 
@@ -77,7 +78,7 @@
           <li class="nav-item"><a class="nav-link" href="{% url 'allcourse' %}">Courses</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'placement' %}">Placement</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'services' %}">Services</a></li>
-          <li class="nav-item-drop"><a class="nav-link" href="{% url 'careers' %}">Careers</a></li>       
+          <li class="nav-item"><a class="nav-link" href="{% url 'careers' %}">Careers</a></li>       
      
           <!-- Explore Dropdown Navigation -->
           <li class="nav-item dropdown">
@@ -91,7 +92,7 @@
               <li class="nav-item-drop"><a class="nav-link" href="{% url 'certificates' %}">Certificates</a></li>
               <li class="nav-item-drop"><a class="nav-link" href="{% url 'reviews' %}">Reviews</a></li>
               <li class="nav-item-drop"><a class="nav-link" href="#projects">Our Clients</a></li>
-              <li class="nav-item-drop"><a class="nav-link" href="{% url 'live_demo' %}">Live Demo</a></li>
+              {% comment %} <li class="nav-item-drop"><a class="nav-link" href="{% url 'live_demo' %}">Live Demo</a></li> {% endcomment %}
             </ul>
           </li>
           <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
@@ -174,7 +175,7 @@
  
 
   <!-- ══════════ PAGE CONTENT ══════════ -->
-  <main id="main-content" class="page-content" style="margin-top:76px;position:relative;">
+  <main id="main-content" class="page-content">
     {% block content %}
     
     
@@ -191,7 +192,7 @@
         <!-- Brand col -->
         <div class="col-md-4">
           <div class="d-flex align-items-center gap-2 mb-3">
-            <img src="{% static 'images/logo.jpeg' %}" height="36" alt="Errors2Experts logo">
+            <img src="{% static 'images/logo.jpeg' %}" height="35px" width="35px" alt="Errors2Experts logo">
             <span class='f-bold'>Errors2Experts</span>
           </div>
           <p style="font-size:14px;line-height:1.85;color:rgba(255,255,255,0.72)">
@@ -410,7 +411,24 @@ function showPopup() {
   });
 })();
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const category = document.getElementById("category");
+    const otherDiv = document.getElementById("otherCategoryDiv");
+    const otherInput = document.getElementById("otherCategory");
 
+    category.addEventListener("change", function () {
+        if (this.value === "Others") {
+            otherDiv.style.display = "block";
+            otherInput.required = true;
+        } else {
+            otherDiv.style.display = "none";
+            otherInput.required = false;
+            otherInput.value = "";
+        }
+    });
+});
+</script>
   <!-- Interactions: scroll progress, back-to-top, reveal -->
   <script src="{% static 'js/modern-interaction.js' %}"></script>
   <script src="{% static 'js/placement.js' %}"></script>

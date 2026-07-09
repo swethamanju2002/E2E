@@ -23,7 +23,7 @@
       <input type="text" name="q" value="{{ query }}" placeholder="Search for websites…" aria-label="Search projects">
     </div>
 
-    <div class="ld-filter-tabs" role="tablist" aria-label="Filter by category">
+    <div class=" ld-scroll-track" role="tablist" aria-label="Filter by category">
       <a href="?category=all{% if query %}&q={{ query|urlencode }}{% endif %}"
          class="ld-tab {% if active_category == 'all' %}active{% endif %}" role="tab">All Categories</a>
       {% for cat in categories %}

@@ -69,7 +69,7 @@ body {
   border-bottom: 1px solid var(--border-light) !important;
   box-shadow: var(--shadow-xs) !important;
   padding-top: 12px !important;
-  position: relative;
+  position: relative !important;
   padding-bottom: 12px !important;
   transition: box-shadow var(--transition), background var(--transition) !important;
   z-index: 1050 !important;  /* above hero layers, below modals */
@@ -128,7 +128,7 @@ body {
 }
 .navbar .nav-link::after {
   content: '';
-  position: absolute;
+  position: relative;
   bottom: 2px; left: 14px; right: 14px;
   height: 2px;
   background: var(--grad-brand);
@@ -1521,7 +1521,7 @@ rse-main-title {
 }
 .ld-mini-img{ position:relative;height:120px;overflow:hidden; }
 .ld-mini-img img{
-  width:100%;height:100%;object-fit:cover;display:block;
+  width:90%;height:90%;object-fit:cover;display:block;
   transition:transform .5s var(--ease);
 }
 .ld-mini-card:hover .ld-mini-img img{ transform:scale(1.06); }
@@ -1920,7 +1920,7 @@ rse-main-title {
 /* ══════════════════════════════════════════
    MOTIVATION / KALAM
    ══════════════════════════════════════════ */
-.kalam-section {
+/* .kalam-section {
   background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 60%, #B71C1C 100%) !important;
   padding: 80px 20px !important;
   border-top: none !important;
@@ -1941,7 +1941,7 @@ rse-main-title {
   padding-left: 20px !important;
   font-style: italic;
 }
-.kalam-author { color: var(--e2e-gold-light) !important; font-weight: 700 !important; font-size: 16px !important; }
+.kalam-author { color: var(--e2e-gold-light) !important; font-weight: 700 !important; font-size: 16px !important; } */
 
 /* ══════════════════════════════════════════
    COUNTER SECTION

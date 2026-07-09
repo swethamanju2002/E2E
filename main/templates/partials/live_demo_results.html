@@ -19,18 +19,9 @@
       {% if demo.description %}
       <p>{{ demo.description }}</p>
       {% endif %}
-
-      {% if demo.technologies %}
-      <div class="svc-tech-preview">
-        {% for tech in demo.tech_list %}
-          <span class="svc-tech-chip">{{ tech }}</span>
-        {% endfor %}
-      </div>
-      {% endif %}
-
       <div class="ld-cta-row">
         {% if demo.url %}
-        <a href="{{ demo.url }}" target="_blank" rel="noopener noreferrer" class="intern-explore-btn">
+        <a href="{{ demo.url }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary px-4 py-2" style="text-decoration:none">
           Live Demo <span>→</span>
         </a>
         {% endif %}

@@ -199,7 +199,7 @@
                 </p>
                 {% endif %}
 
-                <a href="{% url 'course_detail' course.id %}" class="explore-btn">
+                <a href="{% url 'course_detail' course.id %}" class="btn btn-primary">
                     Explore Course →
                 </a>
 
@@ -220,7 +220,7 @@
 
     <!-- View all CTA -->
     <div class="text-center mt-3 pb-4">
-      <a href="{% url 'allcourse' %}" class="btn btn-success px-5 py-2">View All Courses</a>
+      <a href="{% url 'allcourse' %}" class="svc-btn-register px-5 py-2 text-decoration-none">View All Courses</a>
     </div>
   </div>
 </section>
@@ -257,16 +257,16 @@
           </div>
           {% endif %}
  
-          <div class="svc-btn-row">
+          <div class="svc-btn-row align-items-center">
             <a href="{% url 'service_detail' service.id %}" class="btn btn-primary px-4 py-2">
               View Details <span>→</span>
             </a>
-            <button class="svc-btn-register"
+            {% comment %} <button class="svc-btn-register"
                 data-bs-toggle="modal"
                 data-bs-target="#serviceBookingModal"
                 onclick="setServiceName('{{ service.title }}')">
               Register Now
-            </button>
+            </button> {% endcomment %}
           </div>
         </div>
       </div>
@@ -884,17 +884,17 @@
       <div class="kalam-stats-row">
         <div class="kalam-stat-card">
           <div class="kalam-stat-icon green">👥</div>
-          <span class="counter-value" data-target="5000" data-suffix="+">0</span>
+          <span class="counter-value" data-target="400" data-suffix="+">0</span>
           <div class="stat-label">Students Trained</div>
         </div>
         <div class="kalam-stat-card">
           <div class="kalam-stat-icon red">💼</div>
-          <span class="counter-value" data-target="1000" data-suffix="+">0</span>
-          <div class="stat-label">Successful Placements</div>
+          <span class="counter-value" data-target="100" data-suffix="%">0</span>
+          <div class="stat-label">Placement support</div>
         </div>
         <div class="kalam-stat-card">
           <div class="kalam-stat-icon gold">📖</div>
-          <span class="counter-value" data-target="50" data-suffix="+">0</span>
+          <span class="counter-value" data-target="10" data-suffix="+">0</span>
           <div class="stat-label">Industry Relevant Courses</div>
         </div>
         <div class="kalam-stat-card msme">

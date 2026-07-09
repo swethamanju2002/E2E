@@ -16,8 +16,11 @@
           <p class="course-main-desc">{{ service.description }}</p>
 
           <div class="d-flex flex-wrap gap-3 mt-2">
-            <button type="button" class="intern-explore-btn" data-bs-toggle="modal" data-bs-target="#serviceDetailBookingModal">
+            <button type="button" class="btn btn-primary px-4 py-3" data-bs-toggle="modal" data-bs-target="#serviceDetailBookingModal">
               Register For This Service →
+            </button>
+            <button type="button" class="btn btn-primary px-4 py-3" data-bs-toggle="modal" data-bs-target="#serviceDemoBookingModal">
+              Book for demo →
             </button>
           </div>
         </div>
@@ -33,8 +36,9 @@
               {% if service.image %}
                 <img src="{{ service.image.url }}" class="img-fluid project-display-img" alt="{{ service.title }}">
               {% else %}
-                <img src="{% static 'main/images/no-image.png' %}" class="img-fluid project-display-img" alt="Default Image">
+                <img src="{% static 'main/images/no-image.png' %}" class="img-fluid project-display-img" alt="Default Image"> 
               {% endif %}
+
             </div>
           </div>
         </div>
@@ -105,16 +109,10 @@
             {% else %}
               <img src="{% static 'images/default-service.jpg' %}" alt="{{ demo.title }}" loading="lazy">
             {% endif %}
-            {% if demo.category %}<span class="ld-mini-badge">{{ demo.category }}</span>{% endif %}
           </div>
           <div class="ld-mini-body">
             <h4>{{ demo.title }}</h4>
             {% if demo.description %}<p>{{ demo.description }}</p>{% endif %}
-            {% if demo.technologies %}
-            <div class="ld-mini-tech">
-              {% for tech in demo.tech_list|slice:":3" %}<span>{{ tech }}</span>{% endfor %}
-            </div>
-            {% endif %}
             {% if demo.url %}
             <a href="{{ demo.url }}" target="_blank" rel="noopener noreferrer" class="ld-mini-cta">Visit Live Site →</a>
             {% elif demo.image %}
@@ -135,10 +133,16 @@
         if (track) track.scrollBy({ left: dir * 280, behavior: 'smooth' });
       }
     </script>
-    <div class="text-center mt-4">
+    {% comment %} <div class="text-center mt-4">
       <a href="{% url 'live_demo' %}{% if featured_demos.0.category %}?category={{ featured_demos.0.category|urlencode }}{% endif %}"
          class="svc-btn-register" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center">
         View All Projects →
+      </a>
+    </div> {% endcomment %}
+    <div class="text-center mt-4">
+      <a href="#" data-bs-toggle="modal" data-bs-target="#serviceDemoBookingModal"
+         class="svc-btn-register" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center">
+        Request for live demo →
       </a>
     </div>
     {% else %}
@@ -209,9 +213,7 @@
     <button type="button" class="sd-cta sd-cta-light" data-bs-toggle="modal" data-bs-target="#serviceDetailBookingModal">
       Register Now →
     </button>
-    <a href="{% url 'contact' %}" class="sd-cta sd-cta-light">Request Quote</a>
-    <a href="https://wa.me/919363342646" target="_blank" rel="noopener noreferrer" class="sd-cta sd-cta-light">WhatsApp Us</a>
-    <a href="tel:+919363342646" class="sd-cta sd-cta-light">Call Us</a>
+    <a href="{% url 'contact' %}" class="sd-cta sd-cta-light text-decoration-none">Request Quote</a>
   </div>
 </div>
  
@@ -231,6 +233,46 @@
           <div class="mb-3"><input type="email" name="email" class="form-control" placeholder="Email Address" required></div>
           <div class="mb-3"><input type="text" name="mobile" class="form-control" placeholder="Mobile Number" required></div>
           <div class="mb-3"><textarea name="message" class="form-control" rows="3" placeholder="Your Requirement"></textarea></div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary px-4">Submit Request →</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% comment %} request demo modal {% endcomment %}
+<div class="modal fade" id="serviceDemoBookingModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Request Live Demo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="POST">
+        {% csrf_token %}
+        <div class="modal-body">
+          <input type="hidden" name="service_name" value="{{ service.title }}">
+          <div class="mb-3"><input type="text" name="full_name" class="form-control" placeholder="Name of your organization" required></div>
+          <div class="mb-3"><input type="email" name="email" class="form-control" placeholder="Email Address" required></div>
+          <div class="mb-3"><input type="text" name="mobile" class="form-control" placeholder="Mobile Number" required></div>
+          <div class="mb-3"><select name="category" id="category" class="form-control">
+            <option value="">Select Category</option>
+            <option value="Beauty">Beauty</option>
+            <option value="Health">Health</option>
+            <option value="Construction">Construction</option>
+            <option value="Education">Education</option>
+            <option value="E-commerce">E-commerce</option>
+            <option value="Food">Food</option>
+            <option value="Travel">Travel</option>  
+            <option value="Others">others</option>            
+          </select>
+          
+        </div>
+        <div class="mb-3" id="otherCategoryDiv" style="display:none;">
+        <input type="text" name="other_category" id="otherCategory" class="form-control" placeholder="Please specify">
+        </div>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary px-4">Submit Request →</button>

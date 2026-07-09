@@ -687,46 +687,45 @@ def internship_detail(request, pk):
         'timeline_data': dict(timeline_data)
     })
     
-    # views.py — new live_demo view
-from django.core.paginator import Paginator
-from django.db.models import Q
-from .models import ServiceDemoLink
-# views.py — replace live_demo
-def live_demo(request):
-    demos = (ServiceDemoLink.objects
-             .select_related('service')
-             .exclude(url__isnull=True).exclude(url='')
-             .order_by('order', 'service__title'))
+# from django.core.paginator import Paginator
+# from django.db.models import Q
+# from .models import ServiceDemoLink
 
-    query = request.GET.get('q', '').strip()
-    category = request.GET.get('category', 'all').strip()
+# def live_demo(request):
+#     demos = (ServiceDemoLink.objects
+#              .select_related('service')
+#              .exclude(url__isnull=True).exclude(url='')
+#              .order_by('order', 'service__title'))
 
-    if query:
-        demos = demos.filter(
-            Q(title__icontains=query) |
-            Q(description__icontains=query) |
-            Q(technologies__icontains=query)
-        )
-    if category and category.lower() != 'all':
-        demos = demos.filter(category__iexact=category)
+#     query = request.GET.get('q', '').strip()
+#     category = request.GET.get('category', 'all').strip()
 
-    categories = (ServiceDemoLink.objects
-                  .exclude(category='')
-                  .values_list('category', flat=True)
-                  .distinct().order_by('category'))
+#     if query:
+#         demos = demos.filter(
+#             Q(title__icontains=query) |
+#             Q(description__icontains=query) |
+#             Q(technologies__icontains=query)
+#         )
+#     if category and category.lower() != 'all':
+#         demos = demos.filter(category__iexact=category)
 
-    paginator = Paginator(demos, 9)
-    page_obj = paginator.get_page(request.GET.get('page'))
+#     categories = (ServiceDemoLink.objects
+#                   .exclude(category='')
+#                   .values_list('category', flat=True)
+#                   .distinct().order_by('category'))
 
-    context = {
-        'page_obj': page_obj,
-        'categories': categories,
-        'query': query,
-        'active_category': category or 'all',
-    }
+#     paginator = Paginator(demos, 9)
+#     page_obj = paginator.get_page(request.GET.get('page'))
 
-    # AJAX request → return only the results fragment, no full-page render
-    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-        return render(request, 'partials/live_demo_results.html', context)
+#     context = {
+#         'page_obj': page_obj,
+#         'categories': categories,
+#         'query': query,
+#         'active_category': category or 'all',
+#     }
 
-    return render(request, 'live_demo.html', context)
+#     # AJAX request → return only the results fragment, no full-page render
+#     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+#         return render(request, 'partials/live_demo_results.html', context)
+
+#     return render(request, 'live_demo.html', context)
