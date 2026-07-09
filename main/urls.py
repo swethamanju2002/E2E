@@ -25,7 +25,7 @@ urlpatterns = [
     path('certificates/', views.certificate_gallery, name='certificates'),
     path('internships/', views.internship_list, name='internship_list'),
     path('internships/<int:pk>/', views.internship_detail, name='internship_detail'),
-    
+    path("workshop-registration/",views.workshop_registration,name="workshop_registration"),
 ]    
 
 if settings.DEBUG:

@@ -186,7 +186,33 @@ class WorkshopPhoto(models.Model):
     def __str__(self):
         return self.title
 
+class WorkshopRegistration(models.Model):
+    full_name = models.CharField(max_length=150)
+    email = models.EmailField()
+    mobile = models.CharField(max_length=20)
+    education = models.CharField(max_length=150)
+    workshop = models.CharField(max_length=200)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.full_name
+
+class UpcomingWorkshop(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+
+    event_date = models.DateField()
+    event_time = models.TimeField(null=True, blank=True)
+    location = models.CharField(max_length=200, blank=True)
+    registration_info = models.CharField(max_length=200, blank=True)
+
+    image = models.ImageField(upload_to="upcoming_workshops/")
+
+    def __str__(self):
+        return self.title
+    
+    
 class Certificate(models.Model):
     """
     Stores certificate images that E2E issues to students.

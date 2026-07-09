@@ -450,11 +450,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .section-title {
 }
 
 /* ── REVIEWS SECTION ── */
-.reviews-section {
-  background: linear-gradient(135deg, #060d14 0%, #0d1b2a 100%) !important;
-  position: relative;
-  overflow: hidden;
-}
+
 .reviews-section::before {
   content: '';
   position: absolute;

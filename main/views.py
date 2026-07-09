@@ -5,7 +5,15 @@ from django.shortcuts import render, redirect
 from .models import Course, Service,CourseBooking, Contact,ClientProject,StudentReview
 from .models import WorkshopPhoto, Certificate
 from .models import Internship
+from .models import WorkshopRegistration
+from django.core.mail import EmailMessage, EmailMultiAlternatives
 
+from django.conf import settings
+from openpyxl import Workbook, load_workbook
+from datetime import datetime, timezone
+from .models import UpcomingWorkshop
+
+import os
 def home(request):
     courses = Course.objects.all()
     services = Service.objects.all()
@@ -15,8 +23,8 @@ def home(request):
     workshops       = WorkshopPhoto.objects.all()    
     certificates    = Certificate.objects.all()
     internships = Internship.objects.all()
+    upcoming_workshop = UpcomingWorkshop.objects.first()
    
-
     if request.method == "POST":
         name = request.POST.get('name')
         email = request.POST.get('email')
@@ -33,6 +41,8 @@ def home(request):
         'workshops': workshops,  
         'certificates':  certificates,
         'internships': internships,
+        'upcoming_workshop': upcoming_workshop,
+        
 
     })
     
@@ -638,11 +648,17 @@ Errors2Experts Team
         messages.success(request, "Service Registered Successfully")
         return redirect("services")  # change if needed
     
+from .models import WorkshopPhoto, UpcomingWorkshop
+
 def workshop_gallery(request):
-    """Dedicated full-page workshop gallery."""
     workshops = WorkshopPhoto.objects.all()
-    return render(request, 'workshop.html', {'workshops': workshops})
- 
+
+    upcoming_workshop = UpcomingWorkshop.objects.order_by("event_date").first()
+
+    return render(request, "workshop.html", {
+        "workshops": workshops,
+        "upcoming_workshop": upcoming_workshop,
+    })
  
 def certificate_gallery(request):
     """Dedicated full-page certificate gallery."""
@@ -672,3 +688,176 @@ def internship_detail(request, pk):
         'timeline_data': dict(timeline_data)
     })
  
+
+def workshop_registration(request):
+
+    if request.method == "POST":
+
+        name = request.POST.get("full_name")
+        email = request.POST.get("email")
+        mobile = request.POST.get("mobile")
+        education = request.POST.get("education")
+        workshop = request.POST.get("workshop")
+
+        # ================= DATABASE =================
+
+        WorkshopRegistration.objects.create(
+            full_name=name,
+            email=email,
+            mobile=mobile,
+            education=education,
+            workshop=workshop
+        )
+
+        # ================= EXCEL =================
+
+        file_path = os.path.join(
+            settings.BASE_DIR,
+            "workshop_registrations.xlsx"
+        )
+
+        if os.path.exists(file_path):
+
+            wb = load_workbook(file_path)
+            ws = wb.active
+
+        else:
+
+            wb = Workbook()
+            ws = wb.active
+
+            ws.append([
+                "Name",
+                "Email",
+                "Mobile",
+                "Education",
+                "Workshop",
+                "Date"
+            ])
+
+        ws.append([
+            name,
+            email,
+            mobile,
+            education,
+            workshop,
+            datetime.now().strftime("%d-%m-%Y %H:%M")
+        ])
+
+        wb.save(file_path)
+
+        # ================= ADMIN MAIL =================
+
+        admin_subject = f"New Workshop Registration - {workshop}"
+
+        admin_message = f"""
+New Workshop Registration
+
+Name      : {name}
+Email     : {email}
+Mobile    : {mobile}
+Education : {education}
+Workshop  : {workshop}
+
+Registration Time :
+{datetime.now().strftime("%d-%m-%Y %H:%M")}
+"""
+
+        EmailMessage(
+            subject=admin_subject,
+            body=admin_message,
+            from_email=settings.EMAIL_HOST_USER,
+            to=[settings.ADMIN_NOTIFICATION_EMAIL]
+        ).send()
+
+        # ================= USER MAIL =================
+
+        subject = f"Workshop Registration Successful - {workshop}"
+
+        text_content = f"""
+Hi {name},
+
+Thank you for registering successfully for the {workshop}.
+
+Your registration has been received successfully.
+
+Our team will contact you shortly with the meeting link and workshop details.
+
+Regards,
+Errors2Experts Team
+"""
+
+        html_content = f"""
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+
+<body style="font-family:Arial,sans-serif;background:#f5f5f5;padding:30px;">
+
+<div style="max-width:650px;margin:auto;background:#ffffff;border-radius:10px;padding:30px;border:1px solid #ddd;">
+
+<h2 style="color:#2e7d32;">
+Hello {name},
+</h2>
+
+<p>
+Thank you for registering for our
+<b>{workshop}</b>.
+</p>
+
+<p>
+Your registration has been received successfully.
+</p>
+
+<p>
+Our team will contact you shortly with the workshop meeting link and complete instructions.
+</p>
+
+<hr>
+
+<h3 style="color:#1b9615;">
+Workshop Details
+</h3>
+
+<p>
+
+<b>Workshop :</b> {workshop}<br>
+<b>Status :</b> Registration Confirmed ..
+
+</p>
+
+<br>
+
+<p>
+Thank you for choosing
+<b>Errors2Experts</b>.
+</p>
+
+<p>
+Regards,<br>
+<b>Errors2Experts Team</b>
+</p>
+
+</div>
+
+</body>
+</html>
+"""
+
+        mail = EmailMultiAlternatives(
+            subject=subject,
+            body=text_content,
+            from_email=settings.EMAIL_HOST_USER,
+            to=[email],
+        )
+
+        mail.attach_alternative(html_content, "text/html")
+        mail.send()
+
+        # ================= REDIRECT =================
+
+        return redirect("home")
+
+    return redirect("home")
