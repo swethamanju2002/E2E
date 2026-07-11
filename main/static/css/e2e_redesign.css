@@ -453,7 +453,7 @@ body {
 
 .section-title {
   font-family:'Poppins',sans-serif;
-   font-size: clamp(1.8rem, 4vw, 2.6rem) !important;
+  font-size: clamp(1.8rem, 4vw, 2.6rem) !important;
   font-weight: 700 !important;
   color: var(--text-primary) !important;
   letter-spacing: -0.5px !important;

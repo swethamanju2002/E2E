@@ -775,11 +775,12 @@
 
             <strong>{{ upcoming_workshop.title }}</strong><br>
 
-            📅 {{ upcoming_workshop.date }}<br>
+            📅 {{ upcoming_workshop.event_date|date:"d M Y" }}<br>
 
-            🕒 {{ upcoming_workshop.time }}<br>
+            🕒 {{ upcoming_workshop.event_time }}<br>
 
-            💻 Google Meet
+            💻 {{ upcoming_workshop.location }}
+            
 
   
 
