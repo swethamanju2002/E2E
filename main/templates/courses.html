@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block content %}
-<div class="course-detail-wrapper">
-  <div class="container">
+<div class="course-detail-wrapper py-5">
+  <div class="container py-5">
     
     <!-- Actionable Back Button -->
     <div class="mb-4 animate-fade-in">
@@ -18,7 +18,7 @@
       <div class="row align-items-center g-4">
         <div class="col-lg-7">
           <span class="section-eyebrow">Advanced Learning Track</span>
-          <h1 class="course-main-title">{{ course.title }}</h1>
+          <h1 class="course-main-title">{{ course.title | title }}</h1>
           <p class="course-main-desc">{{ course.description }}</p>
           
           <div class="course-meta-pills d-flex flex-wrap gap-3 my-4">

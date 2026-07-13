@@ -5,7 +5,7 @@
 
 <!-- Page header -->
 <div style="text-align:center;padding:60px 20px 40px;background:linear-gradient(180deg,rgba(59,130,246,0.06) 0%,transparent 100%)">
-  <p class="section-eyebrow">WHAT WE TEACH</p>
+  <p class="section-eyebrow mt-5">WHAT WE TEACH</p>
   <h1 id="course-heading" class="section-title">Our Courses</h1>
   <p class="section-subtitle-muted"> Industry-oriented programs designed to make you job-ready.</p>
   <div style="width:50px;height:3px;background:linear-gradient(90deg,var(--brand-green),var(--brand-teal));border-radius:3px;margin:16px auto 0"></div>
@@ -28,7 +28,7 @@
 
       <div class="course-content">
 
-        <h4>{{ course.title }}</h4>
+        <h4>{{ course.title | title}}</h4>
 
         <p>{{ course.description|truncatewords:15 }}</p>
 
@@ -41,12 +41,12 @@
         </div>
 
         {% if course.duration %}
-        <p class="course-duration">
+        <p class="course-duration mb-0">
           ⏱ {{ course.duration }}
         </p>
         {% endif %}
 
-        <a href="{% url 'course_detail' course.id %}" class="explore-btn">
+        <a href="{% url 'course_detail' course.id %}" class="btn btn-primary course-learn-link py-2 mb-4">
           Explore Course →
         </a>
 

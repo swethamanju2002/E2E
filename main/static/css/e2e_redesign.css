@@ -1,8 +1,3 @@
-/* ============================================================
-   ERRORS2EXPERTS — MAIN REDESIGN STYLESHEET v2.0
-   Light, Professional, Educational Institute
-   Import AFTER all existing CSS to take precedence
-   ============================================================ */
 
 /* ── BASE RESET & BODY ── */
 html { scroll-behavior: smooth; }
@@ -10,7 +5,7 @@ html { scroll-behavior: smooth; }
 *, *::before, *::after { box-sizing: border-box; }
 
 body {
-  font-family:'Poppins',sans-serif !important;
+  font-family: var(--font-body) !important;
   background: var(--bg-page) !important;
   background-image: none !important;
   animation: none !important;
@@ -126,9 +121,15 @@ body {
   letter-spacing: 0.1px !important;
   position: relative !important;
 }
+.navbar.fixed-top {
+    position: fixed !important;
+    top: 0;
+    width: 100%;
+    z-index: 1030; /* Ensure it stays above other content */
+}
 .navbar .nav-link::after {
   content: '';
-  position: relative;
+  position: absolute;
   bottom: 2px; left: 14px; right: 14px;
   height: 2px;
   background: var(--grad-brand);
@@ -194,9 +195,36 @@ body {
 .dropdown:hover .dropdown-arrow {
     transform: translateY(1px) rotate(-135deg);
 }
+@media (max-width: 991px) {
+    /* 1. Hide the dropdown by default on mobile */
+    .navbar .dropdown-menu {
+        display: none; 
+        position: static;
+        width: 100%;
+        background: none;
+        border: none;
+        box-shadow: none;
+    }
+
+    /* 2. Show only when Bootstrap adds the 'show' class to the parent */
+    .navbar .dropdown-menu.show {
+        display: block !important;
+    }
+
+    /* 3. Keep the links stacked */
+    .navbar .dropdown-menu li {
+        display: block;
+        width: 100%;
+    }
+}
+@media (max-width: 991px) {
+    .navbar-collapse {
+        max-height: 85vh; /* Prevents the menu from going off the bottom of the screen */
+        overflow-y: auto; /* Enables scrolling inside the menu */
+    }
+}
 /* ============================================================
-   E2E OFFER / OPENINGS POPUP — bright, premium, brand-consistent
-   Scoped under .e2e-offer-modal so it never touches other modals
+   E2E OFFER / OPENINGS POPUP 
    ============================================================ */
  
 .e2e-offer-modal .modal-dialog { max-width: 620px; }
@@ -214,6 +242,7 @@ body {
   top: 16px;
   right: 16px;
   z-index: 5;
+  color:var(--text-muted);
   background: rgba(255,255,255,0.92) !important;
   border-radius: 50%;
   width: 34px;
@@ -459,7 +488,12 @@ body {
   text-align: center;
   padding: 3rem 2rem;
 }
-
+@media screen (max-width:991px) {
+  .hero-glass-card {
+    margin-top: 10px;
+    padding: 2rem 1.5rem;
+  }
+}
 /* Decorative top accent bar */
 .hero-glass-card::before {
   content: '';
@@ -644,25 +678,21 @@ body {
    SECTION EYEBROW & TITLES
    ══════════════════════════════════════════ */
 .section-eyebrow {
-  font-family:'Poppins',sans-serif;
-  font-size: 11px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--e2e-red);
-  display: block;
-  margin-bottom: 8px;
-  background: none !important;
+  font-size:11px !important;
+  letter-spacing:4px !important;
+  text-transform:uppercase !important;
+  color:var(--e2e-red) !important;
+  font-weight:700 !important;
+  margin-bottom:12px !important;
   -webkit-text-fill-color: var(--e2e-red) !important;
 }
 
 .section-title {
-  font-family:'Poppins',sans-serif;
-   font-size: clamp(1.8rem, 4vw, 2.6rem) !important;
-  font-weight: 700 !important;
-  color: var(--text-primary) !important;
-  letter-spacing: -0.5px !important;
-  margin-bottom: 0 !important;
+  font-family:var(--font-display) !important ;
+  font-size:clamp(2rem,5vw,3rem) !important;
+  font-weight:700 !important;
+  color:var(--text-dark) !important;
+  margin-bottom:0;
 }
 .section-title::after {
   content: '';
@@ -672,11 +702,6 @@ body {
   border-radius: 3px;
   margin: 14px auto 0;
 }
-/* .counterbox{
-  font-size: 70px;
-  color: --bg-white;
-  font-weight: bold;
-} */
 
 /* ══════════════════════════════════════════
    GLASS SECTIONS → light panels
@@ -710,6 +735,17 @@ body {
     width:100%;
     padding:80px 0;
 }
+#about .section-title::after {
+  content: '';
+  display: block;
+  width: 48px; 
+  height: 3px;
+  background: var(--grad-brand);
+  border-radius: 3px;
+  margin-left: 70px;
+  margin-bottom: 10px;
+}
+
 
 #about .container{
   
@@ -725,7 +761,7 @@ body {
 
 #about h2,
 #about h3{
-    font-family: 'Poppins', sans-serif !important;
+    font-family: var(--font-display) !important;
     font-size:42px;
     font-weight:700;
     line-height:1.2;
@@ -1187,7 +1223,7 @@ rse-main-title {
     color:var(--e2e-red);font-weight:700;margin-bottom:10px;
   }
   .svc-page-header h1{
-    font-family:'Poppins',sans-serif;font-size:clamp(2rem,5vw,3rem);
+    font-family:var(--font-display);font-size:clamp(2rem,5vw,3rem);
     font-weight:700;color:var(--text-primary);margin-bottom:0;
   }
   .svc-subtitle{ color:var(--text-muted);margin-top:12px;font-size:16px; }
@@ -1227,7 +1263,7 @@ rse-main-title {
  
   .svc-content{ padding:26px 26px 28px;flex:1;display:flex;flex-direction:column; }
   .svc-content h4{
-   font-family:'Poppins',sans-serif;font-size:19px;font-weight:700;
+   font-family:var(--font-display);font-size:19px;font-weight:700;
     color:var(--text-primary);margin-bottom:10px;text-align:left;
   }
   .svc-content p{
@@ -1313,7 +1349,7 @@ rse-main-title {
   }
  
   .sd-hero h1{
-    font-family:'Poppins',sans-serif;font-size:clamp(1.9rem,4.2vw,2.9rem);
+    font-family:var(--font-display);font-size:clamp(1.9rem,4.2vw,2.9rem);
     font-weight:700;color:var(--text-primary);margin:0 0 16px;letter-spacing:-0.5px;
   }
   .sd-desc{
@@ -2527,7 +2563,7 @@ footer.footer, .footer {
   color: rgba(255,255,255,0.85) !important;
 }
 footer h5 {
-  font-family: 'Poppins', sans-serif !important;
+  font-family: var(--font-body) !important;
   font-size: 14px !important;
   font-weight: 700 !important;
   color: var(--e2e-gold-light) !important;
@@ -2605,7 +2641,7 @@ footer .text-center p { color: rgba(255,255,255,0.55) !important; font-size: 13p
    ABOUT PAGE — standalone
    ══════════════════════════════════════════ */
 section#about h2, section#about h3 {
-  font-family:'Poppins',sans-serif;
+  font-family: var(--font-display) !important;
   color: var(--text-primary) !important;
 }
 section#about p {
@@ -2682,25 +2718,6 @@ div[style*="rgba(16,185,129,0.08)"].reveal {
     background:#fff;
 }
 
-.section-eyebrow{
-  font-family:'Poppins',sans-serif;
-    display:inline-block;
-    color:#b71c1c;
-    font-size:13px;
-    font-weight:500;
-    letter-spacing:4px;
-    text-transform:uppercase;
-    margin-bottom:15px;
-}
-
-.section-title{
-  font-family:'Poppins',sans-serif;
-    font-size:38px;
-    font-weight:800;
-    color:#1f1f1f;
-    margin-bottom:18px;
-    line-height:1.15;
-}
 
 .section-subtitle-muted{
     max-width:760px;
@@ -3601,6 +3618,46 @@ a:focus-visible, button:focus-visible {
 }
 
 /* Price */
+.course-main-title {
+  font-family: var(--font-display) !important;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.course-card{
+  background-color: var(--bg--white);
+}
+
+.course-main-desc {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 620px;
+}
+
+.course-meta-pills .meta-pill {
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 8px 16px;
+  background: var(--bg-soft);
+  color: var(--text-secondary);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-light);
+}
+
+.course-meta-pills .price-pill {
+  background: var(--e2e-green-tint);
+  color: var(--e2e-green-dark);
+  border-color: rgba(46, 125, 50, 0.2);
+}
+
+.course-meta-pills .discount-pill {
+  background: var(--e2e-red-tint);
+  color: var(--e2e-red);
+  border-color: rgba(183, 28, 28, 0.15);
+}
 
 .course-price{
     margin-top:auto;

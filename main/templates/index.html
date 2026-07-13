@@ -98,10 +98,10 @@
   <div class="container py-5">
     <div class="row align-items-center g-5">
 
-      <div class="col-md-6" data-aos="fade-right">
+      <div class="col-md-6" data-aos="fade-right" style="">
         <span class="section-eyebrow">Who We Are</span>
         <h2 id="about-heading"
-            style="font-family:var(--font-display);font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:700;color:var(--text-primary);margin-bottom:20px">
+            class="section-title" style="text-align:left;margin-bottom:0;gap:16px;">
           About Us
         </h2>
         <p style="color:var(--text-muted);line-height:1.85;font-size:15.5px;margin-bottom:16px">
@@ -182,7 +182,7 @@
 
             <div class="course-content">
 
-                <h4>{{ course.title }}</h4>
+                <h4 style="font-size:large;">{{ course.title | title}}</h4>
 
                 <p>{{ course.description|truncatewords:15 }}</p>
 
@@ -849,7 +849,7 @@
   <div class="container">
  
     <div class="text-center mb-2 reveal">
-      <span class="intern-home-eyebrow">Hands-On Career Tracks</span>
+      <span class="section-eyebrow">Hands-On Career Tracks</span>
       <h2 id="internships-heading" class="section-title">Our Internship Programs</h2>
       <p class="section-subtitle-muted">
         Structured, week-by-week internship tracks that take you from fundamentals
@@ -1156,8 +1156,8 @@
      ══════════════════════════════════════════ -->
 <section class="glass-section contact-section" id="contact">
 <div style="text-align:center;padding:60px 20px 40px;background:linear-gradient(180deg,var(--e2e-green-tint) 0%,var(--bg-white) 100%);border-bottom:1px solid var(--border-light)">
-  <span style="font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--e2e-red);display:block;margin-bottom:10px">GET IN TOUCH</span>
-  <h1 style=" font-family:'Poppins',sans-serif !important;font-size:clamp(2rem,5vw,2.8rem);font-weight:700;color:var(--text-primary);margin-bottom:0">Contact Us</h1>
+  <span class="section-eyebrow">GET IN TOUCH</span>
+  <h1 style=" font-family:var(--font-display) !important;font-size:clamp(2rem,5vw,2.8rem);font-weight:700;color:var(--text-primary);margin-bottom:0">Contact Us</h1>
   <p style="color:var(--text-muted);margin-top:12px;font-size:16px;max-width:480px;margin-left:auto;margin-right:auto">
     Have a question? We'd love to hear from you. Send us a message and we'll respond within 24 hours.
   </p>
