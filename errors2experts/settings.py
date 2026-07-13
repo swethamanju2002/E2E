@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main'
+    'main',
 ]
 
 MIDDLEWARE = [
@@ -63,10 +63,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'main.context_processors.latest_offer',
+
             ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'errors2experts.wsgi.application'
 
@@ -137,6 +140,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
 EMAIL_HOST_USER = 'errors2experts.official@gmail.com'
-EMAIL_HOST_PASSWORD = 'fhmrauciadxmutcl'
+EMAIL_HOST_PASSWORD = 'otli vhwd qvdv kmwt '
 
 ADMIN_NOTIFICATION_EMAIL = 'errors2experts.official@gmail.com'

@@ -5,7 +5,7 @@
 {% block content %}
  
 <!-- ── HERO ── -->
-<div class="ih-hero">
+<div class="ih-hero mt-5">
         <a href="{% url 'internship_list' %}" class="ih-back">← Back to All Internships</a>
 
   <div class="ih-hero-inner">
@@ -64,7 +64,7 @@
                 aria-expanded="false"
                 aria-controls="week{{ week_num }}">
           <span class="ih-week-title">
-            Week {{ week_num }}
+            Week {{ week_num }} 
             <span class="ih-week-count">{{ days|length }} days</span>
           </span>
           <span class="ih-chevron" aria-hidden="true">

@@ -23,7 +23,11 @@
       {% for internship in internships %}
       <div class="intern-card">
         <div class="intern-card-top">
-          <div class="intern-icon">💻</div>
+          {% if internship.image %}
+         <img src="{{ internship.image.url }}" alt="{{ internship.title }}">
+          {% else %}
+         <img src="{% static 'images/default-course.jpg' %}" alt="Default Image">
+          {% endif %}
           <span class="intern-tag">Internship Program</span>
           <h3>{{ internship.title }}</h3>
           <p>{{ internship.description|truncatewords:22 }}</p>

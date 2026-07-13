@@ -4,8 +4,16 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect
 from .models import Course,Placement, Service,CourseBooking, Contact,ClientProject,StudentReview
 from .models import WorkshopPhoto, Certificate
+from .models import Internship, ProcessStep
 from .models import Internship
+from .models import WorkshopRegistration
+from django.core.mail import EmailMessage, EmailMultiAlternatives
+from django.conf import settings
+from openpyxl import Workbook, load_workbook
+from datetime import datetime, timezone
+from .models import UpcomingWorkshop
 
+import os
 def home(request):
     courses = Course.objects.all()
     services = Service.objects.all()
@@ -15,8 +23,8 @@ def home(request):
     workshops       = WorkshopPhoto.objects.all()    
     certificates    = Certificate.objects.all()
     internships = Internship.objects.all()
+    upcoming_workshop = UpcomingWorkshop.objects.first()
    
-
     if request.method == "POST":
         name = request.POST.get('name')
         email = request.POST.get('email')
@@ -33,6 +41,8 @@ def home(request):
         'workshops': workshops,  
         'certificates':  certificates,
         'internships': internships,
+        'upcoming_workshop': upcoming_workshop,
+        
 
     })
     
@@ -73,10 +83,18 @@ def services(request):
     
     return render(request, 'services.html', {'services': services})
 
+# views.py — replace service_detail
+from .models import ProcessStep
+
 def service_detail(request, pk):
     service = get_object_or_404(Service, pk=pk)
-    return render(request, 'service_detail.html', {'service': service})
-
+    return render(request, 'service_detail.html', {
+        'service': service,
+        'featured_demos': service.demo_links.filter(is_featured=True),
+        'features': service.features.all(),
+        'faqs': service.faqs.all(),
+        'process_steps': ProcessStep.objects.all(),
+    })
 def contact(request):
     if request.method == "POST":
         name = request.POST.get('name')
@@ -368,7 +386,7 @@ def book_course(request, id):
         mobile = request.POST.get("mobile")
         education = request.POST.get("education")
         year_passed = request.POST.get("year_passed")
-        payment_type = request.POST.get("payment_type")
+        payment_type = "full"
 
         price = int(course.price)
 
@@ -391,7 +409,7 @@ def book_course(request, id):
             year_passed=year_passed,
             course=course.title,
             amount=amount,
-            payment_type=payment_type
+            
         )
 
         # ---------------- SAVE TO EXCEL ----------------
@@ -624,6 +642,13 @@ Thank you for registering for our {service_name} service.
 
 Our team will contact you as soon as possible.
 
+Stay connected with us:
+
+🌐 Website: https://yourwebsite.com
+📸 Instagram: https://www.instagram.com/errors2experts_2026/
+
+Let’s learn, grow, and build your future together!
+
 Best Regards,
 Errors2Experts Team
 """
@@ -638,11 +663,17 @@ Errors2Experts Team
         messages.success(request, "Service Registered Successfully")
         return redirect("services")  # change if needed
     
+from .models import WorkshopPhoto, UpcomingWorkshop
+
 def workshop_gallery(request):
-    """Dedicated full-page workshop gallery."""
     workshops = WorkshopPhoto.objects.all()
-    return render(request, 'workshop.html', {'workshops': workshops})
- 
+
+    upcoming_workshop = UpcomingWorkshop.objects.order_by("event_date").first()
+
+    return render(request, "workshop.html", {
+        "workshops": workshops,
+        "upcoming_workshop": upcoming_workshop,
+    })
  
 def certificate_gallery(request):
     """Dedicated full-page certificate gallery."""
@@ -671,4 +702,220 @@ def internship_detail(request, pk):
         'internship': internship, 
         'timeline_data': dict(timeline_data)
     })
+    
+# from django.core.paginator import Paginator
+# from django.db.models import Q
+# from .models import ServiceDemoLink
+
+# def live_demo(request):
+#     demos = (ServiceDemoLink.objects
+#              .select_related('service')
+#              .exclude(url__isnull=True).exclude(url='')
+#              .order_by('order', 'service__title'))
+
+#     query = request.GET.get('q', '').strip()
+#     category = request.GET.get('category', 'all').strip()
+
+#     if query:
+#         demos = demos.filter(
+#             Q(title__icontains=query) |
+#             Q(description__icontains=query) |
+#             Q(technologies__icontains=query)
+#         )
+#     if category and category.lower() != 'all':
+#         demos = demos.filter(category__iexact=category)
+
+#     categories = (ServiceDemoLink.objects
+#                   .exclude(category='')
+#                   .values_list('category', flat=True)
+#                   .distinct().order_by('category'))
+
+#     paginator = Paginator(demos, 9)
+#     page_obj = paginator.get_page(request.GET.get('page'))
+
+#     context = {
+#         'page_obj': page_obj,
+#         'categories': categories,
+#         'query': query,
+#         'active_category': category or 'all',
+#     }
+
+#     # AJAX request → return only the results fragment, no full-page render
+#     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+#         return render(request, 'partials/live_demo_results.html', context)
+
+#     return render(request, 'live_demo.html', context)
  
+
+def workshop_registration(request):
+
+    if request.method == "POST":
+
+        name = request.POST.get("full_name")
+        email = request.POST.get("email")
+        mobile = request.POST.get("mobile")
+        education = request.POST.get("education")
+        workshop = request.POST.get("workshop")
+
+        # ================= DATABASE =================
+
+        WorkshopRegistration.objects.create(
+            full_name=name,
+            email=email,
+            mobile=mobile,
+            education=education,
+            workshop=workshop
+        )
+
+        # ================= EXCEL =================
+
+        file_path = os.path.join(
+            settings.BASE_DIR,
+            "workshop_registrations.xlsx"
+        )
+
+        if os.path.exists(file_path):
+
+            wb = load_workbook(file_path)
+            ws = wb.active
+
+        else:
+
+            wb = Workbook()
+            ws = wb.active
+
+            ws.append([
+                "Name",
+                "Email",
+                "Mobile",
+                "Education",
+                "Workshop",
+                "Date"
+            ])
+
+        ws.append([
+            name,
+            email,
+            mobile,
+            education,
+            workshop,
+            datetime.now().strftime("%d-%m-%Y %H:%M")
+        ])
+
+        wb.save(file_path)
+
+        # ================= ADMIN MAIL =================
+
+        admin_subject = f"New Workshop Registration - {workshop}"
+
+        admin_message = f"""
+New Workshop Registration
+
+Name      : {name}
+Email     : {email}
+Mobile    : {mobile}
+Education : {education}
+Workshop  : {workshop}
+
+Registration Time :
+{datetime.now().strftime("%d-%m-%Y %H:%M")}
+"""
+
+        EmailMessage(
+            subject=admin_subject,
+            body=admin_message,
+            from_email=settings.EMAIL_HOST_USER,
+            to=[settings.ADMIN_NOTIFICATION_EMAIL]
+        ).send()
+
+        # ================= USER MAIL =================
+
+        subject = f"Workshop Registration Successful - {workshop}"
+
+        text_content = f"""
+Hi {name},
+
+Thank you for registering successfully for the {workshop}.
+
+Your registration has been received successfully.
+
+Our team will contact you shortly with the meeting link and workshop details.
+
+Regards,
+Errors2Experts Team
+"""
+
+        html_content = f"""
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+
+<body style="font-family:Arial,sans-serif;background:#f5f5f5;padding:30px;">
+
+<div style="max-width:650px;margin:auto;background:#ffffff;border-radius:10px;padding:30px;border:1px solid #ddd;">
+
+<h2 style="color:#2e7d32;">
+Hello {name},
+</h2>
+
+<p>
+Thank you for registering for our
+<b>{workshop}</b>.
+</p>
+
+<p>
+Your registration has been received successfully.
+</p>
+
+<p>
+Our team will contact you shortly with the workshop meeting link and complete instructions.
+</p>
+
+<hr>
+
+<h3 style="color:#1b9615;">
+Workshop Details
+</h3>
+
+<p>
+
+<b>Workshop :</b> {workshop}<br>
+<b>Status :</b> Registration Confirmed ..
+
+</p>
+
+<br>
+
+<p>
+Thank you for choosing
+<b>Errors2Experts</b>.
+</p>
+
+<p>
+Regards,<br>
+<b>Errors2Experts Team</b>
+</p>
+
+</div>
+
+</body>
+</html>
+"""
+
+        mail = EmailMultiAlternatives(
+            subject=subject,
+            body=text_content,
+            from_email=settings.EMAIL_HOST_USER,
+            to=[email],
+        )
+
+        mail.attach_alternative(html_content, "text/html")
+        mail.send()
+
+        # ================= REDIRECT =================
+
+        return redirect("home")
+
+    return redirect("home")

@@ -4,26 +4,42 @@ from django.contrib import admin
 from django.contrib import admin
 from .models import Course, Service, ServiceDemoLink, Contact
 from .models import ClientProject, StudentReview,JobApplication
-from .models import WorkshopPhoto, Certificate
+from .models import WorkshopPhoto, Certificate, ServiceFeature, ServiceFAQ, ProcessStep
 from .models import Module
 from .models import Internship
-
+from .models import SiteOffer
+from .models import UpcomingWorkshop
 
 admin.site.register(ClientProject)
 admin.site.register(StudentReview)
 admin.site.register(Course)
 admin.site.register(Module)
+admin.site.register(UpcomingWorkshop)
 
 class ServiceDemoLinkInline(admin.TabularInline):
     model = ServiceDemoLink
     extra = 1
- 
+    fields = ('title', 'image', 'url', 'category', 'technologies', 'description', 'is_featured', 'order')
+
+class ServiceFeatureInline(admin.TabularInline):
+    model = ServiceFeature
+    extra = 1
+
+class ServiceFAQInline(admin.TabularInline):
+    model = ServiceFAQ
+    extra = 1
+
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ('title',)
     search_fields = ('title',)
-    inlines = [ServiceDemoLinkInline]
- 
+    inlines = [ServiceDemoLinkInline, ServiceFeatureInline, ServiceFAQInline]
+
+@admin.register(ProcessStep)
+class ProcessStepAdmin(admin.ModelAdmin):
+    list_display = ('title', 'order')
+    list_editable = ('order',)
+    ordering = ('order',) 
 
 admin.site.register(Contact)
 from django.contrib import admin
@@ -61,7 +77,12 @@ class CertificateAdmin(admin.ModelAdmin):
 
 @admin.register(Internship)
 class InternshipAdmin(admin.ModelAdmin):
-    # This list_display makes it easier to see your internships in the dashboard
+    
     list_display = ('title', 'price', 'duration')
-    # This search_fields adds a search bar in the admin
+  
     search_fields = ('title',)
+   
+
+@admin.register(SiteOffer)
+class SiteOfferAdmin(admin.ModelAdmin):
+    list_display = ('title', 'is_active', 'created_at')

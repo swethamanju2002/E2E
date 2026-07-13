@@ -11,7 +11,7 @@ urlpatterns = [
     path('allcourse/', views.allcourse, name='allcourse'),
     path('course/<int:id>/', views.course_detail, name='course_detail'),
     path('service-booking/', views.service_booking, name='service_booking'),
-
+    # path('live-demo/', views.live_demo, name='live_demo'),
     path('services/', views.services, name='services'),
     path('services/<int:pk>/', views.service_detail, name='service_detail'),
     path('contact/', views.contact, name='contact'),
@@ -26,7 +26,8 @@ urlpatterns = [
     path('certificates/', views.certificate_gallery, name='certificates'),
     path('internships/', views.internship_list, name='internship_list'),
     path('internships/<int:pk>/', views.internship_detail, name='internship_detail'),
-]
+    path("workshop-registration/",views.workshop_registration,name="workshop_registration"),
+]    
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

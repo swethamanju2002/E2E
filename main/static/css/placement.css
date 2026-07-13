@@ -5,7 +5,7 @@
   padding: 56px 0 40px;
   background: var(--bg-page);
 }
-.placement-hero-img{ max-width: 280px; }
+.placement-hero-img{ max-width: 280px;}
 
 .placement-eyebrow{
   color: var(--e2e-red);

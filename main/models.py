@@ -1,9 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
-from django.db import models
-
 class Course(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
@@ -74,14 +70,78 @@ class ServiceDemoLink(models.Model):
     image = models.FileField(upload_to='service_images/', blank=True, null=True)
     url = models.URLField(help_text="Full link to the live demo site",blank=True, null=True)
     order = models.PositiveIntegerField(default=0, help_text="Lower number = shown first")
+    description = models.CharField(
+        max_length=300, blank=True,
+        help_text="Short one-line description shown on the Live Demo card"
+    )
+    category = models.CharField(
+        max_length=100, blank=True,
+        help_text="e.g. 'Education', 'CRM', 'Hotel', 'Portfolio' — used for Live Demo filters"
+    )
+    technologies = models.CharField(
+        max_length=300, blank=True,
+        help_text="Comma-separated, e.g. 'HTML, CSS, JS'"
+    )
+    is_featured = models.BooleanField(
+        default=True,
+        help_text="Show this on its Service's detail page (uncheck to keep it Live-Demo-page-only)"
+    )
  
     class Meta:
         ordering = ['order']
  
     def __str__(self):
         return f"{self.service.title} — {self.title}"
+    
+    def tech_list(self):
+        return [t.strip() for t in self.technologies.split(',') if t.strip()]
+# models.py — add below Service / ServiceDemoLink
+
+class ServiceFeature(models.Model):
+    """3-6 per service — powers the 'Why Choose This Service' cards."""
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='features')
+    icon = models.CharField(
+        max_length=50, default='bi-check-circle',
+        help_text="Bootstrap Icon class, e.g. 'bi-rocket-takeoff' — browse icons.getbootstrap.com"
+    )
+    title = models.CharField(max_length=100)
+    description = models.CharField(max_length=200)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return f"{self.service.title} — {self.title}"
 
 
+class ServiceFAQ(models.Model):
+    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='faqs')
+    question = models.CharField(max_length=250)
+    answer = models.TextField()
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
+        verbose_name = 'Service FAQ'
+        verbose_name_plural = 'Service FAQs'
+
+    def __str__(self):
+        return f"{self.service.title} — {self.question}"
+
+
+class ProcessStep(models.Model):
+    """Global — same development process shown on every service page."""
+    icon = models.CharField(max_length=50, default='bi-search', help_text="Bootstrap Icon class")
+    title = models.CharField(max_length=100)
+    description = models.CharField(max_length=200, blank=True)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return self.title
 class Contact(models.Model):
     name = models.CharField(max_length=150)
     email = models.EmailField()
@@ -163,8 +223,8 @@ class CourseBooking(models.Model):
     education = models.CharField(max_length=200)
     year_passed = models.CharField(max_length=10)
     course = models.CharField(max_length=200)
-    amount = models.IntegerField()
-    payment_type = models.CharField(max_length=10, choices=PAYMENT_CHOICES)
+    amount = models.IntegerField(default=0)
+    
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -202,7 +262,33 @@ class WorkshopPhoto(models.Model):
     def __str__(self):
         return self.title
 
+class WorkshopRegistration(models.Model):
+    full_name = models.CharField(max_length=150)
+    email = models.EmailField()
+    mobile = models.CharField(max_length=20)
+    education = models.CharField(max_length=150)
+    workshop = models.CharField(max_length=200)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.full_name
+
+class UpcomingWorkshop(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+
+    event_date = models.DateField()
+    event_time = models.TimeField(null=True, blank=True)
+    location = models.CharField(max_length=200, blank=True)
+    registration_info = models.CharField(max_length=200, blank=True)
+
+    image = models.ImageField(upload_to="upcoming_workshops/")
+
+    def __str__(self):
+        return self.title
+    
+    
 class Certificate(models.Model):
     """
     Stores certificate images that E2E issues to students.
@@ -240,6 +326,22 @@ class Internship(models.Model):
     duration = models.CharField(max_length=100)
     # Storing syllabus as a JSON list for easy iteration
     syllabus = models.JSONField(help_text="Enter syllabus items as a list")
+
+
+    # Image Field
+    image = models.ImageField(upload_to='internships/', blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+    from django.db import models
+
+class SiteOffer(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    image = models.ImageField(upload_to='site_offers/', blank=True, null=True)
+    link_url = models.CharField(max_length=200, help_text="e.g., /internships/")
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title

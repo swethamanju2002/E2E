@@ -179,38 +179,6 @@
 
 
 
-.swipe-indicator {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 14px;
-    color: #e63946;
-    font-weight: 600;
-    position: relative;
-}
-
-.swipe-indicator .arrow {
-    display: inline-block;
-    margin-left: 8px;
-    animation: swipeMove 1.2s infinite;
-}
-
-@keyframes swipeMove {
-    0% {
-        transform: translateX(0);
-        opacity: 0.5;
-    }
-    50% {
-        transform: translateX(10px);
-        opacity: 1;
-    }
-    100% {
-        transform: translateX(0);
-        opacity: 0.5;
-    }
-}
-
-
-
 
 
 

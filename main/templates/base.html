@@ -30,11 +30,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="{% static 'css/swipe.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <link rel="stylesheet" href="{% static 'css/motivation.css' %}">
   <link rel="stylesheet" href="{% static 'css/brand_new.css' %}">
   <link rel="stylesheet" href="{% static 'css/e2e_redesign.css' %}">
   <link rel="stylesheet" href="{% static 'css/modal-fix.css' %}">
   <link rel="stylesheet" href="{% static 'css/placement.css' %}">
+  <link rel="stylesheet" href="{% static 'css/motivation.css' %}">
+
   
 </head>
 
@@ -67,11 +68,18 @@
       <!-- Links -->
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav gap-1 align-items-lg-center">
+        <li class="nav-item">
+           <a id="navOfferLink" class="nav-link blink-text" href="#" onclick="showPopup()" style="display: none;">
+        🔥 View Offer
+          </a>
+          </li>
           <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'allcourse' %}">Courses</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'placement' %}">Placement</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'services' %}">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'careers' %}">Careers</a></li>       
+     
           <!-- Explore Dropdown Navigation -->
           <li class="nav-item dropdown">
             <a href="#" class="nav-link" id="exploreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -80,21 +88,94 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="exploreDropdown">
               <li class="nav-item-drop"><a class="nav-link" href="{% url 'workshops' %}">Workshops</a></li>
-              <li class="nav-item-drop"><a class="nav-link" href="{% url 'careers' %}">Careers</a></li>
               <li class="nav-item-drop"><a class="nav-link" href="{% url 'internship_list' %}">Internships</a></li>
               <li class="nav-item-drop"><a class="nav-link" href="{% url 'certificates' %}">Certificates</a></li>
               <li class="nav-item-drop"><a class="nav-link" href="{% url 'reviews' %}">Reviews</a></li>
               <li class="nav-item-drop"><a class="nav-link" href="#projects">Our Clients</a></li>
+              {% comment %} <li class="nav-item-drop"><a class="nav-link" href="{% url 'live_demo' %}">Live Demo</a></li> {% endcomment %}
             </ul>
           </li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+           <li class="nav-item"> <a class="nav-link" href="{% url 'home' %}#contact"> Contact</a></li>
         </ul>
+       
       </div>
     </div>
   </nav>
+{% if active_offer or careers %}
+<div class="modal fade e2e-offer-modal" id="e2eOfferModal" tabindex="-1"
+     aria-labelledby="e2eOfferModalLabel" aria-hidden="true"
+     data-offer-id="{% if active_offer %}offer-{{ active_offer.id }}{% else %}openings{% endif %}">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content e2e-offer-content">
+ 
+      <button type="button" class="btn-close e2e-offer-close" data-bs-dismiss="modal" aria-label="Close"></button>
+ 
+      {% if active_offer %}
+        <!-- ══════════ ACTIVE OFFER STATE ══════════ -->
+        <div class="e2e-offer-banner {% if not active_offer.image %}e2e-offer-banner--noimg{% endif %}">
+          {% if active_offer.image %}
+            <img src="{{ active_offer.image.url }}" alt="{{ active_offer.title }}" class="e2e-offer-img">
+            <div class="e2e-offer-img-fade"></div>
+          {% endif %}
+          <span class="e2e-offer-ribbon">🔥 Limited-Time Offer</span>
+        </div>
+ 
+        <div class="e2e-offer-body">
+          <h2 id="e2eOfferModalLabel" class="e2e-offer-title">{{ active_offer.title }}</h2>
+          <div class="e2e-offer-desc">{{ active_offer.description| linebreaks}}</div>
+ 
+          <div class="e2e-offer-actions">
+            <a href="{{ active_offer.link_url }}" class="e2e-offer-btn e2e-offer-btn-primary">
+              Claim This Offer →
+            </a>
+            <button type="button" class="e2e-offer-btn e2e-offer-btn-ghost" data-bs-dismiss="modal">
+              Maybe Later
+            </button>
+          </div>
+        </div>
+ 
+      {% else %}
+        <!-- ══════════ FALLBACK: CURRENT OPENINGS STATE ══════════ -->
+        <div class="e2e-offer-body e2e-openings-body">
+          <span class="e2e-offer-eyebrow">We're Hiring</span>
+          <h2 id="e2eOfferModalLabel" class="e2e-offer-title">Current Career Openings</h2>
+          <p class="e2e-offer-sub">
+            No active offers right now — but we're actively growing the team.
+            Take a look at what's open at Errors2Experts.
+          </p>
+ 
+          <div class="e2e-openings-list">
+            {% for job in careers|slice:":4" %}
+            <a href="{% url 'career_detail' job.pk %}" class="e2e-opening-card">
+              <div class="e2e-opening-info">
+                <span class="e2e-opening-badge">{{ job.employment_type }}</span>
+                <h4>{{ job.role }}</h4>
+                {% if job.salary %}<span class="e2e-opening-salary">₹{{ job.salary }}</span>{% endif %}
+              </div>
+              <span class="e2e-opening-arrow" aria-hidden="true">→</span>
+            </a>
+            {% endfor %}
+          </div>
+ 
+          <div class="e2e-offer-actions">
+            <a href="{% url 'careers' %}" class="e2e-offer-btn e2e-offer-btn-primary">
+              View All Openings →
+            </a>
+            <button type="button" class="e2e-offer-btn e2e-offer-btn-ghost" data-bs-dismiss="modal">
+              Maybe Later
+            </button>
+          </div>
+        </div>
+      {% endif %}
+ 
+    </div>
+  </div>
+</div>
+{% endif %}
+ 
 
   <!-- ══════════ PAGE CONTENT ══════════ -->
-  <main id="main-content" class="page-content" style="margin-top:76px;position:relative;">
+  <main id="main-content" class="page-content">
     {% block content %}
     
     
@@ -102,7 +183,7 @@
     
     {% endblock %}
   </main>
-
+ 
   <!-- ══════════ FOOTER ══════════ -->
   <footer class="footer bg-dark text-light pt-5 pb-4 mt-5" role="contentinfo">
     <div class="container">
@@ -111,7 +192,7 @@
         <!-- Brand col -->
         <div class="col-md-4">
           <div class="d-flex align-items-center gap-2 mb-3">
-            <img src="{% static 'images/logo.jpeg' %}" height="36" alt="Errors2Experts logo">
+            <img src="{% static 'images/logo.jpeg' %}" height="35px" width="35px" alt="Errors2Experts logo">
             <span class='f-bold'>Errors2Experts</span>
           </div>
           <p style="font-size:14px;line-height:1.85;color:rgba(255,255,255,0.72)">
@@ -278,7 +359,76 @@
     });
   });
   </script>
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+    const popup = document.getElementById('offerPopup');
+    const navLink = document.getElementById('navOfferLink');
+    const hasSeenToday = localStorage.getItem('popupLastShown') === new Date().toDateString();
 
+    if (!hasSeenToday) {
+        // Show popup on page load
+        popup.style.display = 'block';
+        navLink.style.display = 'none'; // Hide navbar link while popup is active
+    } else {
+        // Show only the blinking link if already seen
+        navLink.style.display = 'block';
+        popup.style.display = 'none';
+    }
+});
+
+function closeOffer() {
+    document.getElementById('offerPopup').style.display = 'none';
+    document.getElementById('navOfferLink').style.display = 'block'; // Make it appear
+    localStorage.setItem('popupLastShown', new Date().toDateString()); // Mark as seen
+}
+function showPopup() {
+    document.getElementById('offerPopup').style.display = 'block';
+    document.getElementById('navOfferLink').style.display = 'none';
+}
+
+
+</script>
+<script>
+(function () {
+  'use strict';
+ 
+  var modalEl = document.getElementById('e2eOfferModal');
+  if (!modalEl || typeof bootstrap === 'undefined') return;
+ 
+  var offerId = modalEl.getAttribute('data-offer-id'); // e.g. "offer-12" or "openings"
+  var storageKey = 'e2ePopupDismissed_' + offerId;
+ 
+  var alreadyDismissed = false;
+  try { alreadyDismissed = sessionStorage.getItem(storageKey) === '1'; } catch (e) {}
+ 
+  if (!alreadyDismissed) {
+    var modal = new bootstrap.Modal(modalEl);
+    setTimeout(function () { modal.show(); }, 1500);
+  }
+ 
+  modalEl.addEventListener('hidden.bs.modal', function () {
+    try { sessionStorage.setItem(storageKey, '1'); } catch (e) {}
+  });
+})();
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const category = document.getElementById("category");
+    const otherDiv = document.getElementById("otherCategoryDiv");
+    const otherInput = document.getElementById("otherCategory");
+
+    category.addEventListener("change", function () {
+        if (this.value === "Others") {
+            otherDiv.style.display = "block";
+            otherInput.required = true;
+        } else {
+            otherDiv.style.display = "none";
+            otherInput.required = false;
+            otherInput.value = "";
+        }
+    });
+});
+</script>
   <!-- Interactions: scroll progress, back-to-top, reveal -->
   <script src="{% static 'js/modern-interaction.js' %}"></script>
   <script src="{% static 'js/placement.js' %}"></script>
