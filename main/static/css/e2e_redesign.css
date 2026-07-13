@@ -494,6 +494,7 @@ body {
     padding: 2rem 1.5rem;
   }
 }
+
 /* Decorative top accent bar */
 .hero-glass-card::before {
   content: '';
