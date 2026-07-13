@@ -257,3 +257,48 @@ class Internship(models.Model):
 
     def __str__(self):
         return self.title
+
+
+from django.db import models
+
+
+class DemoCategory(models.Model):
+    name = models.CharField(max_length=150, unique=True)
+    demo_link = models.URLField()
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
+
+class DemoRequest(models.Model):
+    STATUS_CHOICES = [
+        ("Pending", "Pending"),
+        ("Completed", "Completed"),
+    ]
+
+    organization_name = models.CharField(max_length=200)
+    email = models.EmailField()
+    mobile = models.CharField(max_length=15)
+
+    category = models.ForeignKey(
+        DemoCategory,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
+
+    custom_requirement = models.TextField(blank=True, null=True)
+
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default="Pending"
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        if self.category:
+            return f"{self.organization_name} - {self.category.name}"
+        return f"{self.organization_name} - Custom Request"

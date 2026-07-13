@@ -83,9 +83,16 @@ def services(request):
     
     return render(request, 'services.html', {'services': services})
 
+from .models import DemoCategory
+
 def service_detail(request, pk):
     service = get_object_or_404(Service, pk=pk)
-    return render(request, 'service_detail.html', {'service': service})
+    demo_categories = DemoCategory.objects.filter(is_active=True)
+
+    return render(request, 'service_detail.html', {
+        'service': service,
+        'demo_categories': demo_categories,
+    })
 
 def contact(request):
     if request.method == "POST":
@@ -861,3 +868,127 @@ Regards,<br>
         return redirect("home")
 
     return redirect("home")
+
+from .models import DemoRequest, DemoCategory
+from django.core.mail import EmailMessage
+from django.contrib import messages
+
+
+def demo_request(request):
+    if request.method == "POST":
+
+        organization_name = request.POST.get("organization_name")
+        email = request.POST.get("email")
+        mobile = request.POST.get("mobile")
+        category_value = request.POST.get("category")
+        custom_requirement = request.POST.get("custom_requirement")
+
+        category = None
+
+        if category_value == "other":
+            category = None
+        else:
+            try:
+                category = DemoCategory.objects.get(id=category_value)
+            except DemoCategory.DoesNotExist:
+                category = None
+
+        # Save Request
+        DemoRequest.objects.create(
+            organization_name=organization_name,
+            email=email,
+            mobile=mobile,
+            category=category,
+            custom_requirement=custom_requirement,
+        )
+
+        
+        # CATEGORY FOUND
+        
+
+        if category:
+
+            user_subject = f"{category.name if category else 'Other'} Demo Link"
+
+            user_message = f"""
+Hi {organization_name},
+
+Thank you for requesting the {category.name if category else "Other"} demo.
+
+Below is your demo link:
+
+{category.demo_link}
+
+Thank you.
+
+Regards,
+Errors2Experts Team
+"""
+
+            EmailMessage(
+                user_subject,
+                user_message,
+                settings.EMAIL_HOST_USER,
+                [email],
+            ).send()
+
+            messages.success(
+                request,
+                "Demo link has been sent to your email."
+            )
+
+        
+        # OTHER REQUIREMENT
+        
+
+        else:
+
+            # User Mail
+
+            EmailMessage(
+                "Demo Request Received",
+                f"""
+Hi {organization_name},
+
+Thank you for contacting Errors2Experts.
+
+We have received your custom demo request.
+
+Our technical team will review your requirement.
+
+You will receive a response within 2-3 business days.
+
+Regards,
+Errors2Experts Team
+""",
+                settings.EMAIL_HOST_USER,
+                [email],
+            ).send()
+
+            # Admin Mail
+
+            EmailMessage(
+                "🚨 Critical Custom Demo Request",
+                f"""
+Customer Name : {organization_name}
+
+Email : {email}
+
+Mobile : {mobile}
+
+Requirement :
+
+{custom_requirement}
+""",
+                settings.EMAIL_HOST_USER,
+                [settings.ADMIN_NOTIFICATION_EMAIL],
+            ).send()
+
+            messages.success(
+                request,
+                "Your request has been received successfully."
+            )
+
+        return redirect("services")
+
+    return redirect("services")

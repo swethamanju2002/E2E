@@ -9,7 +9,7 @@ from .models import Module
 from .models import Internship
 
 from .models import UpcomingWorkshop
-
+from .models import DemoCategory, DemoRequest
 
 
 
@@ -72,3 +72,30 @@ class InternshipAdmin(admin.ModelAdmin):
   
     search_fields = ('title',)
     
+@admin.register(DemoCategory)
+class DemoCategoryAdmin(admin.ModelAdmin):
+    list_display = ("name", "demo_link", "is_active")
+    list_filter = ("is_active",)
+    search_fields = ("name",)
+
+
+@admin.register(DemoRequest)
+class DemoRequestAdmin(admin.ModelAdmin):
+    list_display = (
+        "organization_name",
+        "email",
+        "mobile",
+        "category",
+        "status",
+        "created_at",
+    )
+
+    list_filter = ("status", "category")
+    search_fields = (
+        "organization_name",
+        "email",
+        "mobile",
+        "custom_requirement",
+    )
+
+    readonly_fields = ("created_at",)
