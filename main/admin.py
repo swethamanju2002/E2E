@@ -9,6 +9,10 @@ from .models import Module
 from .models import Internship
 from .models import SiteOffer
 from .models import UpcomingWorkshop
+from .models import DemoCategory, DemoRequest
+
+
+
 
 admin.site.register(ClientProject)
 admin.site.register(StudentReview)
@@ -86,3 +90,31 @@ class InternshipAdmin(admin.ModelAdmin):
 @admin.register(SiteOffer)
 class SiteOfferAdmin(admin.ModelAdmin):
     list_display = ('title', 'is_active', 'created_at')
+    
+@admin.register(DemoCategory)
+class DemoCategoryAdmin(admin.ModelAdmin):
+    list_display = ("name", "demo_link", "is_active")
+    list_filter = ("is_active",)
+    search_fields = ("name",)
+
+
+@admin.register(DemoRequest)
+class DemoRequestAdmin(admin.ModelAdmin):
+    list_display = (
+        "organization_name",
+        "email",
+        "mobile",
+        "category",
+        "status",
+        "created_at",
+    )
+
+    list_filter = ("status", "category")
+    search_fields = (
+        "organization_name",
+        "email",
+        "mobile",
+        "custom_requirement",
+    )
+
+    readonly_fields = ("created_at",)
