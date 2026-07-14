@@ -236,21 +236,25 @@ body {
   box-shadow: 0 24px 70px rgba(0,0,0,0.18) !important;
   background: var(--bg-white, #fff) !important;
 }
- 
+/* Ensure the button is clearly visible */
 .e2e-offer-close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 5;
-  color:var(--text-muted);
-  background: rgba(255,255,255,0.92) !important;
-  border-radius: 50%;
-  width: 34px;
-  height: 34px;
-  opacity: 1 !important;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 10; /* Ensures it stays on top */
+    background-color: #f8f9fa; /* Light grey background */
+    border: 1px solid #ddd;
+    border-radius: 50%; /* Makes it circular */
+    padding: 10px;
+    opacity: 1; /* Ensures it's fully visible */
 }
- 
+
+/* Add a hover effect so the user knows it's clickable */
+.e2e-offer-close:hover {
+    background-color: #e2e6ea;
+    cursor: pointer;
+}
+
 /* ── Offer image banner ── */
 .e2e-offer-banner {
   position: relative;
@@ -488,12 +492,14 @@ body {
   text-align: center;
   padding: 3rem 2rem;
 }
-@media screen (max-width:991px) {
-  .hero-glass-card {
+@media (max-width:991px) {
+
+  .hero-glass-card{
     margin-top: 10px;
     padding: 2rem 1.5rem;
   }
 }
+
 /* Decorative top accent bar */
 .hero-glass-card::before {
   content: '';
