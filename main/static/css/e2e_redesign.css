@@ -2035,7 +2035,7 @@ rse-main-title {
 }
 .counter-number {
   font-family: var(--font-display) !important;
-  font-size: clamp(3.5rem, 7vw, 5.5rem) !important;
+  font-size: 50px !important;
   font-weight: 700 !important;
   color: #fff !important;
   background: none !important;
