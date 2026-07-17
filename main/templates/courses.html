@@ -87,7 +87,7 @@
             </div>
             <div class="browser-screen-view">
               {% if course.image %}
-                <img src="{% static '{{ course.image.url }}' %}" class="img-fluid project-display-img" alt="{{ course.title }}">
+                <img src="{{ course.image.url }}" class="img-fluid project-display-img" alt="{{ course.title }}">
               {% else %}
                 <img src="{% static 'main/images/no-image.png' %}" class="img-fluid project-display-img" alt="Default Image">
               {% endif %}
